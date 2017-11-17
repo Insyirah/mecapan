@@ -41,32 +41,6 @@ export class SetDayAppointmentPage {
     this.CalendarOptions.disableWeeks = [0, 6]
     this.DisableDate()
 
-   
-    //   this.disableMonth()
-    //  console.log(moment())
-  }
-
-  // ngAfterViewInit(){
-  //   /* Calls `this.calc()` after receiving an initial date */
-  //   this.todayDate.setHours(0, 0, 0, 0);
-
-  //   setTimeout(() => {
-  //     // this.calc();
-  //     this.calendarDefault.todayDate();
-  //   });
-  // }
-
-  setToday(){
-    let tmp = new Date();
-    // tmp.setHours(0,0,0,0);
-    let today = new Date(this.calendarDefault.todayDate)
-    // let calc : boolean = tmp.getMonth() + "" + tmp.getFullYear() != this.todayDate.getMonth() + "" + this.todayDate.getFullYear();
-    // console.log("calc :", calc)
-    // let calc: boolean = tmp.getMonth() + "" + tmp.getFullYear() != this.todayDate.getMonth() + "" + this.todayDate.getFullYear();
-    if (tmp.getMonth() + "" + tmp.getFullYear() == this.todayDate.getMonth() + "" + this.todayDate.getFullYear()){
-      this.calendarDefault.todayDate();
-      console.log("TODAY :", today)
-    }
   }
 
   nextMonth() {

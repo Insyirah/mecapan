@@ -15,6 +15,9 @@ import { Observable } from "rxjs/Observable";
   templateUrl: 'listproviders.html',
 })
 export class ListprovidersPage {
+  sortingId: any;
+  searchId: any = 96;
+  keyword: any;
   noProvider: boolean = true
   firstOnly: boolean = false
   search: Observable<string[]>;
@@ -92,12 +95,15 @@ export class ListprovidersPage {
     this.providerId = this.navParams.get("treatmentId")
 
     this.form = {
-      treatmentProvidedDetailID: this.providerId
+      treatmentProvidedDetailID: this.providerId,
+      searchValue:this.keyword,
+      searchID:this.searchId,
+      sortingID:this.sortingId
     }
 
     this.serviceApi.getProviderList(this.form).subscribe(data => {
       this.providers = data.branchList
-      console.log("address", this.providers[0].address)
+      console.log("address", this.providers)
       this.searching = true
       this.loading.dismiss();
     })

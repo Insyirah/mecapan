@@ -127,13 +127,22 @@ export class ServiceApiProvider {
           .map((res: Response) => res.json());
     }
 
-    getProviderList(form): Observable<any> {//listproviderpage
-        let url = this.host + 'UserApplication/api/GetProviderList/'+form.treatmentProvidedDetailID
-        console.log(url)
-        return this.http.get(url)
-          .map((res: Response) => res.json()
-          );
-    }
+    // getProviderList(form): Observable<any> {//listproviderpage
+    //     let url = this.host + 'UserApplication/api/GetProviderList'
+    //     console.log(url)
+    //     return this.http.get(url)
+    //       .map((res: Response) => res.json()
+    //       );
+    // }
+
+    getProviderList(form): Observable<any> {//treatmentproviderpage(Done)
+      let url = this.host + 'UserApplication/api/GetProviderList'
+      console.log(url)
+      let headers = new Headers({ 'Content-Type': 'application/json' });
+      let options = new RequestOptions({ headers: headers });
+      return this.http.post(url, form, options)
+        .map((res: Response) => res.json());
+  }
 
     getTreatmentList(form): Observable<any> {//treatmentproviderpage(Done)
         let url = this.host + 'UserApplication/api/GetTreatmentList/'+form.agentBranchID + "/" + form.treatmentProvidedID
@@ -204,6 +213,14 @@ getUserBookingActivity(): Observable<any> {
     );
 }
 
+getRecentBookingActivity(): Observable<any> {
+  let url = this.host + 'Dashboard/User/api/GetRecentBookingActivity/'+this.userId
+  console.log(url)
+  return this.http.get(url)
+    .map((res: Response) => res.json()
+    );
+}
+
 postCancelBooking(form): Observable<any> {
   let url = this.host + 'UserBooking/api/PostCancelBooking/'+ form.applicationID
   console.log(url)
@@ -221,6 +238,8 @@ getCheckBookingSlot(form): Observable<any> {
   return this.http.post(url, form, options)
   .map((res: Response) => res.json());
 }
+
+
 
 
 

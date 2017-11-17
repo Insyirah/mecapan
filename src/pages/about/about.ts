@@ -51,20 +51,37 @@ export class AboutPage {
       {name:'Johny Saloons',treatment:"Eyelashes, Haircut",date:"Wednesday, March 20, 2PM"},
     ];
 
-    this.getBookingActivity()
-
+    // this.getBookingActivity()
+    this.getRecentBookingActivity()
   }
 
-  getBookingActivity(){
-    this.serviceApi.getUserBookingActivity().subscribe(data => {
-      this.bookingUpcomingStatus = data.upcomingBooking
+  // getBookingActivity(){
+  //   this.serviceApi.getUserBookingActivity().subscribe(data => {
+  //     this.bookingUpcomingStatus = data.upcomingBooking
+  //     this.bookingRecentStatus=data.recentBooking
+  //     console.log(data)
+  //     console.log("upcoming",this.bookingUpcomingStatus)
+  //     console.log("recent",this.bookingUpcomingStatus)      
+  //     console.log("po",this.bookingUpcomingStatus.storeName)
+  //     this.store=this.bookingUpcomingStatus.storeName
+  //     this.date=this.bookingUpcomingStatus.appointmentDate
+  //   })
+  //   this.rejected = [
+  //     {name:'Johny Saloons',treatment:"Eyelashes, Haircut",date:"Wednesday, March 20, 2PM"},
+  //     {name:'Johny Saloons',treatment:"Lash Extension",date:"Wednesday, March 20, 2PM"},
+  //   ]
+  // }
+
+  getRecentBookingActivity(){
+    this.serviceApi.getRecentBookingActivity().subscribe(data => {
       this.bookingRecentStatus=data.recentBooking
-      console.log(data)
+      this.bookingUpcomingStatus = data.upcomingBooking
+      console.log("data",data)
+      console.log("upcoming",this.bookingUpcomingStatus)      
+      console.log("recent",this.bookingRecentStatus)
       console.log("upcoming",this.bookingUpcomingStatus)
-      console.log("recent",this.bookingUpcomingStatus)      
-      console.log("po",this.bookingUpcomingStatus.storeName)
-      this.store=this.bookingUpcomingStatus.storeName
-      this.date=this.bookingUpcomingStatus.appointmentDate
+      // this.store=this.bookingUpcomingStatus.storeName
+      // this.date=this.bookingUpcomingStatus.appointmentDate
     })
     this.rejected = [
       {name:'Johny Saloons',treatment:"Eyelashes, Haircut",date:"Wednesday, March 20, 2PM"},

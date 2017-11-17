@@ -1,0 +1,44 @@
+<!--
+  Generated template for the RegisterPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>Sign In</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <div *ngIf="usernameForm">
+    <form [formGroup]="logInForm" (ngSubmit)="goPassword(logInForm.value)">
+
+      <br><br><br><br><br><br><br><br>
+      <a class="a"><b>Enter phone number or username</b></a>
+
+      <ion-item>
+        <ion-input formControlName="name" type="text"></ion-input>
+
+    </ion-item>
+    <ion-fab right bottom>
+      <button ion-fab mini color="info" type="submit"><ion-icon ios="ios-arrow-round-forward" md="md-arrow-round-forward"></ion-icon></button>
+    </ion-fab>
+        </form>
+  </div>
+
+  <div *ngIf="passwordForm">
+    <form [formGroup]="logInForm" (ngSubmit)="goSignIn(logInForm.value)">
+      <br><br><br><br><br><br><br><br>
+      <a class="a"><b>Enter password</b></a>
+      <ion-item>
+        <ion-input formControlName="password" type="password"></ion-input>
+      </ion-item>
+      <ion-fab right bottom>
+        <button ion-fab mini color="info" type="submit"><ion-icon ios="ios-arrow-round-forward" md="md-arrow-round-forward"></ion-icon></button>
+      </ion-fab>
+    </form>
+  </div>
+</ion-content>
+<!-- (click)="goSignIn()" -->

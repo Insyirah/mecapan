@@ -1,0 +1,49 @@
+page-listproviders {
+ion-spinner {
+  width: 188px;
+  height: 188px;
+  stroke: #444;
+  fill: #222;
+}
+ion-thumbnail {
+    min-width: 3rem;    
+    min-height: 3rem;
+    ion-img.defaultStore {
+        opacity: 0.4;
+        background-image: url('../assets/1.jpg');
+        max-width: 12rem;    
+        min-width: 4rem;
+        min-height: 4rem;
+        margin-left: 18%;
+    }
+}
+.butang{
+    font-size: 1.4em;
+}
+
+ion-buttons.filter{
+    margin-left: 10%;
+}
+
+ion-button.option{
+    margin-left: -10%;
+    align-items: left;
+}
+
+.searchbar-md .searchbar-input {
+    line-height: 1rem;
+}
+.searchbar-md .searchbar-search-icon {
+    top:6px;
+}
+h2.name{
+    margin: 10px 0px;
+    padding-left: 5%;
+}
+p.name2{
+    padding-left: 5%;
+}
+ion-button.option{
+    padding-left: 10%;
+}
+}

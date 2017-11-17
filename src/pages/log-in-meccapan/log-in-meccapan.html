@@ -1,0 +1,30 @@
+<!--
+  Generated template for the LogInMeccapanPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>logInMeccapan</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <form [formGroup]="logInForm" (ngSubmit)="SubmitLogIn(logInForm.value)">
+    <ion-item>
+      <ion-label floating>Name</ion-label>
+      <ion-input formControlName="name" type="text"></ion-input>
+    </ion-item>
+
+   <ion-item>
+      <ion-label floating>Password</ion-label>
+      <ion-input formControlName="password" type="password"></ion-input>
+    </ion-item> 
+
+    <button type="submit" ion-button full outline>Sign In MECCAPAN</button>
+  </form>
+</ion-content>

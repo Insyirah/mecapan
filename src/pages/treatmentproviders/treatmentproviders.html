@@ -1,0 +1,115 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Provider's Name</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+  <ion-segment color="primary" [(ngModel)]="selectedSegment" (ionChange)="onSegmentChanged($event)">
+    <ion-segment-button value="first">
+      ABOUT
+    </ion-segment-button>
+
+    <ion-segment-button value="second">
+      TREATMENTS
+    </ion-segment-button>
+
+    <ion-segment-button value="third">
+      REVIEWS
+    </ion-segment-button>
+  </ion-segment>
+
+  <ion-slides style="height:unset;" #mySlider (ionSlideDidChange)="onSlideChanged($event)">
+    <ion-slide>
+
+      <ion-slides pager="true" parallax="true">
+        <ion-slide>
+          <img src="assets/1.jpg">
+        </ion-slide>
+        <ion-slide>
+          <img src="assets/2.jpg">
+        </ion-slide>
+        <ion-slide>
+          <img src="assets/3.jpg">
+        </ion-slide>
+      </ion-slides>
+      <ion-item>
+
+        <h2>
+          <b>Vida Hair</b>
+        </h2>
+        <button class="button" ion-button color="rate">4.2
+          <ion-icon name="star-half" ios="ios-star-half" md="md-star-half" class="rate"></ion-icon>
+        </button>
+        <span class="review">3 Reviews</span>&nbsp;&nbsp;
+        <span class="discount">Discount Available:</span>
+      </ion-item>
+      <ion-row align="center">
+        <ion-col>
+          <ion-item>
+            <ion-icon name="time" ios="ios-time" md="md-time" class="time"></ion-icon>
+            <br>
+            <h5 style="padding-left:9%;">10am-6pm</h5>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item>
+            <ion-icon name="logo-usd" ios="logo-usd" md="logo-usd" class="usd"></ion-icon>
+            <br>
+            <h5 style="padding-left:9%;">Great price</h5>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <h5 class="description">Trend Setters is a full-service beauty salon dedicated to consistently providing high customer satisfaction by rendering
+        excellent service, quality products, and furnishing an enjoyable atmosphere at an acceptable price/value relationship.
+        </h5>
+      <hr>
+      <ngui-map center="[3.135111,101.684282]" mapTypeControl="false" streetViewControl="false" fullscreenControl="false" style="height:50vh">
+        <marker [position]="marker"></marker>
+      </ngui-map>
+      <span style="font-size:70%;">
+        <ion-icon ios="ios-pin-outline" md="md-pin" color="primary"></ion-icon>&nbsp;Jalan Merdeka, Kuala Lumpur</span>
+      <br>
+      <br>
+      <span style="padding-right:33%;font-size:90%;">
+        <b>Contact Information</b>
+      </span>
+      <hr>
+      <ion-item>
+        <ion-icon color="primary" ios="ios-call" md="md-call" item-left></ion-icon>
+        <ion-input placeholder="019-99909167"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-icon color="primary" name="mail" item-left></ion-icon>
+        <ion-input placeholder="sal@gmail.com"></ion-input>
+      </ion-item>
+    </ion-slide>
+
+    <ion-slide>
+      <br>
+      <span style="font-size:90%">Select the treatments</span>
+      <br>
+      <span style="font-size:80%">You can choose multiple treatment</span>
+      <br>
+      <br>
+      <hr>
+      <!-- <span style="font-size:80%"><b>Hair</b></span> -->
+              <ion-item *ngFor="let treatment of treatmentList;let i = index" style="white-space: normal;" text-wrap>
+                <ion-label>
+                <b> {{treatment.treatmentName}} </b><br>
+                <a><b>Rp&nbsp;{{treatment.price}} k</b></a>
+                <a class="hours"><b>{{treatment.treatmentDuration}} min</b></a>
+                </ion-label>
+                <ion-checkbox [(ngModel)]="checkedItems[i]" (ionChange)="choosenTreatment(treatment.treatmentID,checkedItems[i],treatment.agentDiscountID,treatment.agentBranchID)" color="primary"></ion-checkbox>
+                </ion-item>
+      <button (click)="bookAppointment()" ion-button color="primary" type="submit" class="submitButton" full margin-top>Make Appointment</button>
+    </ion-slide>
+
+    <ion-slide>
+      review
+    </ion-slide>
+  </ion-slides>
+
+</ion-content>

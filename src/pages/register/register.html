@@ -1,0 +1,100 @@
+<!--
+  Generated template for the RegisterPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>Register</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <div *ngIf="phoneNo">
+    <form [formGroup]="registerForm" (ngSubmit)="goPhoneNumber(registerForm.value)">
+  <br><br><br><br><br><br><br><br>
+    <a class="a"><b>Enter Your Phone Number Here</b></a>
+
+  <ion-item>
+    <ion-input formControlName="phoneNumber" type="text" ></ion-input>
+    
+  </ion-item>
+  <ion-fab right bottom>
+      <button ion-fab mini color="info" type="submit"><ion-icon ios="ios-arrow-round-forward" md="md-arrow-round-forward"></ion-icon></button>
+    </ion-fab>
+    </form>
+  </div>
+
+  <div *ngIf="namaPenuh">
+      <form [formGroup]="registerForm" (ngSubmit)="goFullName(registerForm.value)">
+      <br><br><br><br><br><br><br><br>
+        <a class="a"><b>Enter Your Full Name</b></a>
+    
+      <ion-item>
+        <ion-input formControlName="fullName" type="text"></ion-input>
+      </ion-item>
+      <ion-fab right bottom>
+          <button ion-fab mini color="info" type="submit"><ion-icon ios="ios-arrow-round-forward" md="md-arrow-round-forward"></ion-icon></button>
+        </ion-fab>
+      </form>
+    </div>
+
+    <div *ngIf="userName">
+        <form [formGroup]="registerForm" (ngSubmit)="goUserName(registerForm.value)">
+        <br><br><br><br><br><br><br><br>
+          <a class="a"><b>Enter Your User Name</b></a>
+      
+        <ion-item>
+          <ion-input formControlName="userName" type="text" ></ion-input>  
+        </ion-item>
+        <ion-fab right bottom>
+            <button ion-fab mini color="info" type="submit"><ion-icon ios="ios-arrow-round-forward" md="md-arrow-round-forward"></ion-icon></button>
+          </ion-fab>
+        </form>
+      </div>
+
+      <div *ngIf="email">
+          <form [formGroup]="registerForm" (ngSubmit)="goEmail(registerForm.value)">
+          <br><br><br><br><br><br><br><br>
+            <a class="a"><b>Enter Your Email</b></a>
+        
+          <ion-item>
+            <ion-input formControlName="email" type="text"></ion-input>
+          </ion-item>
+          <ion-fab right bottom>
+              <button ion-fab mini color="info" type="submit" ><ion-icon ios="ios-arrow-round-forward" md="md-arrow-round-forward"></ion-icon></button>
+          </ion-fab>
+          </form>
+        </div>
+
+        <div *ngIf="pw">
+            <form [formGroup]="registerForm" (ngSubmit)="goPassword(registerForm.value)">
+            <br><br><br><br><br><br><br><br>
+              <a class="a"><b>Enter Password</b></a>
+          
+            <ion-item>
+              <ion-input formControlName="password" type="text" ></ion-input>
+            </ion-item>
+            <ion-fab right bottom>
+                <button ion-fab mini color="info" type="submit"><ion-icon ios="ios-arrow-round-forward" md="md-arrow-round-forward"></ion-icon></button>
+            </ion-fab>
+            </form>
+          </div>
+
+          <div *ngIf="code">
+              <form [formGroup]="registerForm" (ngSubmit)="goRegister(registerForm.value)">
+              <br><br><br><br><br><br><br><br>
+                <a class="a"><b>Enter Confirmation Code:</b></a>
+            
+              <ion-item>
+                <ion-input formControlName="code" type="text"></ion-input><br>
+                {{verifyCode}}
+              </ion-item>
+              <ion-fab right bottom>
+                  <button ion-fab mini color="info" type="submit" ><ion-icon ios="ios-arrow-round-forward" md="md-arrow-round-forward"></ion-icon></button>
+              </ion-fab>
+              </form>
+          </div>
+</ion-content>

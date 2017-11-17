@@ -1,0 +1,40 @@
+page-home {
+  h6.face{
+    padding-left: 4%;
+  }
+
+  h6.hair{
+    padding-left: 4%;
+  }
+
+  h6.body{
+    padding-left: 4%;
+  }
+
+  ion-scroll[scrollX] {
+    white-space: nowrap;
+    height: 100px;
+    overflow: hidden;
+
+    .scroll-item {
+      display: inline-block;
+    }
+  
+    div img{
+      margin: 10px;
+      width:25%;
+      height:25%;
+      box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+    }
+  }
+  
+  ion-scroll[scroll-div]{
+    height: 100px;
+  }
+  
+  /* Hide ion-content scrollbar */
+  ::-webkit-scrollbar{
+    display:none;
+  } 
+}
+    

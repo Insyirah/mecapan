@@ -18,7 +18,7 @@ export class MyApp implements OnInit {
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,private storage: LocalStorageService) {
     
-    this.rootPage = StartPage
+  //  this.rootPage = StartPage
 
     platform.ready().then(() => {
       statusBar.styleDefault();

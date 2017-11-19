@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NavController, App, Nav } from 'ionic-angular';
+import { NavController, App, Nav, Events } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { LocalStorageService } from 'ng2-webstorage';
 import { ServiceApiProvider } from '../../providers/service-api/service-api';
@@ -16,7 +16,7 @@ import { MyApp } from "../../app/app.component";
 })
 export class ContactPage implements OnInit {
   testing: Observable<any>;
-  @ViewChild(Nav) nav: Nav;
+  //  @ViewChild('myNav') nav: NavController
   update: any;
   userId: any;
   profile: FormGroup;
@@ -27,7 +27,7 @@ export class ContactPage implements OnInit {
   skinTypes: any[];
   form: {};
   user: any = {};
-  constructor(private appCtrl: App, private facebook: Facebook, private googlePlus: GooglePlus, public fb: FormBuilder, private app: App, private serviceApi: ServiceApiProvider, private storage: LocalStorageService, public navCtrl: NavController) {
+  constructor(public navCtrl: NavController, public events: Events, private appCtrl: App, private facebook: Facebook, private googlePlus: GooglePlus, public fb: FormBuilder, private app: App, private serviceApi: ServiceApiProvider, private storage: LocalStorageService) {
     this.user = this.storage.retrieve("user")
     console.log("user", this.user.listDetail)
     this.profile = fb.group({
@@ -96,14 +96,14 @@ export class ContactPage implements OnInit {
 
   }
 
-  getHairType(){
-    this.form={
-      moduleName : "UserAccount",
-      masterName : "List Of Hair Type"
+  getHairType() {
+    this.form = {
+      moduleName: "UserAccount",
+      masterName: "List Of Hair Type"
     }
     // this.testing = this.serviceApi.getSkinType(this.form)
     this.serviceApi.getHairType(this.form).subscribe(data => {
-      this.storage.store("hairType",data)
+      this.storage.store("hairType", data)
       console.log(data)
     })
   }
@@ -131,10 +131,11 @@ export class ContactPage implements OnInit {
 
   handleLogOut() {
     this.storage.clear('user');
-    this.navCtrl.setRoot(MyApp)
-    this.navCtrl.popAll()
-    this.app.getRootNav().setRoot(StartPage);
+    this.events.publish("hehe")
+
   }
+
+
 
 
 }

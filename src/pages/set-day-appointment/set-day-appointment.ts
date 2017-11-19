@@ -3,12 +3,15 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { SetTimeAppointmentPage } from '../set-time-appointment/set-time-appointment';
 import { CalendarComponentOptions, DayConfig } from "ion2-calendar/dist";
 import moment from "moment"
+import { ServiceApiProvider } from '../../providers/service-api/service-api';
 @IonicPage()
 @Component({
   selector: 'page-set-day-appointment',
   templateUrl: 'set-day-appointment.html',
 })
 export class SetDayAppointmentPage {
+  form: { agentBranchID: any; };
+  getDate: { agentBranchID: any; };
   applicationDetail: any;
   branchId: any;
   discountId: any;
@@ -37,10 +40,10 @@ export class SetDayAppointmentPage {
   };
   todayDate: Date = new Date()
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(private serviceApi : ServiceApiProvider,public navCtrl: NavController, public navParams: NavParams) {
     this.CalendarOptions.disableWeeks = [0, 6]
     this.DisableDate()
-
+    this.getFulldate()
   }
 
   nextMonth() {
@@ -83,7 +86,11 @@ export class SetDayAppointmentPage {
     let maxDayOfMonth = new Date(p.setDate(p.getDate() - 1))
 
     for (let i = LastDateCanBook.getDate(); i <= maxDayOfMonth.getDate(); i++) {
-      let pok = { date: new Date(LastDateCanBook.getFullYear(), LastDateCanBook.getMonth(), i).toDateString() }
+      let pok = { 
+        date: new Date(LastDateCanBook.getFullYear(), 
+        LastDateCanBook.getMonth(), i)
+        .toDateString()
+       }
       this.data.push(pok)
     }
     console.log(this.data)
@@ -106,6 +113,7 @@ export class SetDayAppointmentPage {
     console.log(x, " huhu");
   }
 
+ 
   // ionViewDidLoad() {
   //   console.log('ionViewDidLoad SetDayAppointmentPage');
   // }
@@ -128,6 +136,18 @@ export class SetDayAppointmentPage {
       applicationMainDetail:this.applicationDetail
     })
   }
+
+  getFulldate(){
+    this.branchId = this.navParams.get('agentBranchID')
+    
+    this.form = {
+      agentBranchID:this.branchId
+    }
+    this.serviceApi.getBookingCalendar(this.form).subscribe(data => {
+      console.log(data)
+  })
+  }
+
 
 }
 

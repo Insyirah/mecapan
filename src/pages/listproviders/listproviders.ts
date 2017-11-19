@@ -95,7 +95,7 @@ export class ListprovidersPage {
         console.log("data", data)
         this.storage.store("providers", this.providers)
         this.searching = true
-        this.loading.dismiss();
+        // this.loading.dismiss();
       })
   }
 
@@ -115,8 +115,12 @@ export class ListprovidersPage {
           console.log("cd",x)
         })
       .switchMap(term => this.serviceApi.getProviderList(this.form))//switchmap tu observable so kena ada subscribe
-    this.search.subscribe(x => {  this.providers = x })
-    this.loading.dismiss()
+    this.search.subscribe(x => 
+      {  
+        this.providers = x 
+        this.loading.dismiss()
+      })
+    
   }
 
   onSegmentChanged(segmentButton) {

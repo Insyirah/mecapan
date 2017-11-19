@@ -84,7 +84,7 @@ export class SignInPage {
         this.storage.store("user",data)
         this.events.publish('Login')
     
-        this.navCtrl.setRoot(TabsPage)
+        this.navCtrl.push(TabsPage)
       }else if(data.status=="error"){
         console.log(data)
         alert("your detail might be wrong")

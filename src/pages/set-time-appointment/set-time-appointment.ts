@@ -64,8 +64,8 @@ export class SetTimeAppointmentPage {
     console.log("Dates", this.dates)
     console.log("ApplicationDetail",this.applicationDetail)
 
-    this.name = this.applicationDetail[0].treatmentName.ParameterValue
-    this.name1 = this.applicationDetail[1].treatmentName.ParameterValue
+    // this.name = this.applicationDetail[0].treatmentName.ParameterValue
+    // this.name1 = this.applicationDetail[1].treatmentName.ParameterValue
     // this.name2 = this.applicationDetail[2].treatmentName.ParameterValue
     
     

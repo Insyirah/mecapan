@@ -44,6 +44,7 @@ export class ContactPage implements OnInit {
   ngOnInit(): void {
     this.user = this.storage.retrieve("user")
     this.getSkinType()
+    this.getHairType()
     this.getUserProfile()
   }
 
@@ -95,6 +96,18 @@ export class ContactPage implements OnInit {
 
   }
 
+  getHairType(){
+    this.form={
+      moduleName : "UserAccount",
+      masterName : "List Of Hair Type"
+    }
+    // this.testing = this.serviceApi.getSkinType(this.form)
+    this.serviceApi.getHairType(this.form).subscribe(data => {
+      this.storage.store("hairType",data)
+      console.log(data)
+    })
+  }
+
   setSkinType() {
     this.skin = this.storage.retrieve("skinType")
     console.log("skin", this.skin)
@@ -120,6 +133,7 @@ export class ContactPage implements OnInit {
     this.storage.clear('user');
     this.navCtrl.setRoot(MyApp)
     this.navCtrl.popAll()
+    this.app.getRootNav().setRoot(StartPage);
   }
 
 

@@ -8,6 +8,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { GooglePlus } from "@ionic-native/google-plus";
 import { Facebook } from "@ionic-native/facebook";
+import { MyApp } from "../../app/app.component";
 
 @Component({
   selector: 'page-contact',
@@ -29,7 +30,6 @@ export class ContactPage implements OnInit {
   constructor(private appCtrl: App, private facebook: Facebook, private googlePlus: GooglePlus, public fb: FormBuilder, private app: App, private serviceApi: ServiceApiProvider, private storage: LocalStorageService, public navCtrl: NavController) {
     this.user = this.storage.retrieve("user")
     console.log("user", this.user.listDetail)
-
     this.profile = fb.group({
       fullName: [''],
       dateOfBirth: [''],
@@ -103,19 +103,26 @@ export class ContactPage implements OnInit {
   logout() {
     if (this.user.loginType == "Google") {
       this.googlePlus.disconnect()
-      this.storage.clear('user');
-      this.navCtrl.setRoot(StartPage)
+      this.handleLogOut()
 
     }
     else if (this.user.loginType == "Facebook") {
       this.facebook.logout()
-      this.storage.clear('user');
-      this.navCtrl.setRoot(StartPage)
+      this.handleLogOut()
     }
-    else {
-      this.storage.clear('user');
-      this.navCtrl.setRoot(StartPage)
+    else {//meccapan
+      this.handleLogOut()
     }
+
   }
 
+  handleLogOut() {
+    this.storage.clear('user');
+    this.navCtrl.setRoot(MyApp)
+    this.navCtrl.popAll()
+  }
+
+
 }
+
+

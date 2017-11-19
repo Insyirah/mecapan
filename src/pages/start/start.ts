@@ -102,8 +102,7 @@ export class StartPage {
       planCase: "userName"
     });
     myModal.present();
-    this.navCtrl.setRoot(SignInPage)
-    //  }
+
   }
 
 }

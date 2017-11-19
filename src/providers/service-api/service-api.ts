@@ -44,12 +44,14 @@ export class ServiceApiProvider {
 
 
   postLoginFacebook(form): Observable<any> {
-    return this.http.post(this.host + 'Login/Login/api/PostLoginFacebook', form).map((res: Response) => res.json());
+    return this.http.post(this.host + 'Login/Login/api/PostLoginFacebook', form)
+    .map((res: Response) => res.json());
   }
 
-   postLoginGoogle(form): Observable<any> {
-       return this.http.post(this.host + 'Login/Login/api/PostLoginGoogle', form).map((res: Response) => res.json());
-   }
+  postLoginGoogle(form): Observable<any>{
+       return this.http.post(this.host + 'Login/Login/api/PostLoginGoogle', form)
+       .map((res: Response) => res.json());
+  }
 
   // postLoginMeccapan(form): Observable<any> {
   //     return this.http.post(this.url + 'loginMeccapan', form, {
@@ -107,13 +109,23 @@ export class ServiceApiProvider {
       );
   }
 
-  getProfile(): Observable<any[]> {//contactpage(done)
-    let url = this.host + 'Dashboard/User/api/GetProfile/' + this.loginId
-    console.log(url)
-    return this.http.get(url)
-      .map((res: Response) => res.json()
-      );
-  }
+    getHairType(form): Observable<any> {//contactpage(notDone)
+        let url = this.host + 'Global/api/GetMasterData/'+form.moduleName+'/'+form.masterName;
+        console.log(url)
+        return this.http.get(url)
+          .map((res: Response) =>{ 
+              console.log(res.json())
+        return res.json().masterData}
+          );
+      }
+
+    getProfile(): Observable<any[]> {//contactpage(done)
+        let url = this.host + 'Dashboard/User/api/GetProfile/'+this.loginId
+        console.log(url)
+        return this.http.get(url)
+          .map((res: Response) => res.json()
+          );
+    }
 
   postUpdateDetail(form): Observable<any> {//contactpage(notDone)
     let url = this.host + 'Dashboard/User/api/PostUpdateDetail'
@@ -124,21 +136,23 @@ export class ServiceApiProvider {
       .map((res: Response) => res.json());
   }
 
-  // getProviderList(form): Observable<any> {//listproviderpage
-  //     let url = this.host + 'UserApplication/api/GetProviderList'
-  //     console.log(url)
-  //     return this.http.get(url)
-  //       .map((res: Response) => res.json()
-  //       );
-  // }
+    // getProviderList(form): Observable<any> {//listproviderpage
+    //     let url = this.host + 'UserApplication/api/GetProviderList'
+    //     console.log(url)
+    //     return this.http.get(url)
+    //       .map((res: Response) => res.json()
+    //       );
+    // }
 
-  getProviderList(form): Observable<any> {//treatmentproviderpage(Done)
-    let url = this.host + 'UserApplication/api/GetProviderList'
-    console.log(url)
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
-    return this.http.post(url, form, options)
-      .map((res: Response) => res.json());
+    getProviderList(form): Observable<any[]> {//treatmentproviderpage(Done)
+      let url = this.host + 'UserApplication/api/GetProviderList'
+      console.log(url)
+      let headers = new Headers({ 'Content-Type': 'application/json' });
+      let options = new RequestOptions({ headers: headers });
+      return this.http.post(url, form, options)
+        .map((res: Response) => {
+         return res.json().branchList}
+        );
   }
 
   getTreatmentList(form): Observable<any> {//treatmentproviderpage(Done)
@@ -237,9 +251,13 @@ export class ServiceApiProvider {
   }
 
 
-
-
-
+getRejectedBookingActivity(): Observable<any> {
+  let url = this.host + 'Dashboard/User/api/GetRejectedBookingActivity/'+this.userId
+  console.log(url)
+  return this.http.get(url)
+    .map((res: Response) => res.json()
+    );
+}
 
 
 

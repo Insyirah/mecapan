@@ -5,7 +5,7 @@ page-set-day-appointment {
         padding-left: 4%;
         height: 3.2rem; 
         font-size: 1.8em;
-        margin-left: 8%;
+        margin-left: 11%;
     }
     .button-md.after{
         display: inline-block;
@@ -13,12 +13,13 @@ page-set-day-appointment {
         padding-left: 0%;
         height: 3.2rem; 
         font-size: 1.8em;
-    }
-    .button-md.today{
-        margin-left: 15%;
-        margin-right: 16%;
+        margin-left: 49%;
     }
     .select{
         padding-left: 20%;
+    }
+    .button-md.proceed{
+        margin-left: 2%;
+        margin-right: 2%;
     }
 }

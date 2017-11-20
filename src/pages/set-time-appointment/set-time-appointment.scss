@@ -1,13 +1,18 @@
 page-set-time-appointment {
-   
-    .day{
-        font-size: larger;
+    .select{
+        font-size: 1.6rem;
+        margin-left: 5%;
     }
-    .unavailable{
-        font-size: smaller;
+    .choosen{
+        font-size: 1.4rem;
+        margin-left: 5%;
     }
-
-
-    
-
+    .date{
+        font-size: 2.0rem;
+        margin-left: 5%;
+    }
+    .button-md.proceed{
+        margin-left: 2%;
+        margin-right: 2%;
+    }
 }

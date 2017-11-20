@@ -12,8 +12,6 @@
        name="arrow-dropleft" ios="ios-arrow-dropleft" md="md-arrow-dropleft"  left>
     </ion-icon>
   </button>
-    
-  <button ion-button class="today" color="light" center>Today</button>
 
   <button [disabled]="nextmonths" (click)="nextMonth()" ion-button icon-right outline class="after">
     <ion-icon 
@@ -30,5 +28,5 @@
   >
   </ion-calendar>
   
-    <button (click)="setTime()" [disabled]="disabledProceed" ion-button color="primary" type="submit" class="submitButton" full margin-top>Proceed</button>
+    <button class="proceed" (click)="setTime()" [disabled]='disabledProceed' ion-button round color="primary" type="submit" class="submitButton" full margin-top>Proceed</button>
 </ion-content>

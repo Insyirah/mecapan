@@ -2,21 +2,21 @@
     <div style="padding-top:50%;">
         <ion-grid>
             <ion-row>
-                <button (click)="SignInStandBy('FACEBOOK')" ion-button icon-left full margin-top color="facebook">
+                <button class="facebook" (click)="SignInStandBy('FACEBOOK')" ion-button icon-left round margin-top color="facebook">
         <ion-icon ios="logo-facebook" md="logo-facebook"></ion-icon>Sign In with Facebook
   </button>
             </ion-row>
             <ion-row>
-                <button (click)="SignInStandBy('GOOGLE')" ion-button icon-left full margin-top color="google">
+                <button class="google" (click)="SignInStandBy('GOOGLE')" ion-button icon-left round margin-top color="google">
         <ion-icon ios="logo-googleplus" md="logo-googleplus"></ion-icon>Sign in with Google
   </button>
             </ion-row>
             <ion-row>
                 <ion-col>
-                    <button (click)="goSignIn()" ion-button color="primary" type="submit" class="submitButton" full>SIGN IN</button>
+                    <button class="signin" (click)="goSignIn()" ion-button color="primary" type="submit" class="submitButton" round>SIGN IN</button>
                 </ion-col>
                 <ion-col>
-                    <button (click)="goRegister()" ion-button color="primary" type="submit" class="submitButton" full>REGISTER</button>
+                    <button class="register" (click)="goRegister()" ion-button color="primary" type="submit" class="submitButton" round>REGISTER</button>
                 </ion-col>
             </ion-row>
         </ion-grid>

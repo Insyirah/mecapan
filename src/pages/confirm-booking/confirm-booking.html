@@ -1,23 +1,16 @@
-<!--
-  Generated template for the ConfirmBookingPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
   <ion-navbar>
     <ion-title>Confirm Booking</ion-title>
   </ion-navbar>
 </ion-header>
 
-
 <ion-content padding>
   <ion-item>
 
-    <span>
+    <span class="date">
           <ion-icon ios="ios-calendar" md="md-calendar"></ion-icon>&nbsp;{{bookdate| date: 'dd/MM/yyyy'}}
       </span>
-    <br><br> <b>{{storeName}}</b>
+    <br><br> <b><h2 class="storeName">{{storeName}}</h2></b>
     <br><br> The treatment you have choosen are :<br>
 
     <hr>
@@ -31,7 +24,8 @@
           </ion-col>
           <ion-col>
             <a class="b">
-              <ion-icon ios="ios-time" md="md-time"></ion-icon>&nbsp;&nbsp;{{book.treatmentDuration}}min</a>
+              <ion-icon ios="ios-time" md="md-time"></ion-icon>&nbsp;&nbsp;{{book.treatmentDuration}}min
+            </a>
           </ion-col>
           <ion-col>
             Rp.{{book.treatmentPrice}}
@@ -54,8 +48,8 @@
     </ion-grid>
 
 
-    <button (click)="goBooking()" ion-button color="primary" type="submit" class="submitButton" full margin-top>Book Appointment</button>
-
+    <button ion-button round (click)="goBooking()" color="primary" type="submit" class="submitButton" full margin-top>Book Appointment</button>
+    <br>
     <span style="font-size:xx-small;text-align:justify;white-space:normal;">
           *note
           <ol>

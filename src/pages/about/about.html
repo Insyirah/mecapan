@@ -38,7 +38,7 @@
             <ion-img src="assets/1.jpg" class="defaultStore"></ion-img>
           </ion-thumbnail>
           <h2>{{status.storeName}}</h2>
-          <p>{{status.appointmentDate| date: 'dd/MM/yyyy'}}&nbsp;&nbsp;<ion-icon *ngIf="status.applicationStatusName =='Canceled'" (click)="cancelBooking()" color="danger" ios="ios-close-circle" md="md-close-circle"></ion-icon></p> 
+          <p>{{status.appointmentDate| date: 'dd/MM/yyyy'}}&nbsp;&nbsp;<b><h4>The appointment has been cancelled.</h4></b></p> 
         </ion-item>
     </ion-slide>
     <ion-slide>
@@ -58,7 +58,7 @@
               <ion-img src="assets/img/11.jpg" class="defaultStore"></ion-img>
           </ion-thumbnail>
           <h2>{{reject.name}}</h2>
-          <p>{{reject.treatment}}<ion-icon style="padding-left:30%;color:darkgreen;zoom:2.0;"ios="ios-checkmark-circle" md="md-checkmark-circle"></ion-icon></p>
+          <p>{{reject.treatment}}</p>
           <p>{{reject.date}}</p>
           </ion-item>
   </ion-slide>

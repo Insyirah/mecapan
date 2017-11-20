@@ -15,6 +15,7 @@ import { Observable } from "rxjs/Observable";
   templateUrl: 'listproviders.html',
 })
 export class ListprovidersPage {
+  test: Array<any> = []
   sortingId: any;
   searchId: any = 96;
   keyword: any;
@@ -28,7 +29,7 @@ export class ListprovidersPage {
   show: Array<any>;
   providerId: any;
   form: {};
-  providers: Array<any>;
+  providers: any = []
   terms = new FormControl();
   seachInput: string;
   @ViewChild('mySlider') slider: Slides;
@@ -39,7 +40,7 @@ export class ListprovidersPage {
     this.loading = this.loadingCtrl.create({
       content: 'Please wait...'
     });
-  this.loading.present();
+    this.loading.present();
 
     this.searchType = "Rating"
     this.selectedSegment = 'first';
@@ -96,14 +97,17 @@ export class ListprovidersPage {
 
     this.form = {
       treatmentProvidedDetailID: this.providerId,
-      searchValue:this.keyword,
-      searchID:this.searchId,
-      sortingID:this.sortingId
+      searchValue: this.keyword,
+      searchID: this.searchId,
+      sortingID: this.sortingId
     }
 
     this.serviceApi.getProviderList(this.form).subscribe(data => {
       this.providers = data.branchList
-      console.log("address", this.providers)
+      console.log("data", this.providers)
+
+
+      // console.log("agentBranchID", this.providers[0].agentBranchID)
       this.searching = true
       this.loading.dismiss();
     })
@@ -144,12 +148,12 @@ export class ListprovidersPage {
         {
           type: 'radio',
           label: 'Price low to high',
-          value: 'Price low to high'
+          value: 'Pricelowtohigh'
         },
         {
           type: 'radio',
           label: 'Price high to low',
-          value: 'Price high to low'
+          value: 'Pricehightolow'
         },
         {
           type: 'radio',
@@ -170,11 +174,64 @@ export class ListprovidersPage {
           handler: data => {
             this.searchType = data
             console.log(data)
-            // this.goSearch()
+
+            this.sortProvider(data)
           }
+
         }
       ]
     });
     alert.present()
+  }
+
+  sortProvider(sortType) {
+    switch (sortType) {
+      case "Rating":
+        {
+          let v = this.providers
+          console.log(this.providers)
+          console.log(this.providers)
+
+          this.providers = v.sort((X, Y) => { return Y - X })
+        }
+        break
+        ;
+      case "Pricelowtohigh":
+        {
+          let q = this.providers
+          
+
+          this.providers = q.sort((X, Y) => { return Y.agentBranchID - X.agentBranchID })
+          console.log(this.providers)
+        }
+        case "Pricehigtolow":
+        {
+          let q = this.providers
+          
+
+          this.providers = q.sort((X, Y) => { return Y.agentBranchID - X.agentBranchID })
+          console.log(this.providers)
+        }
+        break;
+        case "Discount":
+        {
+          let q = this.providers
+          
+
+          this.providers = q.sort((X, Y) => { return Y.agentBranchID - X.agentBranchID })
+          console.log(this.providers)
+        }
+        break;
+      // case 4:
+      //   day = "Thursday";
+      //   break;
+      // case 5:
+      //   day = "Friday";
+      //   break;
+      // case 6:
+      //   day = "Saturday";
+    }
+
+
   }
 }

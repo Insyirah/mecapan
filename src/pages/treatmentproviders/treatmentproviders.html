@@ -38,7 +38,7 @@
       <ion-item>
 
         <h2>
-          <b>Vida Hair</b>
+          <b>{{storeName}}</b>
         </h2>
         <button class="button" ion-button color="rate">4.2
           <ion-icon name="star-half" ios="ios-star-half" md="md-star-half" class="rate"></ion-icon>
@@ -51,7 +51,7 @@
           <ion-item>
             <ion-icon name="time" ios="ios-time" md="md-time" class="time"></ion-icon>
             <br>
-            <h5 style="padding-left:9%;">10am-6pm</h5>
+            <h5 style="padding-left:9%;">{{startBisnes}}-{{endBisnes}}</h5>
           </ion-item>
         </ion-col>
         <ion-col>
@@ -70,7 +70,7 @@
         <marker [position]="marker"></marker>
       </ngui-map>
       <span style="font-size:70%;">
-        <ion-icon ios="ios-pin-outline" md="md-pin" color="primary"></ion-icon>&nbsp;Jalan Merdeka, Kuala Lumpur</span>
+        <ion-icon ios="ios-pin-outline" md="md-pin" color="primary"></ion-icon>&nbsp;{{address}}</span>
       <br>
       <br>
       <span style="padding-right:33%;font-size:90%;">
@@ -78,12 +78,8 @@
       </span>
       <hr>
       <ion-item>
-        <ion-icon color="primary" ios="ios-call" md="md-call" item-left></ion-icon>
-        <ion-input placeholder="019-99909167"></ion-input>
-      </ion-item>
-      <ion-item>
         <ion-icon color="primary" name="mail" item-left></ion-icon>
-        <ion-input placeholder="sal@gmail.com"></ion-input>
+        <ion-input placeholder={{email}}></ion-input>
       </ion-item>
     </ion-slide>
 

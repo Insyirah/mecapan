@@ -22,6 +22,7 @@
         "@angular/platform-browser-dynamic": "4.4.3",
         "@ionic-native/core": "4.3.0",
         "@ionic-native/facebook": "^4.3.2",
+        "@ionic-native/geolocation": "^4.4.2",
         "@ionic-native/google-plus": "^4.3.2",
         "@ionic-native/splash-screen": "4.3.0",
         "@ionic-native/status-bar": "4.3.0",
@@ -29,8 +30,10 @@
         "@ngui/map": "^0.19.1",
         "@types/googlemaps": "^3.29.2",
         "cordova-android": "^6.2.3",
+        "cordova-plugin-compat": "^1.0.0",
         "cordova-plugin-device": "^1.1.4",
         "cordova-plugin-facebook4": "^1.9.1",
+        "cordova-plugin-geolocation": "^2.4.3",
         "cordova-plugin-googleplus": "^5.1.1",
         "cordova-plugin-ionic-webview": "^1.1.11",
         "cordova-plugin-splashscreen": "^4.0.3",
@@ -67,7 +70,8 @@
                 "APP_ID": "419430035121980",
                 "APP_NAME": "MECCAPAN"
             },
-            "cordova-sqlite-storage": {}
+            "cordova-sqlite-storage": {},
+            "cordova-plugin-geolocation": {}
         },
         "platforms": [
             "android"

@@ -53,13 +53,12 @@
     </ion-slide>
 
     <ion-slide>
-      <ion-item no-padding  *ngFor="let reject of rejected">
+      <ion-item no-padding  *ngFor="let status of bookingRejectStatus">
           <ion-thumbnail item-left>
               <ion-img src="assets/img/11.jpg" class="defaultStore"></ion-img>
           </ion-thumbnail>
-          <h2>{{reject.name}}</h2>
-          <p>{{reject.treatment}}</p>
-          <p>{{reject.date}}</p>
+          <h2>{{status.storeName}}</h2>
+          <p>{{status.appointmentDate| date: 'dd/MM/yyyy'}}</p>
           </ion-item>
   </ion-slide>
   </ion-slides>

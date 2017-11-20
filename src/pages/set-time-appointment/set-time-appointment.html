@@ -7,7 +7,9 @@
 <ion-content padding>
     <span><b>Select the time for your appointment</b></span><br><br>
     <span>The treatment you have choosen are:</span><br>
-    <a><b>{{name}},{{name1}}</b></a><br><br>
+    <!-- <a><b>{{name}},{{name1}}</b></a><br><br> -->
+    <a><b>testing</b></a><br><br>
+    
     <span>
         <ion-icon ios="ios-calendar" md="md-calendar"></ion-icon>&nbsp;&nbsp;{{bookDate| date: 'dd/MM/yyyy'}}
     </span>
@@ -18,7 +20,7 @@
         <ion-option *ngFor="let slots of timeSlot" [value]=slots.startHour>{{slots.startHour}}</ion-option>
       </ion-select>
     </ion-item>
-    <button (click)="setBooking()" ion-button color="primary" type="submit" class="submitButton" full margin-top>Proceed</button>
+    <button (click)="setBooking()" [disabled]='disabledProceed' ion-button color="primary" type="submit" class="submitButton" full margin-top>Proceed</button>
 </ion-content>
 
 

@@ -8,6 +8,7 @@ import {Geolocation} from '@ionic-native/geolocation';
 @IonicPage()
 @Component({selector: 'page-treatmentproviders', templateUrl: 'treatmentproviders.html'})
 export class TreatmentprovidersPage {
+  disabledProceed: boolean = true;
   lang: any;
   lat: any;
   endBisnes: any;
@@ -123,6 +124,8 @@ export class TreatmentprovidersPage {
   }
 
   choosenTreatment(treatmentID,status,agentDiscountId,agentBranchId) {
+    this.disabledProceed == false? "":this.disabledProceed = false;
+    
     this.discountId = agentDiscountId
     this.branchId = agentBranchId
     console.log(agentBranchId)

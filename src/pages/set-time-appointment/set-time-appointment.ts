@@ -18,6 +18,7 @@ import { LocalStorageService } from 'ng2-webstorage';
   templateUrl: 'set-time-appointment.html',
 })
 export class SetTimeAppointmentPage {
+  disabledProceed: boolean = true;
   name2: any;
   name1: any;
   name: any;
@@ -42,12 +43,13 @@ export class SetTimeAppointmentPage {
 
     this.bookDate = this.navParams.get("date")
     console.log("bookDate", this.bookDate)
-    this.getTimeSlot()
+    
 
   }
 
-  ionViewDidLoad() {
+  async ionViewDidLoad() {
     console.log('ionViewDidLoad SetTimeAppointmentPage');
+    await this.getTimeSlot()
   }
 
   getTimeSlot() {
@@ -64,8 +66,8 @@ export class SetTimeAppointmentPage {
     console.log("Dates", this.dates)
     console.log("ApplicationDetail",this.applicationDetail)
 
-    this.name = this.applicationDetail[0].treatmentName.ParameterValue
-    this.name1 = this.applicationDetail[1].treatmentName.ParameterValue
+    // this.name = this.applicationDetail[0].treatmentName.ParameterValue
+    // this.name1 = this.applicationDetail[1].treatmentName.ParameterValue
     // this.name2 = this.applicationDetail[2].treatmentName.ParameterValue
     
     
@@ -88,7 +90,7 @@ export class SetTimeAppointmentPage {
   chooseSlot(startHour) {
     console.log(startHour)
     console.log(this.slot)
-
+    this.disabledProceed ==false? "":this.disabledProceed = false;
     let p = this.timeSlot.filter(x => { return x.startHour == startHour })
     let o = p[0]
     console.log("o",o)

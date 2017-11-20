@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar hideBackButton >
     <ion-title>Providers</ion-title>
   </ion-navbar>
 </ion-header>
@@ -17,13 +17,23 @@
 
   <ion-slides style="height:unset;" #mySlider (ionSlideDidChange)="onSlideChanged($event)">
     <ion-slide>
+        <form [formGroup]="filter"  #searchBy="ngForm">
+            <ion-item>
+              <ion-label stacked>Search By:</ion-label>
+              <ion-select interface="popover" (ionChange)="goFilter(searchBy.value)" formControlName="searchBy" >
+                <ion-option value="97">Saloon Name</ion-option>
+                <ion-option value="98">Price Level</ion-option>
+                <ion-option value="99">Rating</ion-option>
+                <ion-option value="100">Type Beauty Provider</ion-option>
+              </ion-select>
+            </ion-item>
+          </form>
       <ion-row>
         <ion-col col-10 class="search">
-          <ion-searchbar  [(ngModel)]="seachInput" [formControl]="terms" (ionCancel)="searchCancel($event)" [showCancelButton]="true"
+          <ion-searchbar  [(ngModel)]="seachInput" (ionCancel)="searchCancel($event)" [formControl]="terms" [showCancelButton]="true"
             color="primary" placeholder="Search">
           </ion-searchbar>
           <!-- //  <ion-list  *ngFor="let item of items ">{{item}}</ion-list> -->
-
         </ion-col>
         <ion-col col-1 class="butang">
           <ion-buttons end class="filter" (click)="filterType()">

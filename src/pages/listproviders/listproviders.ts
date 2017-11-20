@@ -1,20 +1,28 @@
-import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, Slides, AlertController, LoadingController, Loading, Events } from 'ionic-angular';
-import { TreatmentprovidersPage } from '../treatmentproviders/treatmentproviders';
-import { ServiceApiProvider } from '../../providers/service-api/service-api';
-import { FormControl } from "@angular/forms";
+import {Component, ViewChild} from '@angular/core';
+import {
+  IonicPage,
+  NavController,
+  NavParams,
+  Slides,
+  AlertController,
+  LoadingController,
+  Loading,
+  Events
+} from 'ionic-angular';
+import {TreatmentprovidersPage} from '../treatmentproviders/treatmentproviders';
+import {ServiceApiProvider} from '../../providers/service-api/service-api';
+import {FormControl, FormBuilder, FormGroup} from "@angular/forms";
 import 'rxjs/Rx';
-import { Observable } from "rxjs/Observable";
-//import { debounceTime } from 'rxjs/operator/debounceTime';
-//import { distinctUntilChanged } from 'rxjs/operator/distinctUntilChanged';
-//import { switchMap } from 'rxjs/operator/switchMap';
+import {Observable} from "rxjs/Observable";
+import {LocalStorageService} from 'ng2-webstorage';
+// import { debounceTime } from 'rxjs/operator/debounceTime'; import {
+// distinctUntilChanged } from 'rxjs/operator/distinctUntilChanged'; import {
+// switchMap } from 'rxjs/operator/switchMap';
 
 @IonicPage()
-@Component({
-  selector: 'page-listproviders',
-  templateUrl: 'listproviders.html',
-})
+@Component({selector: 'page-listproviders', templateUrl: 'listproviders.html'})
 export class ListprovidersPage {
+<<<<<<< HEAD
   test: Array<any> = []
   sortingId: any;
   searchId: any = 96;
@@ -40,6 +48,36 @@ export class ListprovidersPage {
     this.loading = this.loadingCtrl.create({
       content: 'Please wait...'
     });
+=======
+//  terms : any;
+  pilih : any;
+
+  filter : FormGroup;
+  sortingId : any;
+  searchId : any = 96;
+  keyword : any;
+  noProvider : boolean = true
+  firstOnly : boolean = false
+  search : Observable < string[] >;
+  loading : Loading;
+  searchType : string;
+  items : Array < string > = ["no Provider"]
+  searching : boolean = true
+  show : Array < any >;
+  providerId : any;
+  form : {};
+  providers : Array < any > =[]
+  terms = new FormControl();
+  seachInput : string;
+  @ViewChild('mySlider')slider : Slides;
+  selectedSegment : string;
+  slides : any;
+  marker : any[];
+  constructor(public fb : FormBuilder, private storage : LocalStorageService, public event : Events, public loadingCtrl : LoadingController, private serviceApi : ServiceApiProvider, public navCtrl : NavController, public navParams : NavParams, private alertCtrl : AlertController) {
+    this.loading = this.loadingCtrl.create({content: 'Please wait...'});
+    this.filter = fb.group({searchBy: ['']});
+
+>>>>>>> c6802ef7f0d89e83ce73ec2e8ab1f7d4a7bcbd01
     this.loading.present();
 
     this.searchType = "Rating"
@@ -48,49 +86,27 @@ export class ListprovidersPage {
       {
         id: "first",
         title: "First Slide"
-      },
-      {
+      }, {
         id: "second",
         title: "Second Slide"
       }
     ];
 
     this.marker = [3.135111, 101.684282];
-    // this.handleSearch()//utk search
-    this.getListProvider()
+    this.handleSearch() //utk search
+    // this.getListProvider()
   }
 
-  // async handleSearch() {
-
-  //   this.search = this.terms.valueChanges
-  //     .debounceTime(300)
-  //     .distinctUntilChanged()
-  //     .do(() => {
-  //       this.firstOnly == false ? this.search : this.searching = false
-  //     })
-  //     .switchMap(term => this.serviceApi.goSearch(term, this.searchType))
-
-  //   this.search.subscribe(x => {
-  //     this.searchLogic(x)
-  //   })
-  // }
-
-
-  // searchLogic(data) {
-  //   if (this.firstOnly == false) {
-  //     this.firstOnly = true
-  //     this.getListProvider()
-  //   } else {
-  //     this.searching = true
-  //     this.providers = data
-  //     console.log(this.providers)
-  //     this.providers.length == 0 ? this.noProvider = false : this.noProvider = true
-  //   }
-  // }
-
-  // goSearch() {//for yg filter type
-  //   this.serviceApi.goSearch(this.seachInput, this.searchType)
-  // }
+  // searchLogic(data) {   if (this.firstOnly == false) {     this.firstOnly =
+  // true     this.getListProvider()   } else {     this.searching = true
+  // this.providers = data     console.log(this.providers)
+  // this.providers.length == 0 ? this.noProvider = false : this.noProvider = true
+  //   } } goSearch() {//for yg filter type
+  // this.serviceApi.goSearch(this.seachInput, this.searchType) }
+  goFilter(fil) {
+    this.searchId = fil.searchBy
+    console.log("filters", this.searchId)
+  }
 
   getListProvider() {
     this.providerId = this.navParams.get("treatmentId")
@@ -103,6 +119,7 @@ export class ListprovidersPage {
     }
 
     this.serviceApi.getProviderList(this.form).subscribe(data => {
+<<<<<<< HEAD
       this.providers = data.branchList
       console.log("data", this.providers)
 
@@ -111,13 +128,47 @@ export class ListprovidersPage {
       this.searching = true
       this.loading.dismiss();
     })
+=======
+        this.providers = data
+        console.log("data", data)
+        this.storage.store("providers", this.providers)
+        this.searching = true
+        // this.loading.dismiss();
+      })
+  }
+
+  handleSearch() {
+  this.providerId = this.navParams.get("treatmentId")    
+  this.search = this.terms.valueChanges
+      .debounceTime(300)
+      .distinctUntilChanged()
+      .do((x) => {
+          this.form = {
+            treatmentProvidedDetailID: this.providerId,
+            searchValue: x,
+            searchID: this.searchId,
+            sortingID: this.sortingId
+          }
+          console.log(this.form)
+          console.log("cd",x)
+        })
+      .switchMap(term => this.serviceApi.getProviderList(this.form))//switchmap tu observable so kena ada subscribe
+    this.search.subscribe(x => 
+      {  
+        this.providers = x 
+        this.loading.dismiss()
+      })
+    
+>>>>>>> c6802ef7f0d89e83ce73ec2e8ab1f7d4a7bcbd01
   }
 
   onSegmentChanged(segmentButton) {
     console.log("Segment changed to", segmentButton.value);
-    const selectedIndex = this.slides.findIndex((slide) => {
-      return slide.id === segmentButton.value;
-    });
+    const selectedIndex = this
+      .slides
+      .findIndex((slide) => {
+        return slide.id === segmentButton.value;
+      });
     this.slider.slideTo(selectedIndex);
   }
 
@@ -129,13 +180,14 @@ export class ListprovidersPage {
 
   goTreatment(agentBranchID, treatmentProvidedID) {
     this.navCtrl.push(TreatmentprovidersPage, {
-      agentId: agentBranchID,
-      treatmentProId: treatmentProvidedID
-    })
+        agentId: agentBranchID,
+        treatmentProId: treatmentProvidedID
+      })
   }
 
   filterType() {
     console.log("c")
+<<<<<<< HEAD
     let alert = this.alertCtrl.create({
       title: 'Please select:',
       inputs: [
@@ -181,6 +233,49 @@ export class ListprovidersPage {
         }
       ]
     });
+=======
+    let alert = this
+      .alertCtrl
+      .create({
+        title: 'Please select:',
+        inputs: [
+          {
+            type: 'radio',
+            label: 'Rating',
+            value: 'Rating',
+            checked: true
+          }, {
+            type: 'radio',
+            label: 'Price low to high',
+            value: 'Price low to high'
+          }, {
+            type: 'radio',
+            label: 'Price high to low',
+            value: 'Price high to low'
+          }, {
+            type: 'radio',
+            label: 'Discount',
+            value: 'Discount'
+          }
+        ],
+        buttons: [
+
+          {
+            text: "Cancel",
+            handler: data => {
+              console.log("Cancel clicked");
+            }
+          }, {
+            text: "Ok",
+            handler: data => {
+              this.searchType = data
+              console.log(data)
+              // this.goSearch()
+            }
+          }
+        ]
+      });
+>>>>>>> c6802ef7f0d89e83ce73ec2e8ab1f7d4a7bcbd01
     alert.present()
   }
 

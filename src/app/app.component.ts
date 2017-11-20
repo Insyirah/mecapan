@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Platform } from 'ionic-angular';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Platform, NavController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -15,10 +15,11 @@ export class MyApp implements OnInit {
   user: any;
   rootPage:any
     
-
+   @ViewChild('myNav') nav: NavController
+  // public rootPage: any = TabsPage;
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,private storage: LocalStorageService) {
     
-    this.rootPage = StartPage
+  //  this.rootPage = StartPage
 
     platform.ready().then(() => {
       statusBar.styleDefault();

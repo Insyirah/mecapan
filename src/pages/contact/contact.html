@@ -22,37 +22,23 @@
         <ion-label stacked>Full Name</ion-label>
         <ion-input name="fullName" formControlName="fullName" (ngModel)="userProfile.detail.fullName"></ion-input>
       </ion-item>
-      
       <ion-item>
         <!-- <ion-icon color="primary" name="mail" item-left></ion-icon> -->
         <ion-label stacked>Birth-Date</ion-label>
         <ion-input name="dateOfBirth" formControlName="dateOfBirth"></ion-input>
       </ion-item>
-      
       <ion-item>
         <ion-label stacked>Email</ion-label>
         <ion-input name="email" formControlName="email"></ion-input>
       </ion-item>
-      
       <ion-item>
         <ion-label stacked>Gender</ion-label>
         <ion-input name="gender" formControlName="gender"></ion-input>
       </ion-item><br>
-
       <ion-item>
           <ion-label stacked>Phone Number</ion-label>
           <ion-input name="phoneNumber" formControlName="phoneNumber"></ion-input>
-        </ion-item>
-
-   
-      <ion-item>
-          <button text-center ion-button small block color="info" type="submit">Update Profile</button>
-      </ion-item>      
-    </form>
-      <br>
-      <hr>
-
-      <h6 style="padding-left:3%;">Self Preferences</h6>
+      </ion-item>
       <ion-item>
           <ion-label floating>Skin Type</ion-label>
           <ion-select (click)="setSkinType()" interface="popover" type="text">
@@ -64,8 +50,12 @@
         <ion-select  >
           <ion-option >20cm</ion-option>
         </ion-select>
-      </ion-item><br>
-      <hr>
+      </ion-item>
+      <ion-item>
+          <button text-center ion-button small block color="info" type="submit">Update Profile</button>
+      </ion-item>      
+    </form>
+
       <ion-item>
           <ion-icon (click)="logout()" ios="ios-exit" md="md-exit" color="primary" item-left></ion-icon><a>Log Out</a>
       </ion-item>

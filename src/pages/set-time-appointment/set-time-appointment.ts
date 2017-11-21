@@ -75,7 +75,7 @@ export class SetTimeAppointmentPage {
     this.j = ""
     for (let b = 0; b<a ;b++){
       let c = this.applicationDetail[b].treatmentName.ParameterValue
-      this.j += c + ","
+      this.j += "," + c
       console.log("c",this.j)
 
     }

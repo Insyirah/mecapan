@@ -185,7 +185,7 @@ export class ListprovidersPage {
             handler: data => {
               this.searchType = data
               console.log(data)
-              // this.sortProvider()
+            this.sortProvider(data)
             }
           }
         ]
@@ -204,14 +204,14 @@ export class ListprovidersPage {
           this.providers = v.sort((X, Y) => { return X.ratingSign - Y.ratingSign })
         }
         break;
-      case "Pricelowtohigh":
+      case "Price low to high":
         {
           let lh = this.providers
           this.providers = lh.sort((X, Y) => { return X.priceRangeSign - Y.priceRangeSign })
           console.log("lowHigh",this.providers)
         }
         break;
-        case "Pricehightolow":
+        case "Price high to low":
         {
           let hl = this.providers
           this.providers = hl.sort((X, Y) => { return Y.priceRangeSign - X.priceRangeSign })

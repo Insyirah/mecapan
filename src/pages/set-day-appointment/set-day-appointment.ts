@@ -10,6 +10,7 @@ import { ServiceApiProvider } from '../../providers/service-api/service-api';
   templateUrl: 'set-day-appointment.html',
 })
 export class SetDayAppointmentPage {
+  disabledProceed: boolean = true;
   form: { agentBranchID: any; };
   getDate: { agentBranchID: any; };
   applicationDetail: any;
@@ -109,6 +110,7 @@ export class SetDayAppointmentPage {
   }
 
   pickedDate(x) {
+    this.disabledProceed == false? "":this.disabledProceed = false;
     this.selectedDate = x
     console.log(x, " huhu");
   }
@@ -118,7 +120,7 @@ export class SetDayAppointmentPage {
   //   console.log('ionViewDidLoad SetDayAppointmentPage');
   // }
 
-  setTime(x) {
+ async setTime(x) {
     this.applicationId = this.navParams.get('applicationID')
     this.discountId= this.navParams.get('agentDiscountID')
     this.branchId = this.navParams.get('agentBranchID')
@@ -128,7 +130,7 @@ export class SetDayAppointmentPage {
     console.log("DiscID",this.discountId)
     console.log("BrancID",this.branchId)
     
-    this.navCtrl.push(SetTimeAppointmentPage,{
+  await this.navCtrl.push(SetTimeAppointmentPage,{
       date : this.selectedDate,
       applicationID:this.applicationId,
       agentDiscountID:this.discountId,

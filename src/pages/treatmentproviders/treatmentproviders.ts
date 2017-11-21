@@ -3,10 +3,25 @@ import {IonicPage, NavController, NavParams, Slides} from 'ionic-angular';
 import {AboutPage} from '../about/about';
 import {SetDayAppointmentPage} from '../set-day-appointment/set-day-appointment';
 import {ServiceApiProvider} from '../../providers/service-api/service-api';
+import {Geolocation} from '@ionic-native/geolocation';
 
 @IonicPage()
 @Component({selector: 'page-treatmentproviders', templateUrl: 'treatmentproviders.html'})
 export class TreatmentprovidersPage {
+  disabledProceed: boolean = true;
+  lang: any;
+  lat: any;
+  endBisnes: any;
+  startBisnes: any;
+  email: any;
+  address: any;
+  storeName: any;
+  agentBanner: any;
+  agentDetail: any;
+  agentForm: { agentBranchID: any; lat: any; lng: any; };
+  longitude: any;
+  latitude: any;
+
   applicationDetail: any;
   branchId: any;
   discountId: any;
@@ -31,7 +46,7 @@ export class TreatmentprovidersPage {
   slides : any;
   treatments : any[]
   checked : boolean[]
-  constructor(private serviceApi : ServiceApiProvider, public navCtrl : NavController, public navParams : NavParams) {
+  constructor(private geolocation : Geolocation,private serviceApi : ServiceApiProvider, public navCtrl : NavController, public navParams : NavParams) {
     this.selectedSegment = 'first';
     this.slides = [
       {
@@ -49,12 +64,51 @@ export class TreatmentprovidersPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad TreatmentprovidersPage');
-    this.getListTreatment()
-  }
-
-  getListTreatment() {
     this.list1 = this.navParams.get("agentId")
     this.list2 = this.navParams.get("treatmentProId")
+    this.getListTreatment()
+    this.getCurrentLocation()
+
+  }
+
+  getCurrentLocation() {
+      this.geolocation.getCurrentPosition().then((resp) => { //get user current location
+          this.latitude = resp.coords.latitude
+          this.longitude = resp.coords.longitude
+          console.log("lati", resp.coords.latitude)
+          console.log("longi", resp.coords.longitude)
+          this.getAgentDetail(this.latitude,this.longitude)
+        }).catch((error) => {
+          alert("cannot get location")
+          console.log('Error getting location', error);
+        });
+        // loader.dismiss()
+    }
+
+    getAgentDetail(lat,lng){
+      this.agentForm = {
+        agentBranchID:this.list1,
+        lat:lat,
+        lng:lng
+      }
+      this.serviceApi.getAgentBranchAbout(this.agentForm).subscribe(data => {
+       console.log("agent",data)
+       this.agentDetail = data.detailList
+       this.agentBanner = data.bannerDetail
+       this.storeName = this.agentDetail.storeName
+       this.address = this.agentDetail.address
+       this.email = this.agentDetail.email
+       this.startBisnes = this.agentDetail.startBussinessHour
+       this.endBisnes = this.agentDetail.endBussinessHour
+       this.lat = this.agentDetail.latitude              
+       this.lang = this.agentDetail.longitude             
+       console.log("agent",this.agentDetail.storeName)
+       console.log("agent",this.agentBanner)
+      })
+    }
+
+  getListTreatment() {
+    
     console.log("list", this.list)
     this.form = {
       agentBranchID: this.list1,
@@ -70,6 +124,8 @@ export class TreatmentprovidersPage {
   }
 
   choosenTreatment(treatmentID,status,agentDiscountId,agentBranchId) {
+    this.disabledProceed == false? "":this.disabledProceed = false;
+    
     this.discountId = agentDiscountId
     this.branchId = agentBranchId
     console.log(agentBranchId)

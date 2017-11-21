@@ -11,7 +11,7 @@
         <!-- <img src="{{pathForImage(lastImage)}}" class="profPic" [hidden]="lastImage === null"> -->
         <img src="./assets/pic.jpg" class="profPic">
         <ion-buttons start>
-          <button ion-button color="primary"  (click)="presentActionSheet()">
+          <button ion-button round color="primary"  (click)="presentActionSheet()">
               <span style="color:white" >Change Profile Picture</span>
             </button>
         </ion-buttons>
@@ -52,7 +52,7 @@
         </ion-select>
       </ion-item>
       <ion-item>
-          <button text-center ion-button small block color="info" type="submit">Update Profile</button>
+          <button text-center ion-button round color="info" type="submit" class="update" full>Update Profile</button>
       </ion-item>      
     </form>
 

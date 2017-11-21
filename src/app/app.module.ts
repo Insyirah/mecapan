@@ -31,6 +31,7 @@ import { IonicStorageModule } from '@ionic/storage';
 import { Ng2Webstorage } from 'ng2-webstorage';
 import { NguiMapModule } from '@ngui/map';
 import { HttpModule } from '@angular/http';
+import { Geolocation } from '@ionic-native/geolocation';
 
 
 @NgModule({
@@ -80,6 +81,7 @@ import { HttpModule } from '@angular/http';
     GooglePlus,
     Facebook,
     ServiceApiProvider,
+    Geolocation
   
   ]
 })

@@ -5,10 +5,10 @@
 </ion-header>
 
 <ion-content padding>
-    <span><b>Select the time for your appointment</b></span><br><br>
-    <span>The treatment you have choosen are:</span><br>
-    <a><b>{{name}},{{name1}}</b></a><br><br>
-    <span>
+    <span class="select"><b>Select the time for your appointment</b></span><br><br>
+    <span class="choosen">The treatment you have choosen are:</span><br>
+    <a><b>testing</b></a><br><br>
+    <span class="date">
         <ion-icon ios="ios-calendar" md="md-calendar"></ion-icon>&nbsp;&nbsp;{{bookDate| date: 'dd/MM/yyyy'}}
     </span>
     <br><br><hr>
@@ -18,19 +18,5 @@
         <ion-option *ngFor="let slots of timeSlot" [value]=slots.startHour>{{slots.startHour}}</ion-option>
       </ion-select>
     </ion-item>
-    <button (click)="setBooking()" ion-button color="primary" type="submit" class="submitButton" full margin-top>Proceed</button>
+    <button class="proceed" (click)="setBooking()" [disabled]='disabledProceed' ion-button round color="primary" type="submit" class="submitButton" full margin-top>Proceed</button>
 </ion-content>
-
-
-
-<!-- <div *ngIf="specific">
-  <ion-item>
-    <ion-label floating>Select Time</ion-label>
-    <ion-select interface="popover" [(ngModel)]="slot" (ionChange)="chooseSlot($event)">
-      <ion-option *ngFor="let specificDamages of specification" [value]=specificDamages.specificId>{{specificDamages.name}}</ion-option>
-    </ion-select>
-  </ion-item>
-  <div *ngIf="!goService.controls.specificDamage.valid  && (goService.controls.specificDamage.dirty || submitAttempt)">
-    <p>Please specified the damages</p>
-  </div>
-</div> -->

@@ -67,7 +67,6 @@ export class SignInPage {
   goSignIn(form) {
     form.name = this.navParams.get("name");
     // this.FinalForm = this.SubmitLogIn(form)
-
     this.form={
       username : form.name,
       password : form.password,
@@ -88,6 +87,10 @@ export class SignInPage {
       }else if(data.status=="error"){
         console.log(data)
         alert("your detail might be wrong")
+        let myModal = this.modalCtrl.create(SignInPage, {
+          planCase: "userName"
+        });
+        myModal.present();
       }else{
         alert("error")
       }  

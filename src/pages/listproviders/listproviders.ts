@@ -204,26 +204,25 @@ export class ListprovidersPage {
           console.log(this.providers)
           this.providers = v.sort((X, Y) => { return X.ratingSign - Y.ratingSign })
         }
-        break
-        ;
+        break;
       case "Pricelowtohigh":
         {
-          let q = this.providers
-          this.providers = q.sort((X, Y) => { return Y.agentBranchID - X.agentBranchID })
+          let lh = this.providers
+          this.providers = lh.sort((X, Y) => { return X.priceRangeSign - Y.priceRangeSign })
           console.log("lowHigh",this.providers)
         }
+        break;
         case "Pricehightolow":
         {
-          let q = this.providers
-          console.log(this.providers)
-          this.providers = q.sort((X, Y) => { return X.agentBranchID - Y.agentBranchID })
+          let hl = this.providers
+          this.providers = hl.sort((X, Y) => { return Y.priceRangeSign - X.priceRangeSign })
           console.log("highLow",this.providers)
         }
         break;
         case "Discount":
         {
-          let q = this.providers
-          this.providers = q.sort((X, Y) => { return X.discountPercent - Y.discountPercent })
+          let d = this.providers
+          this.providers = d.sort((X, Y) => { return X.discountPercent - Y.discountPercent })
           console.log(this.providers)
         }
         break;

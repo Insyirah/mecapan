@@ -81,6 +81,13 @@ export class AboutPage {
     }) 
   }
 
+  getCompletedBookingActivity(){
+    this.serviceApi.getRejectedBookingActivity().subscribe(data => {
+      this.bookingRejectStatus = data.rejectedBooking
+    console.log("data rejected",this.bookingRejectStatus)
+    }) 
+  }
+
   viewBooking(status){
     this.navCtrl.push(BookingDetailsPage,{
       recentStatusDetail:status

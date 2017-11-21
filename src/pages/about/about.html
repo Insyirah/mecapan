@@ -38,7 +38,11 @@
             <ion-img src="assets/1.jpg" class="defaultStore"></ion-img>
           </ion-thumbnail>
           <h2>{{status.storeName}}</h2>
-          <p>{{status.appointmentDate| date: 'dd/MM/yyyy'}}&nbsp;&nbsp;<b><h4 style="color: red" *ngIf="status.applicationStatusName=='Canceled'">The appointment has been cancelled.</h4></b></p> 
+          <h3>{{status.treatmentDetailName}}</h3>  
+          <h3>{{status.appointmentDate| date: 'dd/MM/yyyy'}}</h3>
+         
+          <h4 style="color: red" *ngIf="status.applicationStatusName=='Canceled'">The appointment has been cancelled.</h4>
+
         </ion-item>
     </ion-slide>
     <ion-slide>

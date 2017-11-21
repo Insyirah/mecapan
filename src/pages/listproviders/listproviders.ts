@@ -118,6 +118,7 @@ export class ListprovidersPage {
     this.search.subscribe(x => 
       {  
         this.providers = x 
+        console.log("dataProvider",this.providers)
         this.loading.dismiss()
       })
     

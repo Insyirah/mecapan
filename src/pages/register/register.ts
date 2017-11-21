@@ -18,6 +18,11 @@ import { ServiceApiProvider } from '../../providers/service-api/service-api';
   templateUrl: 'register.html',
 })
 export class RegisterPage {
+  registerFormsfullName: FormGroup;
+  registerFormuserName: FormGroup;
+  registerFormemail: FormGroup;
+  registerFormpassword: FormGroup;
+  registerFormcode: FormGroup;
   verifyCode: any;
   form: {};
   fullName: any;
@@ -28,7 +33,7 @@ export class RegisterPage {
   pw: boolean = false;
   email: boolean = false;
   userName: boolean = false;
-  registerForm: FormGroup;
+  registerFormphoneNumber: FormGroup;
   phoneNo: boolean = true;
   namaPenuh: boolean = false;
  
@@ -36,13 +41,23 @@ export class RegisterPage {
   planCase: any;
 
   constructor(private serviceApi : ServiceApiProvider,private storage: LocalStorageService,private fb: FormBuilder,public navCtrl: NavController, public navParams: NavParams,public modalCtrl: ModalController) {
-    this.registerForm = this.fb.group({
-      phoneNumber: [''],
-      fullName: [''],
-      userName: [''],
-      email:[''],
-      password: [''],
-      code:['']
+    this.registerFormphoneNumber = this.fb.group({
+      phoneNumber: ['', Validators.compose([Validators.required, Validators.pattern('([0-9]{10,11})')])],
+    });
+    this.registerFormsfullName = this.fb.group({
+      fullName: ['', Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z \/\']+')])],
+    });
+    this.registerFormuserName = this.fb.group({
+       userName: ['', Validators.compose([Validators.required, Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,16}$')])],    
+    });
+    this.registerFormemail = this.fb.group({
+       email:['', Validators.compose([Validators.required, Validators.pattern('^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$')])],
+    });
+    this.registerFormpassword = this.fb.group({
+       password: ['', Validators.compose([Validators.required, Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,16}$')])],
+    });
+    this.registerFormcode = this.fb.group({
+       code:['', Validators.required]
     });
   }
 

@@ -6,30 +6,34 @@
 
 <ion-content padding>
   <div *ngIf="usernameForm">
-    <form [formGroup]="logInForm" (ngSubmit)="goPassword(logInForm.value)">
+    <form [formGroup]="logInFormname" (ngSubmit)="goPassword(logInFormname.value)">
 
       <br><br><br><br><br><br><br><br>
       <a class="a"><b>Enter phone number or username</b></a>
-
       <ion-item>
-        <ion-input formControlName="name" type="text"></ion-input>
-
+        <ion-input formControlName="name" type="text" [class.invalid]="!logInFormname.controls.name.valid && (logInFormname.controls.name.dirty || submitAttempt)"></ion-input>
     </ion-item>
+    <div *ngIf="logInFormname.get('name').hasError('required') && logInFormname.get('name').touched">
+      <p>Phone number or Username is required</p>
+    </div>
     <ion-fab right bottom>
-      <button ion-fab mini color="info" type="submit"><ion-icon ios="ios-arrow-round-forward" md="md-arrow-round-forward"></ion-icon></button>
+      <button ion-fab mini color="info" type="submit" [disabled]="logInFormname.invalid"><ion-icon ios="ios-arrow-round-forward" md="md-arrow-round-forward"></ion-icon></button>
     </ion-fab>
         </form>
   </div>
 
   <div *ngIf="passwordForm">
-    <form [formGroup]="logInForm" (ngSubmit)="goSignIn(logInForm.value)">
+    <form [formGroup]="logInFormpassword" (ngSubmit)="goSignIn(logInFormpassword.value)">
       <br><br><br><br><br><br><br><br>
       <a class="a"><b>Enter password</b></a>
       <ion-item>
-        <ion-input formControlName="password" type="password"></ion-input>
+        <ion-input formControlName="password" type="password" [class.invalid]="!logInFormpassword.controls.password.valid && (logInFormpassword.controls.password.dirty || submitAttempt)"></ion-input>
       </ion-item>
+      <div *ngIf="logInFormpassword.get('password').hasError('required') && logInFormpassword.get('password').touched">
+        <p>Password is required</p>
+      </div>
       <ion-fab right bottom>
-        <button ion-fab mini color="info" type="submit"><ion-icon ios="ios-arrow-round-forward" md="md-arrow-round-forward"></ion-icon></button>
+        <button ion-fab mini color="info" type="submit" [disabled]="logInFormpassword.invalid"><ion-icon ios="ios-arrow-round-forward" md="md-arrow-round-forward"></ion-icon></button>
       </ion-fab>
     </form>
   </div>

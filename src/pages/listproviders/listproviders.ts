@@ -209,7 +209,7 @@ export class ListprovidersPage {
       case "Pricelowtohigh":
         {
           let q = this.providers
-          this.providers = q.sort((X, Y) => { return X.agentBranchID - Y.agentBranchID })
+          this.providers = q.sort((X, Y) => { return Y.agentBranchID - X.agentBranchID })
           console.log("lowHigh",this.providers)
         }
         case "Pricehightolow":

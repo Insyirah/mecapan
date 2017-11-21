@@ -22,33 +22,6 @@ import {LocalStorageService} from 'ng2-webstorage';
 @IonicPage()
 @Component({selector: 'page-listproviders', templateUrl: 'listproviders.html'})
 export class ListprovidersPage {
-<<<<<<< HEAD
-  test: Array<any> = []
-  sortingId: any;
-  searchId: any = 96;
-  keyword: any;
-  noProvider: boolean = true
-  firstOnly: boolean = false
-  search: Observable<string[]>;
-  loading: Loading;
-  searchType: string;
-  items: Array<string> = ["no Provider"]
-  searching: boolean = true
-  show: Array<any>;
-  providerId: any;
-  form: {};
-  providers: any = []
-  terms = new FormControl();
-  seachInput: string;
-  @ViewChild('mySlider') slider: Slides;
-  selectedSegment: string;
-  slides: any;
-  marker: any[];
-  constructor(public event: Events, public loadingCtrl: LoadingController, private serviceApi: ServiceApiProvider, public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController) {
-    this.loading = this.loadingCtrl.create({
-      content: 'Please wait...'
-    });
-=======
 //  terms : any;
   pilih : any;
 
@@ -77,7 +50,6 @@ export class ListprovidersPage {
     this.loading = this.loadingCtrl.create({content: 'Please wait...'});
     this.filter = fb.group({searchBy: ['']});
 
->>>>>>> c6802ef7f0d89e83ce73ec2e8ab1f7d4a7bcbd01
     this.loading.present();
 
     this.searchType = "Rating"
@@ -119,16 +91,6 @@ export class ListprovidersPage {
     }
 
     this.serviceApi.getProviderList(this.form).subscribe(data => {
-<<<<<<< HEAD
-      this.providers = data.branchList
-      console.log("data", this.providers)
-
-
-      // console.log("agentBranchID", this.providers[0].agentBranchID)
-      this.searching = true
-      this.loading.dismiss();
-    })
-=======
         this.providers = data
         console.log("data", data)
         this.storage.store("providers", this.providers)
@@ -159,7 +121,6 @@ export class ListprovidersPage {
         this.loading.dismiss()
       })
     
->>>>>>> c6802ef7f0d89e83ce73ec2e8ab1f7d4a7bcbd01
   }
 
   onSegmentChanged(segmentButton) {
@@ -187,7 +148,6 @@ export class ListprovidersPage {
 
   filterType() {
     console.log("c")
-<<<<<<< HEAD
     let alert = this.alertCtrl.create({
       title: 'Please select:',
       inputs: [
@@ -233,49 +193,6 @@ export class ListprovidersPage {
         }
       ]
     });
-=======
-    let alert = this
-      .alertCtrl
-      .create({
-        title: 'Please select:',
-        inputs: [
-          {
-            type: 'radio',
-            label: 'Rating',
-            value: 'Rating',
-            checked: true
-          }, {
-            type: 'radio',
-            label: 'Price low to high',
-            value: 'Price low to high'
-          }, {
-            type: 'radio',
-            label: 'Price high to low',
-            value: 'Price high to low'
-          }, {
-            type: 'radio',
-            label: 'Discount',
-            value: 'Discount'
-          }
-        ],
-        buttons: [
-
-          {
-            text: "Cancel",
-            handler: data => {
-              console.log("Cancel clicked");
-            }
-          }, {
-            text: "Ok",
-            handler: data => {
-              this.searchType = data
-              console.log(data)
-              // this.goSearch()
-            }
-          }
-        ]
-      });
->>>>>>> c6802ef7f0d89e83ce73ec2e8ab1f7d4a7bcbd01
     alert.present()
   }
 
@@ -285,35 +202,28 @@ export class ListprovidersPage {
         {
           let v = this.providers
           console.log(this.providers)
-          console.log(this.providers)
-
-          this.providers = v.sort((X, Y) => { return Y - X })
+          this.providers = v.sort((X, Y) => { return X.ratingSign - Y.ratingSign })
         }
         break
         ;
       case "Pricelowtohigh":
         {
           let q = this.providers
-          
-
-          this.providers = q.sort((X, Y) => { return Y.agentBranchID - X.agentBranchID })
-          console.log(this.providers)
+          this.providers = q.sort((X, Y) => { return X.agentBranchID - Y.agentBranchID })
+          console.log("lowHigh",this.providers)
         }
-        case "Pricehigtolow":
+        case "Pricehightolow":
         {
           let q = this.providers
-          
-
-          this.providers = q.sort((X, Y) => { return Y.agentBranchID - X.agentBranchID })
           console.log(this.providers)
+          this.providers = q.sort((X, Y) => { return X.agentBranchID - Y.agentBranchID })
+          console.log("highLow",this.providers)
         }
         break;
         case "Discount":
         {
           let q = this.providers
-          
-
-          this.providers = q.sort((X, Y) => { return Y.agentBranchID - X.agentBranchID })
+          this.providers = q.sort((X, Y) => { return X.discountPercent - Y.discountPercent })
           console.log(this.providers)
         }
         break;

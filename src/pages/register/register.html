@@ -13,87 +13,106 @@
 
 <ion-content padding>
   <div *ngIf="phoneNo">
-    <form [formGroup]="registerForm" (ngSubmit)="goPhoneNumber(registerForm.value)">
+    <form [formGroup]="registerFormphoneNumber" (ngSubmit)="goPhoneNumber(registerFormphoneNumber.value)">
   <br><br><br><br><br><br><br><br>
     <a class="a"><b>Enter Your Phone Number Here</b></a>
 
   <ion-item>
-    <ion-input formControlName="phoneNumber" type="text" ></ion-input>
-    
+    <ion-input formControlName="phoneNumber" type="text" [class.invalid]="!registerFormphoneNumber.controls.phoneNumber.valid && (registerFormphoneNumber.controls.phoneNumber.dirty || submitAttempt)"></ion-input> 
   </ion-item>
+  <div *ngIf="registerFormphoneNumber.get('phoneNumber').hasError('required') && registerFormphoneNumber.get('phoneNumber').touched">
+      <p>Phone Number is required</p>
+    </div>
+    <div *ngIf="registerFormphoneNumber.get('phoneNumber').hasError('pattern') && registerFormphoneNumber.get('phoneNumber').touched">
+      <p>Enter valid mobile phone no.</p>
+    </div>
   <ion-fab right bottom>
-      <button ion-fab mini color="info" type="submit"><ion-icon ios="ios-arrow-round-forward" md="md-arrow-round-forward"></ion-icon></button>
+      <button ion-fab mini color="info" type="submit"  [disabled]="registerFormphoneNumber.invalid"><ion-icon ios="ios-arrow-round-forward" md="md-arrow-round-forward"></ion-icon></button>
     </ion-fab>
     </form>
   </div>
 
   <div *ngIf="namaPenuh">
-      <form [formGroup]="registerForm" (ngSubmit)="goFullName(registerForm.value)">
+      
+      <form [formGroup]="registerFormsfullName" (ngSubmit)="goFullName(registerFormsfullName.value)">
       <br><br><br><br><br><br><br><br>
         <a class="a"><b>Enter Your Full Name</b></a>
-    
       <ion-item>
-        <ion-input formControlName="fullName" type="text"></ion-input>
+        <ion-input formControlName="fullName" type="text" [class.invalid]="!registerFormsfullName.controls.fullName.valid && (registerFormsfullName.controls.fullName.dirty || submitAttempt)"></ion-input>
       </ion-item>
+      <div *ngIf="registerFormsfullName.get('fullName').hasError('required') && registerFormsfullName.get('fullName').touched">
+          <p>Full Name is required</p>
+        </div>
       <ion-fab right bottom>
-          <button ion-fab mini color="info" type="submit"><ion-icon ios="ios-arrow-round-forward" md="md-arrow-round-forward"></ion-icon></button>
+          <button ion-fab mini color="info" type="submit" [disabled]="registerFormsfullName.invalid"><ion-icon ios="ios-arrow-round-forward" md="md-arrow-round-forward"></ion-icon></button>
         </ion-fab>
       </form>
     </div>
 
     <div *ngIf="userName">
-        <form [formGroup]="registerForm" (ngSubmit)="goUserName(registerForm.value)">
+        
+        <form [formGroup]="registerFormuserName" (ngSubmit)="goUserName(registerFormuserName.value)">
         <br><br><br><br><br><br><br><br>
           <a class="a"><b>Enter Your User Name</b></a>
       
         <ion-item>
-          <ion-input formControlName="userName" type="text" ></ion-input>  
+          <ion-input formControlName="userName" type="text" [class.invalid]="!registerFormuserName.controls.userName.valid && (registerFormuserName.controls.userName.dirty || submitAttempt)"></ion-input>  
         </ion-item>
+        <div *ngIf="registerFormuserName.get('userName').hasError('required') && registerFormuserName.get('userName').touched">
+            <p>UserName is required</p>
+          </div>
         <ion-fab right bottom>
-            <button ion-fab mini color="info" type="submit"><ion-icon ios="ios-arrow-round-forward" md="md-arrow-round-forward"></ion-icon></button>
+            <button ion-fab mini color="info" type="submit" [disabled]="registerFormuserName.invalid"><ion-icon ios="ios-arrow-round-forward" md="md-arrow-round-forward"></ion-icon></button>
           </ion-fab>
         </form>
       </div>
 
       <div *ngIf="email">
-          <form [formGroup]="registerForm" (ngSubmit)="goEmail(registerForm.value)">
+          <form [formGroup]="registerFormemail" (ngSubmit)="goEmail(registerFormemail.value)">
           <br><br><br><br><br><br><br><br>
             <a class="a"><b>Enter Your Email</b></a>
-        
           <ion-item>
-            <ion-input formControlName="email" type="text"></ion-input>
+            <ion-input formControlName="email" type="text" [class.invalid]="!registerFormemail.controls.email.valid && (registerFormemail.controls.email.dirty || submitAttempt)"></ion-input>
           </ion-item>
+          <div *ngIf="registerFormemail.get('email').hasError('required') && registerFormemail.get('email').touched">
+              <p>Email is required</p>
+            </div>
           <ion-fab right bottom>
-              <button ion-fab mini color="info" type="submit" ><ion-icon ios="ios-arrow-round-forward" md="md-arrow-round-forward"></ion-icon></button>
+              <button ion-fab mini color="info" type="submit" [disabled]="registerFormemail.invalid"><ion-icon ios="ios-arrow-round-forward" md="md-arrow-round-forward"></ion-icon></button>
           </ion-fab>
           </form>
         </div>
 
         <div *ngIf="pw">
-            <form [formGroup]="registerForm" (ngSubmit)="goPassword(registerForm.value)">
+            <form [formGroup]="registerFormpassword" (ngSubmit)="goPassword(registerFormpassword.value)">
             <br><br><br><br><br><br><br><br>
               <a class="a"><b>Enter Password</b></a>
-          
             <ion-item>
-              <ion-input formControlName="password" type="text" ></ion-input>
+              <ion-input formControlName="password" type="text" [class.invalid]="!registerFormpassword.controls.password.valid && (registerFormpassword.controls.password.dirty || submitAttempt)"></ion-input>
             </ion-item>
+            <div *ngIf="registerFormpassword.get('password').hasError('required') && registerFormpassword.get('password').touched">
+                <p>Password is required</p>
+              </div>
             <ion-fab right bottom>
-                <button ion-fab mini color="info" type="submit"><ion-icon ios="ios-arrow-round-forward" md="md-arrow-round-forward"></ion-icon></button>
+                <button ion-fab mini color="info" type="submit" [disabled]="registerFormpassword.invalid"><ion-icon ios="ios-arrow-round-forward" md="md-arrow-round-forward"></ion-icon></button>
             </ion-fab>
             </form>
           </div>
 
           <div *ngIf="code">
-              <form [formGroup]="registerForm" (ngSubmit)="goRegister(registerForm.value)">
+              <form [formGroup]="registerFormcode" (ngSubmit)="goRegister(registerFormcode.value)">
               <br><br><br><br><br><br><br><br>
                 <a class="a"><b>Enter Confirmation Code:</b></a>
             
               <ion-item>
-                <ion-input formControlName="code" type="text"></ion-input><br>
+                <ion-input formControlName="code" type="text"[class.invalid]="!registerFormcode.controls.code.valid && (registerFormcode.controls.code.dirty || submitAttempt)"></ion-input><br>
                 {{verifyCode}}
               </ion-item>
+              <div *ngIf="registerFormcode.get('code').hasError('required') && registerFormcode.get('code').touched">
+                  <p>Code is required</p>
+                </div>
               <ion-fab right bottom>
-                  <button ion-fab mini color="info" type="submit" ><ion-icon ios="ios-arrow-round-forward" md="md-arrow-round-forward"></ion-icon></button>
+                  <button ion-fab mini color="info" type="submit" [disabled]="registerFormcode.invalid"><ion-icon ios="ios-arrow-round-forward" md="md-arrow-round-forward"></ion-icon></button>
               </ion-fab>
               </form>
           </div>

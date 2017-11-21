@@ -18,6 +18,7 @@ import { LocalStorageService } from 'ng2-webstorage';
   templateUrl: 'set-time-appointment.html',
 })
 export class SetTimeAppointmentPage {
+  j: string;
   disabledProceed: boolean = true;
   name2: any;
   name1: any;
@@ -69,7 +70,18 @@ export class SetTimeAppointmentPage {
     // this.name = this.applicationDetail[0].treatmentName.ParameterValue
     // this.name1 = this.applicationDetail[1].treatmentName.ParameterValue
     // this.name2 = this.applicationDetail[2].treatmentName.ParameterValue
-    
+    let a = this.applicationDetail.length
+    console.log("a",a)
+    this.j = ""
+    for (let b = 0; b<a ;b++){
+      let c = this.applicationDetail[b].treatmentName.ParameterValue
+      this.j += c + ","
+      console.log("c",this.j)
+
+    }
+
+   this.name =this.j
+   console.log("namessssss",this.name)
     
     console.log("nama",this.name)
     this.form = {

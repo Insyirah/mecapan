@@ -8,6 +8,7 @@ import { BookingDetailsPage } from '../booking-details/booking-details';
   templateUrl: 'about.html'
 })
 export class AboutPage {
+  bookingCompletedStatus: any;
   bookingRejectStatus: Array<any>;
   form: {};
   applicationId: any;
@@ -55,6 +56,7 @@ export class AboutPage {
     // this.getBookingActivity()
     this.getRecentBookingActivity()
     this.getRejectedBookingActivity()
+    this.getCompletedBookingActivity()
   }
 
   getRecentBookingActivity(){
@@ -82,9 +84,9 @@ export class AboutPage {
   }
 
   getCompletedBookingActivity(){
-    this.serviceApi.getRejectedBookingActivity().subscribe(data => {
-      this.bookingRejectStatus = data.rejectedBooking
-    console.log("data rejected",this.bookingRejectStatus)
+    this.serviceApi.getCompletedBookingActivity().subscribe(data => {
+      this.bookingCompletedStatus = data.completedBooking
+    console.log("data complete",data.completedBooking)
     }) 
   }
 

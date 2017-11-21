@@ -259,6 +259,14 @@ getRejectedBookingActivity(): Observable<any> {
     );
 }
 
+getCompletedBookingActivity(): Observable<any> {
+  let url = this.host + 'Dashboard/User/api/GetCompletedBookingActivity/'+this.userId
+  console.log(url)
+  return this.http.get(url)
+    .map((res: Response) => res.json()
+    );
+}
+
 getBookingCalendar(form): Observable<any> {//homepage(notDone)
   let url = this.host + 'UserBooking/api/GetBookingCalender/'+form.agentBranchID
   console.log(url)

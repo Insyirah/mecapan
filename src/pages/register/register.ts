@@ -48,7 +48,7 @@ export class RegisterPage {
       fullName: ['', Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z \/\']+')])],
     });
     this.registerFormuserName = this.fb.group({
-       userName: ['', Validators.compose([Validators.required, Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,16}$')])],    
+       userName: ['', Validators.required],    
     });
     this.registerFormemail = this.fb.group({
        email:['', Validators.compose([Validators.required, Validators.pattern('^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$')])],
@@ -194,10 +194,15 @@ export class RegisterPage {
     }
 
     console.log("form",this.form)
-    this.serviceApi.postRegister(this.form).subscribe(x => {
-      console.log("ini",x)
+    this.serviceApi.postRegister(this.form).subscribe(data => {
+      console.log("ini",data)
+      if(data.status=="error"){
+        alert("your code might be wrong,please try again")
+      }else{
+        this.navCtrl.push(StartPage)
+      }
      })
-    this.navCtrl.push(StartPage)
+    
   }
 
 

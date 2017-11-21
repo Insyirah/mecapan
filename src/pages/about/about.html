@@ -46,13 +46,12 @@
         </ion-item>
     </ion-slide>
     <ion-slide>
-        <ion-item no-padding  *ngFor="let complete of completed">
+        <ion-item no-padding  *ngFor="let status of bookingCompletedStatus">
             <ion-thumbnail item-left>
                 <ion-img src="assets/img/11.jpg" class="defaultStore"></ion-img>
             </ion-thumbnail>
-            <h2>{{complete.name}}</h2>
-            <p>{{complete.treatment}}<ion-icon style="padding-left:30%;color:darkgreen;zoom:2.0;"ios="ios-checkmark-circle" md="md-checkmark-circle"></ion-icon></p>
-            <p>{{complete.date}}</p>
+            <h2>{{status.storeName}}</h2>
+            <p>{{status.appointmentDate| date: 'dd/MM/yyyy'}}</p>
             </ion-item>
     </ion-slide>
 

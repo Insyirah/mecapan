@@ -119,7 +119,7 @@ export class ListprovidersPage {
       {  
         this.providers = x 
         console.log("dataProvider",this.providers)
-        this.loading.dismiss()
+            this.loading.dismiss()
       })
     
   }
@@ -149,95 +149,47 @@ export class ListprovidersPage {
 
   filterType() {
     console.log("c")
-    let alert = this.alertCtrl.create({
-      title: 'Please select:',
-      inputs: [
-        {
-          type: 'radio',
-          label: 'Rating',
-          value: 'Rating',
-          checked: true
-        },
-        {
-          type: 'radio',
-          label: 'Price low to high',
-          value: 'Pricelowtohigh'
-        },
-        {
-          type: 'radio',
-          label: 'Price high to low',
-          value: 'Pricehightolow'
-        },
-        {
-          type: 'radio',
-          label: 'Discount',
-          value: 'Discount'
-        }
-      ],
-      buttons: [
-
-        {
-          text: "Cancel",
-          handler: data => {
-            console.log("Cancel clicked");
+    let alert = this
+      .alertCtrl
+      .create({
+        title: 'Please select:',
+        inputs: [
+          {
+            type: 'radio',
+            label: 'Rating',
+            value: 'Rating',
+            checked: true
+          }, {
+            type: 'radio',
+            label: 'Price low to high',
+            value: 'Price low to high'
+          }, {
+            type: 'radio',
+            label: 'Price high to low',
+            value: 'Price high to low'
+          }, {
+            type: 'radio',
+            label: 'Discount',
+            value: 'Discount'
           }
-        },
-        {
-          text: "Ok",
-          handler: data => {
-            this.searchType = data
-            console.log(data)
+        ],
+        buttons: [
 
-            this.sortProvider(data)
+          {
+            text: "Cancel",
+            handler: data => {
+              console.log("Cancel clicked");
+            }
+          }, {
+            text: "Ok",
+            handler: data => {
+              this.searchType = data
+              console.log(data)
+              // this.goSearch()
+            }
           }
-
-        }
-      ]
-    });
+        ]
+      });
     alert.present()
-  }
-
-  sortProvider(sortType) {
-    switch (sortType) {
-      case "Rating":
-        {
-          let v = this.providers
-          console.log(this.providers)
-          this.providers = v.sort((X, Y) => { return X.ratingSign - Y.ratingSign })
-        }
-        break
-        ;
-      case "Pricelowtohigh":
-        {
-          let q = this.providers
-          this.providers = q.sort((X, Y) => { return Y.agentBranchID - X.agentBranchID })
-          console.log("lowHigh",this.providers)
-        }
-        case "Pricehightolow":
-        {
-          let q = this.providers
-          console.log(this.providers)
-          this.providers = q.sort((X, Y) => { return X.agentBranchID - Y.agentBranchID })
-          console.log("highLow",this.providers)
-        }
-        break;
-        case "Discount":
-        {
-          let q = this.providers
-          this.providers = q.sort((X, Y) => { return X.discountPercent - Y.discountPercent })
-          console.log(this.providers)
-        }
-        break;
-      // case 4:
-      //   day = "Thursday";
-      //   break;
-      // case 5:
-      //   day = "Friday";
-      //   break;
-      // case 6:
-      //   day = "Saturday";
-    }
-
-
   }
 }

@@ -8,6 +8,7 @@ import {Geolocation} from '@ionic-native/geolocation';
 @IonicPage()
 @Component({selector: 'page-treatmentproviders', templateUrl: 'treatmentproviders.html'})
 export class TreatmentprovidersPage {
+  reviewDetail: any;
   banner: any;
   disabledProceed: boolean = true;
   lang: any;
@@ -53,7 +54,7 @@ export class TreatmentprovidersPage {
       {
         id: "first",
         title: "First Slide"
-      }, { //benda boleh tulis kat sini kan haha
+      }, { 
         id: "second",
         title: "Second Slide"
       }, {
@@ -69,6 +70,7 @@ export class TreatmentprovidersPage {
     this.list2 = this.navParams.get("treatmentProId")
     this.getListTreatment()
     this.getCurrentLocation()
+    this.postReview()
 
   }
 
@@ -189,5 +191,20 @@ export class TreatmentprovidersPage {
     })
  
   }
+
+  postReview() {
+   alert()
+    this.form = {
+      agentBranchID: this.list1
+      // treatmentProvidedID: this.list2
+    }
+    console.log("form", this.form)
+    this.serviceApi.getAgentReview(this.form).subscribe(data => {
+      this.reviewDetail = data.detailList//ble data array tu dlm object
+      console.log("review",data)
+      console.log("Detail Review", this.reviewDetail)
+    })
+  }
+
 
 }

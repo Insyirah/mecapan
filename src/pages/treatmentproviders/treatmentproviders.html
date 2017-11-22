@@ -92,19 +92,28 @@
       <br>
       <hr>
       <!-- <span style="font-size:80%"><b>Hair</b></span> -->
-              <ion-item *ngFor="let treatment of treatmentList;let i = index" style="white-space: normal;" text-wrap>
-                <ion-label>
-                <b> {{treatment.treatmentName}} </b><br>
-                <a><b>Rp&nbsp;{{treatment.price}} k</b></a>
-                <a class="hours"><b>{{treatment.treatmentDuration}} min</b></a>
-                </ion-label>
-                <ion-checkbox [(ngModel)]="checkedItems[i]" (ionChange)="choosenTreatment(treatment.treatmentID,checkedItems[i],treatment.agentDiscountID,treatment.agentBranchID)" color="primary"></ion-checkbox>
-                </ion-item>
+        <ion-item *ngFor="let treatment of treatmentList;let i = index" style="white-space: normal;" text-wrap>
+          <ion-label>
+          <b> {{treatment.treatmentName}} </b><br>
+          <a><b>Rp&nbsp;{{treatment.price}} k</b></a>
+          <a class="hours"><b>{{treatment.treatmentDuration}} min</b></a>
+          </ion-label>
+          <ion-checkbox [(ngModel)]="checkedItems[i]" (ionChange)="choosenTreatment(treatment.treatmentID,checkedItems[i],treatment.agentDiscountID,treatment.agentBranchID)" color="primary"></ion-checkbox>
+        </ion-item>
       <button (click)="bookAppointment()" [disabled]='disabledProceed' ion-button color="primary" type="submit"  round full margin-top>Make Appointment</button>
     </ion-slide>
 
     <ion-slide>
-      review
+      <br><br>
+      <span style="font-size: 90%">Service Review</span>
+      <hr>
+      <br>
+      <ion-item *ngFor="let review of reviewDetail;let i = index" style="white-space: normal;" text-wrap>
+        <ion-label>
+          <b> {{review.fullName}} </b><br>
+          <a><b>Rp&nbsp;{{review.review}} k</b></a>
+        </ion-label>
+      </ion-item>
     </ion-slide>
   </ion-slides>
 

@@ -42,7 +42,7 @@
       </form>
     </div>
 
-    <div *ngIf="userName">
+    <div *ngIf="username">
         
         <form [formGroup]="registerFormuserName" (ngSubmit)="goUserName(registerFormuserName.value)">
         <br><br><br><br><br><br><br><br>
@@ -60,7 +60,7 @@
         </form>
       </div>
 
-      <div *ngIf="email">
+      <div *ngIf="Email">
           <form [formGroup]="registerFormemail" (ngSubmit)="goEmail(registerFormemail.value)">
           <br><br><br><br><br><br><br><br>
             <a class="a"><b>Enter Your Email</b></a>

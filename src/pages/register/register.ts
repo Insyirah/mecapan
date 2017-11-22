@@ -28,12 +28,14 @@ export class RegisterPage {
   form: {};
   fullName: any;
   numberPhone: any;
+  userName : any
+  email :any
   // submitFormRegister: { phoneNumber: string; fullName: string; email: string; userName: string; password: string; };
   
   code: boolean = false;
   pw: boolean = false;
-  email: boolean = false;
-  userName: boolean = false;
+  Email: boolean = false;
+  username: boolean = false;
   registerFormphoneNumber: FormGroup;
   phoneNo: boolean = true;
   namaPenuh: boolean = false;
@@ -72,12 +74,13 @@ export class RegisterPage {
         this.phoneNo = false
         break
       case "userName":
-        this.userName = true;
+        this.username = true;
         this.phoneNo = false
         break
       case "email":
-        this.email = true;
+        this.Email = true;
         this.phoneNo = false
+        
         break
       case "pw":
         this.pw = true;

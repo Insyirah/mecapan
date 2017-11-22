@@ -44,16 +44,16 @@
         </ion-col>
       </ion-row>
 
-      <div *ngIf="!searching">
+      <!-- <div *ngIf="!searching">
         <br>
         <br>
         <ion-spinner name="crescent"></ion-spinner>
-      </div>
+      </div> -->
 
       <div>
         <ion-item no-padding *ngFor="let provider of providers" (click)="goTreatment(provider.agentBranchID,provider.treatmentProvidedID)">
           <ion-thumbnail item-left>
-              <img src="{{provider.storeImage}}">
+              <img src="data:image/jpeg;base64,{{provider.storeImage}}">
           </ion-thumbnail>
           <h2 class="name">{{provider.storeName}}</h2>
           <p class="name2">

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, AlertController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Storage } from '@ionic/storage';
 import { StartPage } from '../start/start';
@@ -18,6 +18,7 @@ import { ServiceApiProvider } from '../../providers/service-api/service-api';
   templateUrl: 'register.html',
 })
 export class RegisterPage {
+ 
   registerFormsfullName: FormGroup;
   registerFormuserName: FormGroup;
   registerFormemail: FormGroup;
@@ -40,7 +41,7 @@ export class RegisterPage {
  
   planCase: any;
 
-  constructor(private serviceApi : ServiceApiProvider,private storage: LocalStorageService,private fb: FormBuilder,public navCtrl: NavController, public navParams: NavParams,public modalCtrl: ModalController) {
+  constructor(private alertCtrl: AlertController,private serviceApi : ServiceApiProvider,private storage: LocalStorageService,private fb: FormBuilder,public navCtrl: NavController, public navParams: NavParams,public modalCtrl: ModalController) {
     this.registerFormphoneNumber = this.fb.group({
       phoneNumber: ['', Validators.compose([Validators.required, Validators.pattern('([0-9]{10,11})')])],
     });
@@ -90,24 +91,31 @@ export class RegisterPage {
     }
   }
 
+  private presentAlert(text) {
+    let alert = this.alertCtrl.create({
+      subTitle: text,
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+
   goPhoneNumber(x){
-    // this.submitFormRegister.phoneNumber = x
-    // this.p = x.phoneNumber
-    
+
     console.log(x.phoneNumber)
 
-    this.serviceApi.getVerificationCode(x.phoneNumber).subscribe(data=> {
-       
-       this.verifyCode= data
-       console.log("vc",this.verifyCode)
-       let myModal = this.modalCtrl.create(RegisterPage, {
-        phoneNumber:x.phoneNumber,
-        planCase:"fullName",
-        vCode:this.verifyCode
-      });//ni 
-      myModal.present();
+    this.serviceApi.getCheckPhoneNumber(x.phoneNumber).subscribe(data=> {
+      console.log(data)
+      if(data.checkPhoneNo=='NotOk'){
+        this.presentAlert('This phone number has been used.Please try again');        
+      }else{
+        let myModal = this.modalCtrl.create(RegisterPage, {
+          phoneNumber:x.phoneNumber,
+          planCase:"fullName",
+          vCode:this.verifyCode
+        });//ni 
+        myModal.present();
+      }
     })
-  
   }
 
   goFullName(x){
@@ -127,30 +135,49 @@ export class RegisterPage {
     this.numberPhone = this.navParams.get("phoneNumber")
     this.fullName = this.navParams.get("fullName")
     this.verifyCode = this.navParams.get("vCode")
-    let myModal = this.modalCtrl.create(RegisterPage, {
-      userName: x.userName,
-      phoneNumber:this.numberPhone,
-      fullName:this.fullName,
-      planCase:"email",
-      vCode:this.verifyCode
-    });//then this
-    myModal.present();
+
+    this.serviceApi.getCheckUserName(x.userName).subscribe(data=> {
+      console.log(data)
+      if(data.checkUsername=='NotOk'){
+        this.presentAlert('This userName has been used.Please try again');        
+      }else{
+        let myModal = this.modalCtrl.create(RegisterPage, {
+          userName: x.userName,
+          phoneNumber:this.numberPhone,
+          fullName:this.fullName,
+          planCase:"email",
+          vCode:this.verifyCode
+        });//then this
+        myModal.present();
+      }
+    })
+    
   }
 
   goEmail(x){
+    console.log("email",x)
     this.numberPhone = this.navParams.get("phoneNumber")
     this.fullName = this.navParams.get("fullName")
     this.userName = this.navParams.get("userName")
-    this.verifyCode = this.navParams.get("vCode")    
-    let myModal = this.modalCtrl.create(RegisterPage, {
-      phoneNumber:this.numberPhone,
-      fullName:this.fullName,
-      userName:this.userName,
-      email: x.email,
-      planCase:"pw",
-      vCode:this.verifyCode
-    });
-    myModal.present();
+    this.verifyCode = this.navParams.get("vCode")   
+    
+    this.serviceApi.getCheckEmail(x.email).subscribe(data=> {
+      console.log(data)
+      if(data.checkPhoneNo=='NotOk'){
+        this.presentAlert('This email has been used.Please try again');        
+      }else{
+        let myModal = this.modalCtrl.create(RegisterPage, {
+          phoneNumber:this.numberPhone,
+          fullName:this.fullName,
+          userName:this.userName,
+          email: x.email,
+          planCase:"pw",
+          vCode:this.verifyCode
+        });
+        myModal.present();
+      }
+    })
+    
     // console.log(x.email)
   }
 

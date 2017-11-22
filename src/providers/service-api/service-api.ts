@@ -75,8 +75,32 @@ export class ServiceApiProvider {
       .map((res: Response) => res.json());
   }
 
-  getVerificationCode(phoneNumber): Observable<any[]> {//registerpage(done)
-    let url = this.host + 'global/verificationcode/api/getverificationcode/' + phoneNumber;
+  // getVerificationCode(phoneNumber): Observable<any[]> {//registerpage(done)
+  //   let url = this.host + 'global/verificationcode/api/getverificationcode/' + phoneNumber;
+  //   console.log(url)
+  //   return this.http.get(url)
+  //     .map((res: Response) => res.json()
+  //     );
+  // }
+
+  getCheckPhoneNumber(phoneNumber): Observable<any>{
+    let url = this.host + 'Login/Register/api/GetCheckPhoneNo/' + phoneNumber;
+    console.log(url)
+    return this.http.get(url)
+      .map((res: Response) => res.json()
+      );
+  }
+
+  getCheckEmail(email): Observable<any>{
+    let url = this.host + 'Login/Register/api/GetCheckEmail/' + email;
+    console.log(url)
+    return this.http.get(url)
+      .map((res: Response) => res.json()
+      );
+  }
+
+  getCheckUserName(userName): Observable<any>{
+    let url = this.host + 'Login/Register/api/GetCheckUsername/' + userName;
     console.log(url)
     return this.http.get(url)
       .map((res: Response) => res.json()

@@ -38,28 +38,30 @@
             <ion-img src="assets/1.jpg" class="defaultStore"></ion-img>
           </ion-thumbnail>
           <h2>{{status.storeName}}</h2>
-          <p>{{status.appointmentDate| date: 'dd/MM/yyyy'}}&nbsp;&nbsp;<b><h4>The appointment has been cancelled.</h4></b></p> 
+          <h3>{{status.treatmentDetailName}}</h3>  
+          <h3>{{status.appointmentDate| date: 'dd/MM/yyyy'}}</h3>
+         
+          <h4 style="color: red" *ngIf="status.applicationStatusName=='Canceled'">The appointment has been cancelled.</h4>
+
         </ion-item>
     </ion-slide>
     <ion-slide>
-        <ion-item no-padding  *ngFor="let complete of completed">
+        <ion-item no-padding  *ngFor="let status of bookingCompletedStatus">
             <ion-thumbnail item-left>
                 <ion-img src="assets/img/11.jpg" class="defaultStore"></ion-img>
             </ion-thumbnail>
-            <h2>{{complete.name}}</h2>
-            <p>{{complete.treatment}}<ion-icon style="padding-left:30%;color:darkgreen;zoom:2.0;"ios="ios-checkmark-circle" md="md-checkmark-circle"></ion-icon></p>
-            <p>{{complete.date}}</p>
+            <h2>{{status.storeName}}</h2>
+            <p>{{status.appointmentDate| date: 'dd/MM/yyyy'}}</p>
             </ion-item>
     </ion-slide>
 
     <ion-slide>
-      <ion-item no-padding  *ngFor="let reject of rejected">
+      <ion-item no-padding  *ngFor="let status of bookingRejectStatus">
           <ion-thumbnail item-left>
               <ion-img src="assets/img/11.jpg" class="defaultStore"></ion-img>
           </ion-thumbnail>
-          <h2>{{reject.name}}</h2>
-          <p>{{reject.treatment}}</p>
-          <p>{{reject.date}}</p>
+          <h2>{{status.storeName}}</h2>
+          <p>{{status.appointmentDate| date: 'dd/MM/yyyy'}}</p>
           </ion-item>
   </ion-slide>
   </ion-slides>

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { ServiceApiProvider } from '../../providers/service-api/service-api';
+import { AboutPage } from '../about/about';
 
 /**
  * Generated class for the BookingDetailsPage page.
@@ -56,8 +57,9 @@ export class BookingDetailsPage {
       console.log(data)
       if(data.status == "success"){
         this.presentAlert('Your appointment has been canceledd');
+        this.navCtrl.setRoot(AboutPage)
       }else{
-        this.presentAlert('Service Error');
+        this.presentAlert('Service Errors');
       }
     })
   }

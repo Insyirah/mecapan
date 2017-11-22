@@ -118,7 +118,8 @@ export class ListprovidersPage {
     this.search.subscribe(x => 
       {  
         this.providers = x 
-        this.loading.dismiss()
+        console.log("dataProvider",this.providers)
+            this.loading.dismiss()
       })
     
   }
@@ -184,11 +185,56 @@ export class ListprovidersPage {
             handler: data => {
               this.searchType = data
               console.log(data)
-              // this.goSearch()
+            this.sortProvider(data)
             }
           }
         ]
       });
+      
     alert.present()
+    
+  }
+
+  sortProvider(sortType) {
+    switch (sortType) {
+      case "Rating":
+        {
+          let v = this.providers
+          console.log(this.providers)
+          this.providers = v.sort((X, Y) => { return X.ratingSign - Y.ratingSign })
+        }
+        break;
+      case "Price low to high":
+        {
+          let lh = this.providers
+          this.providers = lh.sort((X, Y) => { return X.priceRangeSign - Y.priceRangeSign })
+          console.log("lowHigh",this.providers)
+        }
+        break;
+        case "Price high to low":
+        {
+          let hl = this.providers
+          this.providers = hl.sort((X, Y) => { return Y.priceRangeSign - X.priceRangeSign })
+          console.log("highLow",this.providers)
+        }
+        break;
+        case "Discount":
+        {
+          let d = this.providers
+          this.providers = d.sort((X, Y) => { return X.discountPercent - Y.discountPercent })
+          console.log(this.providers)
+        }
+        break;
+      // case 4:
+      //   day = "Thursday";
+      //   break;
+      // case 5:
+      //   day = "Friday";
+      //   break;
+      // case 6:
+      //   day = "Saturday";
+    }
+
+
   }
 }

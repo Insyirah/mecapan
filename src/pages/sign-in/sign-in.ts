@@ -25,14 +25,17 @@ export class SignInPage {
   passwordForm: boolean = false;
   usernameForm: boolean = false;
   planCase: any;
-  logInForm: FormGroup;
+  logInFormname: FormGroup;
+  logInFormpassword: FormGroup;
   submitForm: { email: any; phoneNumber: string; userName: string; password: any; type: number; };
   ph: boolean;
   emails: boolean;
   constructor(public events: Events,private storage: LocalStorageService,private serviceApi : ServiceApiProvider,private view: ViewController, private fb: FormBuilder, public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController) {
-    this.logInForm = this.fb.group({
-      name: [''],
-      password: ['', Validators.required]
+    this.logInFormname = this.fb.group({
+      name: ['', Validators.compose([Validators.required])],
+    });
+    this.logInFormpassword = this.fb.group({
+      password: ['', Validators.compose([Validators.required, Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,16}$')])]
     });
   }
   
@@ -67,7 +70,6 @@ export class SignInPage {
   goSignIn(form) {
     form.name = this.navParams.get("name");
     // this.FinalForm = this.SubmitLogIn(form)
-
     this.form={
       username : form.name,
       password : form.password,
@@ -88,6 +90,10 @@ export class SignInPage {
       }else if(data.status=="error"){
         console.log(data)
         alert("your detail might be wrong")
+        let myModal = this.modalCtrl.create(SignInPage, {
+          planCase: "userName"
+        });
+        myModal.present();
       }else{
         alert("error")
       }  

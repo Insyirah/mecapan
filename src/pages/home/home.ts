@@ -39,7 +39,9 @@ export class HomePage {
       this.hairTreatment = treatmentData.HairMasterData
       this.bodyTreatment = treatmentData.BodyMasterData
       this.loading.dismiss()
-
+      console.log("facetreatment", this.faceTreatment)
+      console.log("hairTreatment", this.hairTreatment)
+      console.log("bodyTreatment", this.bodyTreatment)
     } else {
       this.getAllTreatment()
     }

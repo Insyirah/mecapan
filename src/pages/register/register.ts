@@ -163,7 +163,7 @@ export class RegisterPage {
     
     this.serviceApi.getCheckEmail(x.email).subscribe(data=> {
       console.log(data)
-      if(data.checkPhoneNo=='NotOk'){
+      if(data.checkEmail=='NotOk'){
         this.presentAlert('This email has been used.Please try again');        
       }else{
         let myModal = this.modalCtrl.create(RegisterPage, {

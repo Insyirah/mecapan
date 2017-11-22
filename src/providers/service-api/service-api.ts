@@ -281,11 +281,12 @@ getAgentBranchAbout(form): Observable<any> {//homepage(notDone)
   );
 }
 
-
-
-
-
-
+getAgentReview(form): Observable<any> {
+  let url = this.host + 'UserApplication/api/GetAgentReview/' +form.agentBranchID
+  console.log(url)
+  return this.http.get(url).map((res: Response) => res.json()
+  );
+}
 
 
 

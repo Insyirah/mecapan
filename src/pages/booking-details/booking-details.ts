@@ -59,7 +59,7 @@ export class BookingDetailsPage {
         this.presentAlert('Your appointment has been canceledd');
         this.navCtrl.setRoot(AboutPage)
       }else{
-        this.presentAlert('Service Error');
+        this.presentAlert('Service Errors');
       }
     })
   }

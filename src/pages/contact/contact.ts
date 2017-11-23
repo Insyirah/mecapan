@@ -32,10 +32,10 @@ export class ContactPage implements OnInit {
     console.log("user", this.user.listDetail)
     this.profile = fb.group({
       fullName: [''],
-      dateOfBirth: [''],
+      birth: [''],
       email: [''],
       gender: [''],
-      phoneNumber: ['']
+      phoneNo: ['']
     });
 
 
@@ -53,10 +53,10 @@ export class ContactPage implements OnInit {
       // console.log(data.status)
       this.userProfile = data
       this.profile.controls.fullName.setValue(this.userProfile.detail.fullName)
-      this.profile.controls.dateOfBirth.setValue(this.userProfile.detail.dateOfBirth)
+      this.profile.controls.birth.setValue(this.userProfile.detail.birth)
       this.profile.controls.email.setValue(this.userProfile.detail.email)
       this.profile.controls.gender.setValue(this.userProfile.detail.gender)
-      this.profile.controls.phoneNumber.setValue(this.userProfile.detail.phoneNumber)
+      this.profile.controls.phoneNo.setValue(this.userProfile.detail.phoneNo)
       console.log("profile", this.userProfile)
       console.log("fullName", this.userProfile.detail.fullName)
     })
@@ -71,16 +71,16 @@ export class ContactPage implements OnInit {
     this.form = {
       userID: this.userId,
       fullName: this.update.fullName,
-      dateOfBirth: this.update.birthDate,
+      birth: this.update.birth,
       email: this.update.email,
       gender: this.update.gender,
       phoneNumber: this.update.phoneNumber
     }
 
     console.log("updateForm", this.form)
-    this.serviceApi.postUpdateDetail(this.form).subscribe(data => {
-      console.log(data)
-    })
+    // this.serviceApi.postUpdateDetail(this.form).subscribe(data => {
+    //   console.log(data)
+    // })
 
   }
 

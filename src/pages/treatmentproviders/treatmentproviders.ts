@@ -108,7 +108,6 @@ export class TreatmentprovidersPage {
        this.lang = this.agentDetail.longitude             
        console.log("agent",this.agentDetail.storeName)
        console.log("banners",this.agentBanner)
-       console.log("banner",this.banner)
       })
     }
 
@@ -193,7 +192,7 @@ export class TreatmentprovidersPage {
   }
 
   postReview() {
-   alert()
+  
     this.form = {
       agentBranchID: this.list1
       // treatmentProvidedID: this.list2

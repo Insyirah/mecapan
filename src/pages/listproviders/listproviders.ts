@@ -69,12 +69,6 @@ export class ListprovidersPage {
     // this.getListProvider()
   }
 
-  // searchLogic(data) {   if (this.firstOnly == false) {     this.firstOnly =
-  // true     this.getListProvider()   } else {     this.searching = true
-  // this.providers = data     console.log(this.providers)
-  // this.providers.length == 0 ? this.noProvider = false : this.noProvider = true
-  //   } } goSearch() {//for yg filter type
-  // this.serviceApi.goSearch(this.seachInput, this.searchType) }
   goFilter(fil) {
     this.searchId = fil.searchBy
     console.log("filters", this.searchId)
@@ -118,7 +112,7 @@ export class ListprovidersPage {
     this.search.subscribe(x => 
       {  
         this.providers = x 
-        console.log("dataProvider",this.providers[0].storeImage)
+        // console.log("dataProvider",this.providers[0].storeImage)
         this.loading.dismiss()
       })
     

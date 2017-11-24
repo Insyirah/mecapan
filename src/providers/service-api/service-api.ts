@@ -149,8 +149,8 @@ export class ServiceApiProvider {
           );
     }
 
-  postUpdateDetail(form): Observable<any> {//contactpage(notDone)
-    let url = this.host + 'Dashboard/User/api/PostUpdateDetail'
+  postUpdateUserProfile(form): Observable<any> {//contactpage(notDone)
+    let url = this.host + 'Dashboard/User/api/PostUpdateUserProfile'
     console.log(url)
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
@@ -309,6 +309,25 @@ getAgentReview(form): Observable<any> {
   return this.http.get(url).map((res: Response) => res.json()
   );
 }
+
+getForgotPasswordCode(form): Observable<any> {
+  let url = this.host + 'Login/Login/api/SendForgotPasswordCode/' + form.sendTo + '/' + form.forgotPasswordByID
+  console.log(url)
+  return this.http.get(url).map((res: Response) => res.json()
+  );
+}
+
+postForgotPassword(form): Observable<any> {
+  let url = this.host + 'Login/Login/api/PostForgotPassword'
+  console.log(url)
+  let headers = new Headers({ 'Content-Type': 'application/json' });
+  let options = new RequestOptions({ headers: headers });
+  return this.http.post(url, form, options)
+    .map((res: Response) => res.json());
+}
+
+
+
 
 
 

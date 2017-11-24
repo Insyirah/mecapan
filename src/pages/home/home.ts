@@ -14,11 +14,6 @@ export class HomePage {
   bodyTreatment: Array<any>;
   hairTreatment: Array<any>;
   faceTreatment: Array<any>;
-  providerId: any;
-  form: {};
-  treatmentProvidedDetailID: number;
-  avatars: any[];
-  ava: any[];
 
   constructor(private storage: LocalStorageService, public loadingCtrl: LoadingController, private serviceApi: ServiceApiProvider, public navCtrl: NavController) {
     this.loading = this.loadingCtrl.create({
@@ -39,27 +34,26 @@ export class HomePage {
       this.hairTreatment = treatmentData.HairMasterData
       this.bodyTreatment = treatmentData.BodyMasterData
       this.loading.dismiss()
-      console.log("facetreatment", this.faceTreatment)
-      console.log("hairTreatment", this.hairTreatment)
-      console.log("bodyTreatment", this.bodyTreatment)
+      // console.log("facetreatment", this.faceTreatment)
+      // console.log("hairTreatment", this.hairTreatment)
+      // console.log("bodyTreatment", this.bodyTreatment)
     } else {
       this.getAllTreatment()
     }
-
   }
 
 
   getAllTreatment() {
     this.serviceApi.getTreatmentMasterData().subscribe(data => {
-      console.log(data)
       this.faceTreatment = data.FaceMasterData
       this.hairTreatment = data.HairMasterData
       this.bodyTreatment = data.BodyMasterData
-      console.log("facetreatment", this.faceTreatment)
-      console.log("hairTreatment", this.hairTreatment)
-      console.log("bodyTreatment", this.bodyTreatment)
-      this.loading.dismiss()
+      // console.log("facetreatment", this.faceTreatment)
+      // console.log("hairTreatment", this.hairTreatment)
+      // console.log("bodyTreatment", this.bodyTreatment)
       this.storage.store("TreatmentMasterData", data)
+      this.loading.dismiss()
+
     })
   }
 

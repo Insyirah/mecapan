@@ -2,9 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Platform, NavController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-
 import { TabsPage } from '../pages/tabs/tabs';
-import {StartPage} from '../pages/start/start';
+import { StartPage } from '../pages/start/start';
 import { LocalStorageService } from 'ng2-webstorage';
 import { HomePage } from '../pages/home/home';
 
@@ -13,13 +12,10 @@ import { HomePage } from '../pages/home/home';
 })
 export class MyApp implements OnInit {
   user: any;
-  rootPage:any
-    
-   @ViewChild('myNav') nav: NavController
-  // public rootPage: any = TabsPage;
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,private storage: LocalStorageService) {
-    
-  //  this.rootPage = StartPage
+  rootPage: any
+
+  @ViewChild('myNav') nav: NavController
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private storage: LocalStorageService) {
 
     platform.ready().then(() => {
       statusBar.styleDefault();
@@ -27,15 +23,15 @@ export class MyApp implements OnInit {
     });
   }
 
-  ngOnInit():void{
+  ngOnInit(): void {
+    
     this.user = this.storage.retrieve("user")
-    console.log("app",this.user)
-    if(this.user!=null){
-      if(this.user.status=="success"){
+    if (this.user != null) {
+      if (this.user.status == "success") {
         this.rootPage = TabsPage
       }
-    }else {
+    } else {
       this.rootPage = StartPage
-  }
+    }
   }
 }

@@ -7,56 +7,56 @@
 </ion-header>
 
 <ion-content>
-    <div padding text-center >
-        <!-- <img src="{{pathForImage(lastImage)}}" class="profPic" [hidden]="lastImage === null"> -->
-        <img src="./assets/pic.jpg" class="profPic">
-        <ion-buttons start>
-          <button ion-button round color="primary"  (click)="presentActionSheet()">
+  <div padding text-center>
+    <!-- <img src="{{pathForImage(lastImage)}}" class="profPic" [hidden]="lastImage === null"> -->
+    <img src="./assets/pic.jpg" class="profPic">
+    <ion-buttons start>
+      <button ion-button round color="primary" (click)="presentActionSheet()">
               <span style="color:white" >Change Profile Picture</span>
             </button>
-        </ion-buttons>
-      </div>
-    <form [formGroup]="profile" (ngSubmit)=updateDetail(form) padding margin-top>
+    </ion-buttons>
+  </div>
+  <form [formGroup]="profile" (ngSubmit)=updateDetail(form) padding margin-top>
     <ion-item>
-        <!-- <ion-icon color="primary" ios="ios-person" md="md-person" item-left></ion-icon> -->
-        <ion-label stacked>Full Name</ion-label>
-        <ion-input name="fullName" formControlName="fullName" (ngModel)="userProfile.detail.fullName"></ion-input>
-      </ion-item>
-      <ion-item>
-        <!-- <ion-icon color="primary" name="mail" item-left></ion-icon> -->
-        <ion-label>Birth-Date</ion-label>
-        <ion-datetime displayFormat="MM/DD/YYYY" formControlName="fullName" [(ngModel)]="birth"></ion-datetime>
-      </ion-item>
-      <ion-item>
-        <ion-label stacked>Email</ion-label>
-        <ion-input name="email" formControlName="email"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label stacked>Gender</ion-label>
-        <ion-input name="gender" formControlName="gender"></ion-input>
-      </ion-item><br>
-      <ion-item>
-          <ion-label stacked>Phone Number</ion-label>
-          <ion-input name="phoneNo" formControlName="phoneNo" (ngModel)="userProfile.detail.phoneNo"></ion-input>
-      </ion-item>
-      <ion-item>
-          <ion-label floating>Skin Type</ion-label>
-          <ion-select (click)="setSkinType()" interface="popover" type="text">
-            <ion-option [value]="skinType.ParameterName" *ngFor="let skinType of skin">{{skinType.ParameterName}} </ion-option>
-          </ion-select>
-      </ion-item>
-      <ion-item>
-        <ion-label>Hair Length</ion-label>
-        <ion-select  >
-          <ion-option >20cm</ion-option>
-        </ion-select>
-      </ion-item>
-      <ion-item>
-          <button text-center ion-button round color="info" type="submit" class="update" full>Update Profile</button>
-      </ion-item>      
-    </form>
+      <!-- <ion-icon color="primary" ios="ios-person" md="md-person" item-left></ion-icon> -->
+      <ion-label stacked>Full Name</ion-label>
+      <ion-input name="fullName" formControlName="fullName" (ngModel)="userProfile.detail.fullName"></ion-input>
+    </ion-item>
+    <ion-item>
+      <!-- <ion-icon color="primary" name="mail" item-left></ion-icon> -->
+      <ion-label>Birth-Date</ion-label>
+      <ion-datetime displayFormat="MM/DD/YYYY" formControlName="fullName" [(ngModel)]="birth"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>Email</ion-label>
+      <ion-input name="email" formControlName="email"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>Gender</ion-label>
+      <ion-input name="gender" formControlName="gender"></ion-input>
+    </ion-item><br>
+    <ion-item>
+      <ion-label stacked>Phone Number</ion-label>
+      <ion-input name="phoneNo" formControlName="phoneNo" (ngModel)="userProfile.detail.phoneNo"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Skin Type</ion-label>
+      <ion-select (click)="setSkinType()" interface="popover" type="text">
+        <ion-option [value]="skinType.ParameterName" *ngFor="let skinType of skin |async">{{skinType.ParameterName}} </ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>Hair Length</ion-label>
+      <ion-select>
+        <ion-option>20cm</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <button text-center ion-button round color="info" type="submit" class="update" full>Update Profile</button>
+    </ion-item>
+  </form>
 
-      <ion-item>
-          <ion-icon (click)="logout()" ios="ios-exit" md="md-exit" color="primary" item-left></ion-icon><a>Sign Out</a>
-      </ion-item>
+  <ion-item>
+    <ion-icon (click)="logout()" ios="ios-exit" md="md-exit" color="primary" item-left></ion-icon><a>Sign Out</a>
+  </ion-item>
 </ion-content>

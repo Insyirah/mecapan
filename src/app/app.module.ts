@@ -24,7 +24,7 @@ import { Facebook } from '@ionic-native/facebook';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { GooglePlus } from '@ionic-native/google-plus';
-import { NgCalendarModule } from 'ionic2-calendar';
+//import { NgCalendarModule } from 'ionic2-calendar';
 import { ServiceApiProvider } from '../providers/service-api/service-api';
 import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
@@ -43,8 +43,9 @@ import { Geolocation } from '@ionic-native/geolocation';
     TabsPage,
     LogInMeccapanPage
   ],
-  imports: [CalendarModule,
-    NgCalendarModule,
+  imports: [
+    CalendarModule,
+   // NgCalendarModule,
     HttpClientModule,
     HttpModule,
     IonicStorageModule.forRoot(),
@@ -82,7 +83,6 @@ import { Geolocation } from '@ionic-native/geolocation';
     Facebook,
     ServiceApiProvider,
     Geolocation
-  
   ]
 })
 export class AppModule { }

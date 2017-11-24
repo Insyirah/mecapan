@@ -35,10 +35,9 @@ export class ContactPage implements OnInit {
       birth: [''],
       email: [''],
       gender: [''],
-      phoneNo: ['']
+      phoneNo: [''],
+      weight:['']
     });
-
-
   }
 
   ngOnInit(): void {
@@ -62,26 +61,8 @@ export class ContactPage implements OnInit {
     })
   }
 
-  updateDetail(form) {
-    this.update = this.profile.value
-    console.log("update", this.update)
-    this.userId = this.userProfile.detail.userID
-    console.log("id", this.userId)
-
-    this.form = {
-      userID: this.userId,
-      fullName: this.update.fullName,
-      birth: this.update.birth,
-      email: this.update.email,
-      gender: this.update.gender,
-      phoneNumber: this.update.phoneNumber
-    }
-
-    console.log("updateForm", this.form)
-    // this.serviceApi.postUpdateDetail(this.form).subscribe(data => {
-    //   console.log(data)
-    // })
-
+  chooseGender(gender){
+    console.log(gender)
   }
 
   getSkinType() {
@@ -93,7 +74,6 @@ export class ContactPage implements OnInit {
     this.serviceApi.getSkinType(this.form).subscribe(data => {
       this.storage.store("skinType", data)
     })
-
   }
 
   getHairType() {
@@ -108,10 +88,38 @@ export class ContactPage implements OnInit {
     })
   }
 
-  setSkinType() {
+  setSkinType(ParameterName) {
     this.skin = this.storage.retrieve("skinType")
     console.log("skin", this.skin)
+    console.log("p",ParameterName)
   }
+
+  updateUserDetail(form) {
+    this.update = this.profile.value
+    console.log("update", this.update)
+    this.userId = this.userProfile.detail.userID
+    console.log("id", this.userId)
+
+    this.form = {
+      userID: this.userId,
+      fullName: this.update.fullName,
+      dateOfBirth: this.update.birth,
+      email: this.update.email,
+      gender: this.update.gender,
+      phoneNo: this.update.phoneNumber,
+      skinTypeID:2,
+      hairLengthID:3,
+      weight:30
+    }
+
+    console.log("updateForm", this.form)
+    this.serviceApi.postUpdateUserProfile(this.form).subscribe(data => {
+      console.log(data)
+    })
+
+  }
+
+ 
 
   logout() {
     if (this.user.loginType == "Google") {

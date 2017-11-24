@@ -16,7 +16,7 @@
             </button>
         </ion-buttons>
       </div>
-    <form [formGroup]="profile" (ngSubmit)=updateDetail(form) padding margin-top>
+    <form [formGroup]="profile" (ngSubmit)=updateUserDetail(form) padding margin-top>
     <ion-item>
         <!-- <ion-icon color="primary" ios="ios-person" md="md-person" item-left></ion-icon> -->
         <ion-label stacked>Full Name</ion-label>
@@ -32,16 +32,19 @@
         <ion-input name="email" formControlName="email"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label stacked>Gender</ion-label>
-        <ion-input name="gender" formControlName="gender"></ion-input>
-      </ion-item><br>
-      <ion-item>
           <ion-label stacked>Phone Number</ion-label>
           <ion-input name="phoneNo" formControlName="phoneNo" (ngModel)="userProfile.detail.phoneNo"></ion-input>
       </ion-item>
       <ion-item>
+        <ion-label floating>Gender</ion-label>
+        <ion-select interface="popover"  (ionChange)="chooseGender($event)"  >
+          <ion-option value='Male'>Male</ion-option>
+          <ion-option value='Female'>Female</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
           <ion-label floating>Skin Type</ion-label>
-          <ion-select (click)="setSkinType()" interface="popover" type="text">
+          <ion-select (ionChange)="setSkinType($event)" interface="popover" type="text">
             <ion-option [value]="skinType.ParameterName" *ngFor="let skinType of skin">{{skinType.ParameterName}} </ion-option>
           </ion-select>
       </ion-item>

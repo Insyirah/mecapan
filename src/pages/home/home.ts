@@ -4,7 +4,7 @@ import { AboutPage } from '../about/about';
 import { ListprovidersPage } from '../listproviders/listproviders';
 import { ServiceApiProvider } from '../../providers/service-api/service-api';
 import { LocalStorageService } from "ng2-webstorage";
-
+import { Storage } from '@ionic/storage';
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -20,7 +20,7 @@ export class HomePage {
   avatars: any[];
   ava: any[];
 
-  constructor(private storage: LocalStorageService, public loadingCtrl: LoadingController, private serviceApi: ServiceApiProvider, public navCtrl: NavController) {
+  constructor(private Storage: Storage,private storage: LocalStorageService, public loadingCtrl: LoadingController, private serviceApi: ServiceApiProvider, public navCtrl: NavController) {
     this.loading = this.loadingCtrl.create({
       content: 'Please wait...'
     });
@@ -59,7 +59,8 @@ export class HomePage {
       console.log("hairTreatment", this.hairTreatment)
       console.log("bodyTreatment", this.bodyTreatment)
       this.loading.dismiss()
-      this.storage.store("TreatmentMasterData", data)
+      // this.storage.store("TreatmentMasterData", data)
+      this.Storage.set("TreatmentMasterData",data)
     })
   }
 

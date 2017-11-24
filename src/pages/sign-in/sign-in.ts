@@ -4,6 +4,7 @@ import { TabsPage } from '../tabs/tabs';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms/";
 import { ServiceApiProvider } from '../../providers/service-api/service-api';
 import { LocalStorageService } from 'ng2-webstorage';
+import { ForgetPasswordPage } from '../forget-password/forget-password';
 
 /**
  * Generated class for the SignInPage page.
@@ -50,6 +51,10 @@ export class SignInPage {
         this.passwordForm = true;
         break
     }
+  }
+
+  test(){
+    this.navCtrl.push(ForgetPasswordPage)
   }
 
   // goSign(){

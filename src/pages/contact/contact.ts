@@ -15,8 +15,6 @@ import { MyApp } from "../../app/app.component";
   templateUrl: 'contact.html'
 })
 export class ContactPage implements OnInit {
-  testing: Observable<any>;
-  //  @ViewChild('myNav') nav: NavController
   update: any;
   userId: any;
   profile: FormGroup;
@@ -24,12 +22,11 @@ export class ContactPage implements OnInit {
   userProfile: any = {}
 
   skin: any[];
-  skinTypes: any[];
   form: {};
   user: any = {};
   constructor(public navCtrl: NavController, public events: Events, private appCtrl: App, private facebook: Facebook, private googlePlus: GooglePlus, public fb: FormBuilder, private app: App, private serviceApi: ServiceApiProvider, private storage: LocalStorageService) {
     this.user = this.storage.retrieve("user")
-    console.log("user", this.user.listDetail)
+    //console.log("user", this.user.listDetail)
     this.profile = fb.group({
       fullName: [''],
       birth: [''],
@@ -56,8 +53,8 @@ export class ContactPage implements OnInit {
       this.profile.controls.email.setValue(this.userProfile.detail.email)
       this.profile.controls.gender.setValue(this.userProfile.detail.gender)
       this.profile.controls.phoneNo.setValue(this.userProfile.detail.phoneNo)
-      console.log("profile", this.userProfile)
-      console.log("fullName", this.userProfile.detail.fullName)
+    //  console.log("profile", this.userProfile)
+    //  console.log("fullName", this.userProfile.detail.fullName)
     })
   }
 
@@ -70,7 +67,6 @@ export class ContactPage implements OnInit {
       moduleName: "UserAccount",
       masterName: "List Of Skin Type"
     }
-    // this.testing = this.serviceApi.getSkinType(this.form)
     this.serviceApi.getSkinType(this.form).subscribe(data => {
       this.storage.store("skinType", data)
     })
@@ -81,18 +77,17 @@ export class ContactPage implements OnInit {
       moduleName: "UserAccount",
       masterName: "List Of Hair Type"
     }
-    // this.testing = this.serviceApi.getSkinType(this.form)
     this.serviceApi.getHairType(this.form).subscribe(data => {
       this.storage.store("hairType", data)
-      console.log(data)
+    //  console.log(data)
     })
   }
 
-  setSkinType(ParameterName) {
-    this.skin = this.storage.retrieve("skinType")
-    console.log("skin", this.skin)
-    console.log("p",ParameterName)
-  }
+  // setSkinType(ParameterName) {
+  //   this.skin = this.storage.retrieve("skinType")
+  //   console.log("skin", this.skin)
+  //   console.log("p",ParameterName)
+  // }
 
   updateUserDetail(form) {
     this.update = this.profile.value

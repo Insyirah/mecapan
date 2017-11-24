@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NavController, App, Nav, Events } from 'ionic-angular';
+import { NavController, App, Nav, Events, LoadingController, Loading } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { LocalStorageService } from 'ng2-webstorage';
 import { ServiceApiProvider } from '../../providers/service-api/service-api';
@@ -15,30 +15,45 @@ import { MyApp } from "../../app/app.component";
   templateUrl: 'contact.html'
 })
 export class ContactPage implements OnInit {
+  loading: Loading;
   update: any;
   userId: any;
   profile: FormGroup;
-
   userProfile: any = {}
-
   skin: any[];
   form: {};
   user: any = {};
-  constructor(public navCtrl: NavController, public events: Events, private appCtrl: App, private facebook: Facebook, private googlePlus: GooglePlus, public fb: FormBuilder, private app: App, private serviceApi: ServiceApiProvider, private storage: LocalStorageService) {
+  constructor(public loadingCtrl: LoadingController, public navCtrl: NavController, public events: Events, private appCtrl: App, private facebook: Facebook, private googlePlus: GooglePlus, public fb: FormBuilder, private app: App, private serviceApi: ServiceApiProvider, private storage: LocalStorageService) {
+    this.loading = this.loadingCtrl.create({
+      content: 'Please wait...'
+    });
+    this.loading.present()
     this.user = this.storage.retrieve("user")
     //console.log("user", this.user.listDetail)
-    this.profile = fb.group({
+    this.createFormGroup()
+  }
+
+  createFormGroup() {
+    this.profile = this.fb.group({
+      userID: [this.userId],
       fullName: [''],
-      birth: [''],
+      dateOfBirth: [''],
       email: [''],
       gender: [''],
       phoneNo: [''],
-      weight:['']
+      weight: [''],
+      skinTypeID: [""],
+      hairLengthID: [""]
     });
   }
 
-  ngOnInit(): void {
+  changeProfilePicture(){
+    
+  }
+
+  ngOnInit() {
     this.user = this.storage.retrieve("user")
+    //apply loading
     this.getSkinType()
     this.getHairType()
     this.getUserProfile()
@@ -46,19 +61,25 @@ export class ContactPage implements OnInit {
 
   getUserProfile() {
     this.serviceApi.getProfile().subscribe(data => {
-      // console.log(data.status)
+      console.log(data)
       this.userProfile = data
+      this.profile.controls.userID.setValue(this.userProfile.detail.fullName)
       this.profile.controls.fullName.setValue(this.userProfile.detail.fullName)
-      this.profile.controls.birth.setValue(this.userProfile.detail.birth)
+      this.profile.controls.dateOfBirth.setValue(this.userProfile.detail.dateOfBirth)
       this.profile.controls.email.setValue(this.userProfile.detail.email)
       this.profile.controls.gender.setValue(this.userProfile.detail.gender)
       this.profile.controls.phoneNo.setValue(this.userProfile.detail.phoneNo)
-    //  console.log("profile", this.userProfile)
-    //  console.log("fullName", this.userProfile.detail.fullName)
+      this.profile.controls.weight.setValue(this.userProfile.detail.weight)// form ni x de lagi
+      this.profile.controls.skinTypeID.setValue(this.userProfile.detail.skinTypeID)
+      //    this.profile.controls.hairLengthID.setValue(this.userProfile.detail.hairLengthID)
+      //  console.log("profile", this.userProfile)
+      //  console.log("fullName", this.userProfile.detail.fullName)
+      this.loading.dismiss()
+
     })
   }
 
-  chooseGender(gender){
+  chooseGender(gender) {
     console.log(gender)
   }
 
@@ -68,7 +89,8 @@ export class ContactPage implements OnInit {
       masterName: "List Of Skin Type"
     }
     this.serviceApi.getSkinType(this.form).subscribe(data => {
-      this.storage.store("skinType", data)
+      this.skin = data
+     // this.storage.store("skinType", data)
     })
   }
 
@@ -78,8 +100,8 @@ export class ContactPage implements OnInit {
       masterName: "List Of Hair Type"
     }
     this.serviceApi.getHairType(this.form).subscribe(data => {
-      this.storage.store("hairType", data)
-    //  console.log(data)
+     // this.storage.store("hairType", data)
+      //  console.log(data)
     })
   }
 
@@ -90,37 +112,23 @@ export class ContactPage implements OnInit {
   // }
 
   updateUserDetail(form) {
-    this.update = this.profile.value
-    console.log("update", this.update)
-    this.userId = this.userProfile.detail.userID
-    console.log("id", this.userId)
 
-    this.form = {
-      userID: this.userId,
-      fullName: this.update.fullName,
-      dateOfBirth: this.update.birth,
-      email: this.update.email,
-      gender: this.update.gender,
-      phoneNo: this.update.phoneNumber,
-      skinTypeID:2,
-      hairLengthID:3,
-      weight:30
-    }
-
-    console.log("updateForm", this.form)
-    this.serviceApi.postUpdateUserProfile(this.form).subscribe(data => {
+    console.log("updateForm",form)
+    this.serviceApi.postUpdateUserProfile(form).subscribe(data => {
       console.log(data)
     })
-
+     // this.update = this.profile.value
+    // console.log("update", this.update)
+    // this.userId = this.userProfile.detail.userID
+    // console.log("id", this.userId)
   }
 
- 
+
 
   logout() {
     if (this.user.loginType == "Google") {
       this.googlePlus.disconnect()
       this.handleLogOut()
-
     }
     else if (this.user.loginType == "Facebook") {
       this.facebook.logout()
@@ -129,13 +137,11 @@ export class ContactPage implements OnInit {
     else {//meccapan
       this.handleLogOut()
     }
-
   }
 
   handleLogOut() {
     this.storage.clear('user');
     this.events.publish("hehe")
-
   }
 
 

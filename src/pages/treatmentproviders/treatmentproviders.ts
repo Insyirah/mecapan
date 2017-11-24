@@ -9,6 +9,7 @@ import {Geolocation} from '@ionic-native/geolocation';
 @Component({selector: 'page-treatmentproviders', templateUrl: 'treatmentproviders.html'})
 export class TreatmentprovidersPage {
   reviewDetail: any;
+  banner: any;
   disabledProceed: boolean = true;
   lang: any;
   lat: any;
@@ -98,6 +99,7 @@ export class TreatmentprovidersPage {
        this.agentDetail = data.detailList
        this.agentBanner = data.bannerDetail
        this.storeName = this.agentDetail.storeName
+       this.banner = this.agentBanner[0].bannerImage
        this.address = this.agentDetail.address
        this.email = this.agentDetail.email
        this.startBisnes = this.agentDetail.startBussinessHour
@@ -105,7 +107,8 @@ export class TreatmentprovidersPage {
        this.lat = this.agentDetail.latitude              
        this.lang = this.agentDetail.longitude             
        console.log("agent",this.agentDetail.storeName)
-       console.log("agent",this.agentBanner)
+       console.log("banners",this.agentBanner)
+       console.log("banner",this.banner)
       })
     }
 

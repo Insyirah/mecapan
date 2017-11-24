@@ -53,12 +53,14 @@
       <div>
         <ion-item no-padding *ngFor="let provider of providers" (click)="goTreatment(provider.agentBranchID,provider.treatmentProvidedID)">
           <ion-thumbnail item-left>
-              <img src="data:image/jpeg;base64,{{provider.storeImage}}">
+            <!-- <img src="data:image/jpeg;base64,{{provider.storeImage}}"  /> -->
+            <ion-img  src="data:image/jpeg;base64,{{provider.storeImage}}"></ion-img>
           </ion-thumbnail>
           <h2 class="name">{{provider.storeName}}</h2>
           <p class="name2">
             <ion-icon ios="ios-pin-outline" md="md-pin" color="primary"></ion-icon>&nbsp;{{provider.address}}</p>
           <br>
+          
           <div *ngIf="provider.priceRangeSign=='1'">
             <ion-icon class="dolar" name="logo-usd" ios="logo-usd" md="logo-usd" class="usd" color="primary"></ion-icon>  
            </div>

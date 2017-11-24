@@ -31,7 +31,7 @@ export class ListprovidersPage {
   keyword : any;
   noProvider : boolean = true
   firstOnly : boolean = false
-  search : Observable < string[] >;
+  search : Observable < any[] >;
   loading : Loading;
   searchType : string;
   items : Array < string > = ["no Provider"]
@@ -93,7 +93,7 @@ export class ListprovidersPage {
     this.serviceApi.getProviderList(this.form).subscribe(data => {
         this.providers = data
         console.log("data", data)
-        this.storage.store("providers", this.providers)
+        
         this.searching = true
         // this.loading.dismiss();
       })
@@ -118,8 +118,8 @@ export class ListprovidersPage {
     this.search.subscribe(x => 
       {  
         this.providers = x 
-        console.log("dataProvider",this.providers)
-            this.loading.dismiss()
+        console.log("dataProvider",this.providers[0].storeImage)
+        this.loading.dismiss()
       })
     
   }

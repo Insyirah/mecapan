@@ -24,8 +24,8 @@
       </ion-item>
       <ion-item>
         <!-- <ion-icon color="primary" name="mail" item-left></ion-icon> -->
-        <ion-label stacked>Birth-Date</ion-label>
-        <ion-input name="dateOfBirth" formControlName="dateOfBirth"></ion-input>
+        <ion-label>Birth-Date</ion-label>
+        <ion-datetime displayFormat="MM/DD/YYYY" formControlName="fullName" [(ngModel)]="birth"></ion-datetime>
       </ion-item>
       <ion-item>
         <ion-label stacked>Email</ion-label>
@@ -37,7 +37,7 @@
       </ion-item><br>
       <ion-item>
           <ion-label stacked>Phone Number</ion-label>
-          <ion-input name="phoneNumber" formControlName="phoneNumber"></ion-input>
+          <ion-input name="phoneNo" formControlName="phoneNo" (ngModel)="userProfile.detail.phoneNo"></ion-input>
       </ion-item>
       <ion-item>
           <ion-label floating>Skin Type</ion-label>
@@ -57,6 +57,6 @@
     </form>
 
       <ion-item>
-          <ion-icon (click)="logout()" ios="ios-exit" md="md-exit" color="primary" item-left></ion-icon><a>Log Out</a>
+          <ion-icon (click)="logout()" ios="ios-exit" md="md-exit" color="primary" item-left></ion-icon><a>Sign Out</a>
       </ion-item>
 </ion-content>

@@ -7,11 +7,11 @@
 </ion-header>
 
 <ion-content>
-    <div padding text-center >
-        <!-- <img src="{{pathForImage(lastImage)}}" class="profPic" [hidden]="lastImage === null"> -->
-        <img src="./assets/pic.jpg" class="profPic">
-        <ion-buttons start>
-          <button ion-button round color="primary"  (click)="presentActionSheet()">
+  <div padding text-center>
+    <!-- <img src="{{pathForImage(lastImage)}}" class="profPic" [hidden]="lastImage === null"> -->
+    <img src="./assets/pic.jpg" class="profPic">
+    <ion-buttons start>
+      <button ion-button round color="primary" (click)="presentActionSheet()">
               <span style="color:white" >Change Profile Picture</span>
             </button>
         </ion-buttons>
@@ -59,7 +59,7 @@
       </ion-item>      
     </form>
 
-      <ion-item>
-          <ion-icon (click)="logout()" ios="ios-exit" md="md-exit" color="primary" item-left></ion-icon><a>Sign Out</a>
-      </ion-item>
+  <ion-item>
+    <ion-icon (click)="logout()" ios="ios-exit" md="md-exit" color="primary" item-left></ion-icon><a>Sign Out</a>
+  </ion-item>
 </ion-content>

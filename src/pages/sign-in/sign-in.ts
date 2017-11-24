@@ -6,12 +6,6 @@ import { ServiceApiProvider } from '../../providers/service-api/service-api';
 import { LocalStorageService } from 'ng2-webstorage';
 import { ForgetPasswordPage } from '../forget-password/forget-password';
 
-/**
- * Generated class for the SignInPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({

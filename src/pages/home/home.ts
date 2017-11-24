@@ -20,10 +20,13 @@ export class HomePage {
       content: 'Please wait...'
     });
     this.loading.present()
+    this.getAllTreatment()
+    
   }
 
   ionViewDidLoad() {
     this.checkData()
+
   }
 
   checkData() {

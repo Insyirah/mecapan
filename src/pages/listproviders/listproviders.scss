@@ -8,7 +8,7 @@ ion-spinner {
 ion-thumbnail {
     min-width: 3rem;    
     min-height: 3rem;
-    ion-img.defaultStore {
+    img {
         opacity: 0.4;
         background-image: url('../assets/1.jpg');
         max-width: 12rem;    
@@ -16,6 +16,7 @@ ion-thumbnail {
         min-height: 4rem;
         margin-left: 18%;
         border-radius: 23%;
+        margin-left: 16%;
     }
 }
 .butang{
@@ -46,5 +47,8 @@ p.name2{
 }
 ion-button.option{
     padding-left: 10%;
+}
+ion-icon.dolar{
+    margin-left: 5%;
 }
 }

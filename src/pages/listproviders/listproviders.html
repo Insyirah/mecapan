@@ -20,7 +20,7 @@
         <form [formGroup]="filter"  #searchBy="ngForm">
             <ion-item>
               <ion-label stacked>Search By:</ion-label>
-              <ion-select interface="popover" (ionChange)="goFilter(searchBy.value)" formControlName="searchBy" >
+              <ion-select interface="popover" (ionChange)="goFilter(searchBy.value)" formControlName="searchBy" type="number">
                 <ion-option value="97">Saloon Name</ion-option>
                 <ion-option value="98">Price Level</ion-option>
                 <ion-option value="99">Rating</ion-option>

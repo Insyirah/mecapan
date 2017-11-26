@@ -18,12 +18,12 @@ export class ListprovidersPage {
   hehe: any
   filter: FormGroup;
   sortingId: number;
-  searchId: any = 96;//for what? why 96?
+  searchId: any = 96;
   keyword: any;
   search: Observable<any[]>;
   loading: Loading;
   searchType: string;
-  //items: Array<string> = ["no Provider"]
+
   searching: boolean = true
   providerId: any;
   form: {};
@@ -83,7 +83,7 @@ export class ListprovidersPage {
 
     this.search.subscribe(x => {
       this.providers = x
-      // console.log("dataProvider",this.providers[0].storeImage)
+      console.log("dataProvider",this.providers)
       this.loading.dismiss()
     })
 

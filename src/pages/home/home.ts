@@ -56,7 +56,7 @@ export class HomePage {
       console.log("bodyTreatment", this.bodyTreatment)
       this.loading.dismiss()
       // this.storage.store("TreatmentMasterData", data)
-      this.Storage.set("TreatmentMasterData",data)
+      this.Storage.set("treatment",data)
     })
   }
 

@@ -11,55 +11,60 @@
     <!-- <img src="{{pathForImage(lastImage)}}" class="profPic" [hidden]="lastImage === null"> -->
     <img src="./assets/pic.jpg" class="profPic">
     <ion-buttons start>
-      <button ion-button round color="primary" (click)="presentActionSheet()">
+      <button ion-button round color="primary" (click)="changeProfilePicture()">
               <span style="color:white" >Change Profile Picture</span>
             </button>
-        </ion-buttons>
-      </div>
-    <form [formGroup]="profile" (ngSubmit)=updateUserDetail(form) padding margin-top>
+    </ion-buttons>
+  </div>
+  <form [formGroup]="profile" (ngSubmit)=updateUserDetail(profile.value) padding margin-top>
     <ion-item>
-        <!-- <ion-icon color="primary" ios="ios-person" md="md-person" item-left></ion-icon> -->
-        <ion-label stacked>Full Name</ion-label>
-        <ion-input name="fullName" formControlName="fullName" (ngModel)="userProfile.detail.fullName"></ion-input>
-      </ion-item>
-      <ion-item>
-        <!-- <ion-icon color="primary" name="mail" item-left></ion-icon> -->
-        <ion-label>Birth-Date</ion-label>
-        <ion-datetime displayFormat="MM/DD/YYYY" formControlName="fullName" [(ngModel)]="birth"></ion-datetime>
-      </ion-item>
-      <ion-item>
-        <ion-label stacked>Email</ion-label>
-        <ion-input name="email" formControlName="email"></ion-input>
-      </ion-item>
-      <ion-item>
-          <ion-label stacked>Phone Number</ion-label>
-          <ion-input name="phoneNo" formControlName="phoneNo" (ngModel)="userProfile.detail.phoneNo"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label floating>Gender</ion-label>
-        <ion-select interface="popover"  (ionChange)="chooseGender($event)"  >
-          <ion-option value='Male'>Male</ion-option>
-          <ion-option value='Female'>Female</ion-option>
-        </ion-select>
-      </ion-item>
-      <ion-item>
-          <ion-label floating>Skin Type</ion-label>
-          <ion-select (ionChange)="setSkinType($event)" interface="popover" type="text">
-            <ion-option [value]="skinType.ParameterName" *ngFor="let skinType of skin">{{skinType.ParameterName}} </ion-option>
-          </ion-select>
-      </ion-item>
-      <ion-item>
-        <ion-label>Hair Length</ion-label>
-        <ion-select  >
-          <ion-option >20cm</ion-option>
-        </ion-select>
-      </ion-item>
-      <ion-item>
-          <button text-center ion-button round color="info" type="submit" class="update" full>Update Profile</button>
-      </ion-item>      
-    </form>
+      <!-- <ion-icon color="primary" ios="ios-person" md="md-person" item-left></ion-icon> -->
+      <ion-label floating>Full Name</ion-label>
+      <ion-input formControlName="fullName" type="string"></ion-input>
+    </ion-item>
+    <ion-item>
+      <!-- <ion-icon color="primary" name="mail" item-left></ion-icon> -->
+      <ion-label floating>Birth-Date</ion-label>
+      <ion-datetime displayFormat="MM/DD/YYYY" formControlName="dateOfBirth"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Email</ion-label>
+      <ion-input formControlName="email" type="string"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Phone Number</ion-label>
+      <ion-input formControlName="phoneNo" type="string"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Gender</ion-label>
+      <ion-select formControlName="gender" interface="popover">
+        <ion-option [value]='Male'>Male</ion-option>
+        <ion-option [value]='Female'>Female</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Skin Type</ion-label>
+      <ion-select formControlName="skinTypeID" interface="popover" type="number">
+        <ion-option [value]="skinType.skinTypeID" *ngFor="let skinType of skin">{{skinType.ParameterName}} </ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Hair Length</ion-label>
+      <ion-select formControlName="hairLengthID" interface="popover" type="number">
+        <ion-option [value]="20">20cm</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Weight</ion-label>
+      <ion-input formControlName="weight"></ion-input>
+    </ion-item>
+    <ion-item>
+      <button text-center ion-button round color="info" type="submit" class="update" full>Update Profile</button>
+    </ion-item>
+  </form>
 
   <ion-item>
     <ion-icon (click)="logout()" ios="ios-exit" md="md-exit" color="primary" item-left></ion-icon><a>Sign Out</a>
   </ion-item>
 </ion-content>
+<!-- (ionChange)="setSkinType($event)" -->

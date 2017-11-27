@@ -54,32 +54,32 @@
         <ion-item no-padding *ngFor="let provider of providers" (click)="goTreatment(provider.agentBranchID,provider.treatmentProvidedID)">
           <ion-thumbnail item-left>
             <!-- <img src="data:image/jpeg;base64,{{provider.storeImage}}"  /> -->
-            <ion-img  src="data:image/jpeg;base64,{{provider.storeImage}}"></ion-img>
+            <ion-img  src="data:image/jpeg;base64,{{provider.storeImage}}" class="defaultStore"></ion-img>
           </ion-thumbnail>
           <h2 class="name">{{provider.storeName}}</h2>
-          <p class="name2" style="white-space: normal;">
+          <p class="name2" text-wrap>
             <ion-icon ios="ios-pin-outline" md="md-pin" color="primary"></ion-icon>&nbsp;{{provider.address}}</p>
           <br>
           
-          <div class="msg" *ngIf="provider.priceRangeSign=='1'">
+          <div class="name2" *ngIf="provider.priceRangeSign=='1'">
             <ion-icon name="logo-usd" ios="logo-usd" md="logo-usd" class="usd" color="primary"></ion-icon>  
            </div>
-          <div class="msg" *ngIf="provider.priceRangeSign=='2'">
+          <div class="name2" *ngIf="provider.priceRangeSign=='2'">
             <ion-icon name="logo-usd" ios="logo-usd" md="logo-usd" class="usd" color="primary"></ion-icon>
             <ion-icon name="logo-usd" ios="logo-usd" md="logo-usd" class="usd" color="primary"></ion-icon>              
           </div>
-          <div class="msg" *ngIf="provider.priceRangeSign=='3'">
+          <div class="name2" *ngIf="provider.priceRangeSign=='3'">
               <ion-icon name="logo-usd" ios="logo-usd" md="logo-usd" class="usd" color="primary"></ion-icon>
               <ion-icon name="logo-usd" ios="logo-usd" md="logo-usd" class="usd" color="primary"></ion-icon>  
               <ion-icon name="logo-usd" ios="logo-usd" md="logo-usd" class="usd" color="primary"></ion-icon>              
           </div>
-          <div class="msg" *ngIf="provider.priceRangeSign=='4'">
+          <div class="name2" *ngIf="provider.priceRangeSign=='4'">
               <ion-icon name="logo-usd" ios="logo-usd" md="logo-usd" class="usd" color="primary"></ion-icon>
               <ion-icon name="logo-usd" ios="logo-usd" md="logo-usd" class="usd" color="primary"></ion-icon>
               <ion-icon name="logo-usd" ios="logo-usd" md="logo-usd" class="usd" color="primary"></ion-icon>  
               <ion-icon name="logo-usd" ios="logo-usd" md="logo-usd" class="usd" color="primary"></ion-icon>  
           </div>
-          <div class="msg" *ngIf="provider.priceRangeSign=='5'">
+          <div class="name2" *ngIf="provider.priceRangeSign=='5'">
               <ion-icon name="logo-usd" ios="logo-usd" md="logo-usd" class="usd" color="primary"></ion-icon>
               <ion-icon name="logo-usd" ios="logo-usd" md="logo-usd" class="usd" color="primary"></ion-icon>
               <ion-icon name="logo-usd" ios="logo-usd" md="logo-usd" class="usd" color="primary"></ion-icon>  

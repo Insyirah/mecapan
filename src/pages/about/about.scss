@@ -5,6 +5,9 @@ page-about {
         opacity: 0.4;
         background-size:cover 
     }
+    h2.upcoming{
+        padding-top: 2%;
+    }
     ion-icon {
         font-size: 220%; 
         padding-left: 20%;//Preferred size here
@@ -15,6 +18,7 @@ page-about {
         padding-right: 10%;
         height: 27px;
     }
+<<<<<<< HEAD
     .a{
         padding-left: 5%;
         font-size: 120%
@@ -41,3 +45,24 @@ page-about {
 // days-btn.small{
 //     opacity: 0 !important;
 // }
+=======
+    .defaultStore{
+        min-width: 4rem;
+        min-height: 4rem;
+        margin-left: 18%;
+        border-radius: 23%;
+    }
+    .recent{
+        padding-top: 2%;
+        margin-left: 7%;
+    }
+    .complete{
+        padding-top: 2%;
+        margin-left: 7%;
+    }
+    .reject{
+        padding-top: 2%;
+        margin-left: 7%;
+    }
+}
+>>>>>>> fbf935414f1a4412a33bb581be8e3775b4c05acb

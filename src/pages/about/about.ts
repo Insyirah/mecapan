@@ -57,6 +57,8 @@ export class AboutPage {
     this.getRecentBookingActivity()
     this.getRejectedBookingActivity()
     this.getCompletedBookingActivity()
+    location.reload()
+    this.navCtrl.setRoot(AboutPage)
   }
 
   getRecentBookingActivity(){
@@ -76,6 +78,15 @@ export class AboutPage {
     ]
   }
 
+  // doRefresh(refresher) {
+  //   console.log('Begin async operation', refresher);
+
+  //   setTimeout(() => {
+  //     console.log('Async operation has ended');
+  //     refresher.complete();
+  //   }, 2000);
+  // }
+
   getRejectedBookingActivity(){
     this.serviceApi.getRejectedBookingActivity().subscribe(data => {
       this.bookingRejectStatus = data.rejectedBooking
@@ -84,6 +95,7 @@ export class AboutPage {
   }
 
   getCompletedBookingActivity(){
+    
     this.serviceApi.getCompletedBookingActivity().subscribe(data => {
       this.bookingCompletedStatus = data.completedBooking
     console.log("data complete",data.completedBooking)

@@ -45,6 +45,10 @@ export class ListprovidersPage {
     // this.getListProvider()
   }
 
+  HandleImage(data) {
+    return this.serviceApi.ImageHandler(data)
+  }
+
   SetupSlider() {
     this.slides = [
       {
@@ -83,7 +87,7 @@ export class ListprovidersPage {
 
     this.search.subscribe(x => {
       this.providers = x
-      console.log("dataProvider",this.providers)
+      console.log("dataProvider", this.providers)
       this.loading.dismiss()
     })
 

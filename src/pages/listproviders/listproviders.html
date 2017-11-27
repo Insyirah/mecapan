@@ -51,7 +51,7 @@
       </div> -->
 
       <div>
-        <ion-item no-padding *ngFor="let provider of providers" (click)="goTreatment(provider.agentBranchID,provider.treatmentProvidedID)">
+        <ion-item no-padding *ngFor="let provider of providers" style="white-space: normal;" text-wrap (click)="goTreatment(provider.agentBranchID,provider.treatmentProvidedID)">
           <ion-thumbnail item-left>
             <!-- <img src="data:image/jpeg;base64,{{provider.storeImage}}"  /> -->
             <ion-img  src="data:image/jpeg;base64,{{provider.storeImage}}" class="defaultStore"></ion-img>

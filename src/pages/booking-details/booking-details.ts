@@ -9,6 +9,7 @@ import { AboutPage } from '../about/about';
   templateUrl: 'booking-details.html',
 })
 export class BookingDetailsPage {
+  treatment: any;
 
   form: { applicationID: any; };
   applicationId: any;
@@ -40,6 +41,7 @@ export class BookingDetailsPage {
     console.log("store", this.bookingDetails.storeName)
     this.storename = this.bookingDetails.storeName
     this.appointmentdate = this.bookingDetails.appointmentDate
+    this.treatment = this.bookingDetails.treatmentDetailName
   }
 
 

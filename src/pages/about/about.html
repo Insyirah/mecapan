@@ -46,12 +46,33 @@
         </ion-item>
     </ion-slide>
     <ion-slide>
+        <ion-card>
+            <ion-item>
+            <ion-card-content>
+                <rating [(ngModel)]="rate" 
+                readOnly="false"
+                max="5" 
+                emptyStarIconName="star-outline" 
+                halfStarIconName="star-half" 
+                starIconName="star" 
+                nullable="false" 
+                (ngModelChange)="onModelChange($event)"></rating>
+              <a class="a"><b>Enter Review</b></a>
+              <ion-item>
+                <ion-input></ion-input>
+                
+              </ion-item>
+              <button ion-button round style="background-color: #56C8C8;">Submit</button>
+            </ion-card-content>
+          </ion-item>
+          </ion-card>
         <ion-item no-padding  *ngFor="let status of bookingCompletedStatus">
             <ion-thumbnail item-left>
                 <ion-img src="assets/img/11.jpg" class="defaultStore"></ion-img>
             </ion-thumbnail>
             <h2>{{status.storeName}}</h2>
             <p>{{status.appointmentDate| date: 'dd/MM/yyyy'}}</p>
+           
             </ion-item>
     </ion-slide>
 

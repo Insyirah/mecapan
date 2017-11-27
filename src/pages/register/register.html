@@ -46,13 +46,13 @@
         
         <form [formGroup]="registerFormuserName" (ngSubmit)="goUserName(registerFormuserName.value)">
         <br><br><br><br><br><br><br><br>
-          <a class="a"><b>Enter Your User Name</b></a>
+          <a class="a"><b>Enter Your Username</b></a>
       
         <ion-item>
           <ion-input formControlName="userName" type="text" [class.invalid]="!registerFormuserName.controls.userName.valid && (registerFormuserName.controls.userName.dirty || submitAttempt)"></ion-input>  
         </ion-item>
         <div *ngIf="registerFormuserName.get('userName').hasError('required') && registerFormuserName.get('userName').touched">
-            <p class="msg1" style="color:#f53d3d;">UserName is required</p>
+            <p class="msg1" style="color:#f53d3d;">Username is required</p>
           </div>
         <ion-fab right bottom>
             <button ion-fab mini color="info" type="submit" [disabled]="registerFormuserName.invalid"><ion-icon ios="ios-arrow-round-forward" md="md-arrow-round-forward"></ion-icon></button>
@@ -83,7 +83,7 @@
             <ion-item>
               <ion-input formControlName="password" type="text" [class.invalid]="!registerFormpassword.controls.password.valid && (registerFormpassword.controls.password.dirty || submitAttempt)"></ion-input>
             </ion-item>
-            <div *ngIf="registerFormpassword.get('password').hasError('required') && registerFormpassword.get('password').touched">
+            <div *ngIf="registerFormpassword.get('password').hasError('pattern') && registerFormpassword.get('password').touched">
                 <p class="msg1" style="color:#f53d3d;">Password is required</p>
               </div>
             <ion-fab right bottom>

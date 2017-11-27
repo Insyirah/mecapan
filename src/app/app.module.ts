@@ -20,7 +20,7 @@ import { LogInMeccapanPage } from '../pages/log-in-meccapan/log-in-meccapan';
 import { SignInPageModule } from '../pages/sign-in/sign-in.module';
 import { BookingDetailsPageModule } from '../pages/booking-details/booking-details.module';
 import { ForgetPasswordPageModule } from '../pages/forget-password/forget-password.module';
-
+import { Ionic2RatingModule } from 'ionic2-rating';
 import { Facebook } from '@ionic-native/facebook';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -59,6 +59,7 @@ import { ResetPasswordPageModule } from '../pages/reset-password/reset-password.
     SetDayAppointmentPageModule,
     ConfirmBookingPageModule,
     RegisterPageModule,
+    Ionic2RatingModule,   
     StartPageModule,
     SignInPageModule,
     BookingDetailsPageModule,

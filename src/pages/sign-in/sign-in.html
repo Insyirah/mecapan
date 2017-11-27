@@ -4,7 +4,7 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding style="margin-top: 0px;background: url(assets/back.jpg);background-size: cover;background-repeat: no-repeat;">
+<ion-content padding >
   <div *ngIf="usernameForm">
     <form [formGroup]="logInFormname" (ngSubmit)="goPassword(logInFormname.value)">
 

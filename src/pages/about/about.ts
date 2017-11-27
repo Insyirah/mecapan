@@ -57,8 +57,7 @@ export class AboutPage {
     this.getRecentBookingActivity()
     this.getRejectedBookingActivity()
     this.getCompletedBookingActivity()
-    location.reload()
-    this.navCtrl.setRoot(AboutPage)
+
   }
 
   getRecentBookingActivity(){
@@ -78,14 +77,17 @@ export class AboutPage {
     ]
   }
 
-  // doRefresh(refresher) {
-  //   console.log('Begin async operation', refresher);
+  doRefresh(refresher) {
+    this.getRecentBookingActivity()
+    this.getRejectedBookingActivity()
+    this.getCompletedBookingActivity()
+    console.log('Begin async operation', refresher);
 
-  //   setTimeout(() => {
-  //     console.log('Async operation has ended');
-  //     refresher.complete();
-  //   }, 2000);
-  // }
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      refresher.complete();
+    }, 2000);
+  }
 
   getRejectedBookingActivity(){
     this.serviceApi.getRejectedBookingActivity().subscribe(data => {

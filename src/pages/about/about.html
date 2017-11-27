@@ -44,9 +44,9 @@
           <h3  class="recent" text-wrap>{{status.treatmentDetailName}}</h3>  
           <h3  class="recent">{{status.appointmentDate| date: 'dd/MM/yyyy'}}</h3>
          
-          <h4 class="recent" style="color: red" *ngIf="status.applicationStatusName=='Canceled'"><b>The appointment has been cancelled</b></h4>
+          <h4 class="recent" style="color: red" *ngIf="status.applicationStatusName=='Canceled'"><b>Appointment cancelled</b></h4>
           <h4 class="recent" style="color: green" *ngIf="status.applicationStatusName=='Completed Without Review'"><b>Appointment accepted</b></h4>
-          <h4 class="recent" style="color: #56C8C8" *ngIf="status.applicationStatusName=='Pending Acceptance'"><b>Pending Appointment</b></h4>
+          <h4 class="recent" style="color: #56C8C8" *ngIf="status.applicationStatusName=='Pending Acceptance'"><b>Appointment Pending </b></h4>
           <h4 class="recent" style="color: #56C8C8" *ngIf="status.applicationStatusName=='Accept Without Downpayment'"><b>Pending </b></h4>
           
         </ion-item>

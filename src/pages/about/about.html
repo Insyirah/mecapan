@@ -44,9 +44,11 @@
           <h3  class="recent" text-wrap>{{status.treatmentDetailName}}</h3>  
           <h3  class="recent">{{status.appointmentDate| date: 'dd/MM/yyyy'}}</h3>
          
-          <h4 class="recent" style="color: red" *ngIf="status.applicationStatusName=='Canceled'">The appointment has been cancelled.</h4>
-
+          <h4 class="recent" style="color: red" *ngIf="status.applicationStatusName=='Canceled'"><b>The appointment has been cancelled</b></h4>
+          <h4 class="recent" style="color: green" *ngIf="status.applicationStatusName=='Completed Without Review'"><b>Appointment accepted</b></h4>
+          <h4 class="recent" style="color: #56C8C8" *ngIf="status.applicationStatusName=='Pending Acceptance'"><b>Pending Appointment</b></h4>
         </ion-item>
+        <span *ngIf="bookingRecentStatus==''">No Recent booking</span>
     </ion-slide>
     <ion-slide>
         <ion-item no-padding *ngFor="let status of bookingCompletedStatus">
@@ -54,8 +56,9 @@
                 <ion-img src="assets/img/11.jpg" class="defaultStore"></ion-img>
             </ion-thumbnail>
             <h2  class="complete">{{status.storeName}}</h2>
-            <p  class="complete">{{status.appointmentDate| date: 'dd/MM/yyyy'}}</p>
-            </ion-item>
+            <p  class="complete">{{status.appointmentDate| date: 'dd/MM/yyyy'}} <ion-icon style="color: green" ios="ios-checkmark-circle" md="md-checkmark-circle"></ion-icon></p> 
+        </ion-item>
+        <span *ngIf="bookingCompletedStatus==''">No complete booking</span>
     </ion-slide>
 
     <ion-slide>
@@ -66,6 +69,7 @@
           <h2  class="reject">{{status.storeName}}</h2>
           <p  class="reject">{{status.appointmentDate| date: 'dd/MM/yyyy'}}</p>
           </ion-item>
+          <span *ngIf="bookingRejectStatus==''">No rejected booking</span>
   </ion-slide>
   </ion-slides>
 </ion-content>

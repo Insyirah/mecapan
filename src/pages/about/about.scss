@@ -15,6 +15,11 @@ page-about {
         padding-right: 10%;
         height: 27px;
     }
+    ion-thumbnail{
+        ion-img.defaultStore{
+            border-radius: 23%;
+        }
+    }
 }
 // days-btn.small{
 //     opacity: 0 !important;

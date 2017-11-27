@@ -51,7 +51,6 @@
         <span *ngIf="bookingRecentStatus==''">No Recent booking</span>
     </ion-slide>
     <ion-slide>
-<<<<<<< HEAD
         <ion-card>
             <ion-item>
             <ion-card-content>
@@ -80,17 +79,8 @@
             <p>{{status.appointmentDate| date: 'dd/MM/yyyy'}}</p>
            
             </ion-item>
-=======
-        <ion-item no-padding *ngFor="let status of bookingCompletedStatus">
-            <ion-thumbnail item-left>
-                <ion-img src="assets/img/11.jpg" class="defaultStore"></ion-img>
-            </ion-thumbnail>
-            <h2  class="complete">{{status.storeName}}</h2>
-            <p  class="complete">{{status.appointmentDate| date: 'dd/MM/yyyy'}} <ion-icon style="color: green" ios="ios-checkmark-circle" md="md-checkmark-circle"></ion-icon></p> 
-        </ion-item>
-        <span *ngIf="bookingCompletedStatus==''">No complete booking</span>
->>>>>>> fbf935414f1a4412a33bb581be8e3775b4c05acb
-    </ion-slide>
+<span *ngIf="bookingCompletedStatus==''">No complete booking</span>    
+</ion-slide>
 
     <ion-slide>
       <ion-item no-padding *ngFor="let status of bookingRejectStatus">

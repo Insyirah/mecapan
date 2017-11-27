@@ -4,6 +4,7 @@ import { Http, Response, RequestOptions, Headers, URLSearchParams } from '@angul
 import 'rxjs/add/operator/map';
 import { LocalStorageService } from 'ng2-webstorage';
 import { Events } from 'ionic-angular';
+import { DomSanitizer } from "@angular/platform-browser";
 
 
 @Injectable()
@@ -17,7 +18,7 @@ export class ServiceApiProvider {
   url: string
 
   host: string = "http://35.203.181.89:300/"
-  constructor(public http: Http, private storage: LocalStorageService, public events: Events) {
+  constructor(private _DomSanitizer: DomSanitizer,public http: Http, private storage: LocalStorageService, public events: Events) {
     this.user = this.storage.retrieve("user")
     // console.log("user", this.user)
 
@@ -38,6 +39,10 @@ export class ServiceApiProvider {
       this.userId = this.user.listDetail.userID
     })
 
+  }
+
+   ImageHandler(data) {
+    return this._DomSanitizer.bypassSecurityTrustUrl("data:image/jpeg;base64,"+data);
   }
 
 

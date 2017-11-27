@@ -14,7 +14,7 @@
     <ion-input formControlName="phoneNumber" type="text" [class.invalid]="!registerFormphoneNumber.controls.phoneNumber.valid && (registerFormphoneNumber.controls.phoneNumber.dirty || submitAttempt)"></ion-input> 
   </ion-item>
   <div *ngIf="registerFormphoneNumber.get('phoneNumber').hasError('required') && registerFormphoneNumber.get('phoneNumber').touched">
-      <p>Phone Number is required</p>
+      <p color= "danger">Phone Number is required</p>
     </div>
     <div *ngIf="registerFormphoneNumber.get('phoneNumber').hasError('pattern') && registerFormphoneNumber.get('phoneNumber').touched">
       <p>Enter valid mobile phone no.</p>
@@ -34,7 +34,7 @@
         <ion-input formControlName="fullName" type="text" [class.invalid]="!registerFormsfullName.controls.fullName.valid && (registerFormsfullName.controls.fullName.dirty || submitAttempt)"></ion-input>
       </ion-item>
       <div *ngIf="registerFormsfullName.get('fullName').hasError('required') && registerFormsfullName.get('fullName').touched">
-          <p>Full Name is required</p>
+          <p color= "danger">Full Name is required</p>
         </div>
       <ion-fab right bottom>
           <button ion-fab mini color="info" type="submit" [disabled]="registerFormsfullName.invalid"><ion-icon ios="ios-arrow-round-forward" md="md-arrow-round-forward"></ion-icon></button>
@@ -52,7 +52,7 @@
           <ion-input formControlName="userName" type="text" [class.invalid]="!registerFormuserName.controls.userName.valid && (registerFormuserName.controls.userName.dirty || submitAttempt)"></ion-input>  
         </ion-item>
         <div *ngIf="registerFormuserName.get('userName').hasError('required') && registerFormuserName.get('userName').touched">
-            <p>UserName is required</p>
+            <p color= "danger">UserName is required</p>
           </div>
         <ion-fab right bottom>
             <button ion-fab mini color="info" type="submit" [disabled]="registerFormuserName.invalid"><ion-icon ios="ios-arrow-round-forward" md="md-arrow-round-forward"></ion-icon></button>
@@ -68,7 +68,7 @@
             <ion-input formControlName="email" type="text" [class.invalid]="!registerFormemail.controls.email.valid && (registerFormemail.controls.email.dirty || submitAttempt)"></ion-input>
           </ion-item>
           <div *ngIf="registerFormemail.get('email').hasError('required') && registerFormemail.get('email').touched">
-              <p>Email is required</p>
+              <p color= "danger">Email is required</p>
             </div>
           <ion-fab right bottom>
               <button ion-fab mini color="info" type="submit" [disabled]="registerFormemail.invalid"><ion-icon ios="ios-arrow-round-forward" md="md-arrow-round-forward"></ion-icon></button>
@@ -84,7 +84,7 @@
               <ion-input formControlName="password" type="text" [class.invalid]="!registerFormpassword.controls.password.valid && (registerFormpassword.controls.password.dirty || submitAttempt)"></ion-input>
             </ion-item>
             <div *ngIf="registerFormpassword.get('password').hasError('required') && registerFormpassword.get('password').touched">
-                <p>Password is required</p>
+                <p color= "danger">Password is required</p>
               </div>
             <ion-fab right bottom>
                 <button ion-fab mini color="info" type="submit" [disabled]="registerFormpassword.invalid"><ion-icon ios="ios-arrow-round-forward" md="md-arrow-round-forward"></ion-icon></button>
@@ -102,7 +102,7 @@
                 {{verifyCode}}
               </ion-item>
               <div *ngIf="registerFormcode.get('code').hasError('required') && registerFormcode.get('code').touched">
-                  <p>Code is required</p>
+                  <p color= "danger">Code is required</p>
                 </div>
               <ion-fab right bottom>
                   <button ion-fab mini color="info" type="submit" [disabled]="registerFormcode.invalid"><ion-icon ios="ios-arrow-round-forward" md="md-arrow-round-forward"></ion-icon></button>

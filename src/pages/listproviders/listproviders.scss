@@ -1,22 +1,18 @@
 page-listproviders {
 ion-spinner {
-  width: 188px;
-  height: 188px;
-  stroke: #444;
-  fill: #222;
+    width: 188px;
+    height: 188px;
+    stroke: #444;
+    fill: #222;
+    }
+
+.defaultStore{
+    min-width: 4rem;
+    min-height: 4rem;
+    margin-left: 18%;
+    border-radius: 23%;
 }
-ion-thumbnail {
-    min-width: 3rem;    
-    min-height: 3rem;
-    // img.defaultStore {
-    //     opacity: 0.4;
-    //     max-width: 12rem;    
-    //     min-width: 4rem;
-    //     min-height: 4rem;
-    //     margin-left: 18%;
-    //     border-radius: 23%;
-    // }
-}
+
 .butang{
     font-size: 1.4em;
 }
@@ -46,7 +42,9 @@ p.name2{
 ion-button.option{
     padding-left: 10%;
 }
-ion-icon.dolar{
+
+div.name2{
+    margin-top: 1%;
     margin-left: 5%;
 }
 }

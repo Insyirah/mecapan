@@ -57,29 +57,29 @@
             <ion-img  src="data:image/jpeg;base64,{{provider.storeImage}}"></ion-img>
           </ion-thumbnail>
           <h2 class="name">{{provider.storeName}}</h2>
-          <p class="name2">
+          <p class="name2" style="white-space: normal;">
             <ion-icon ios="ios-pin-outline" md="md-pin" color="primary"></ion-icon>&nbsp;{{provider.address}}</p>
           <br>
           
-          <div *ngIf="provider.priceRangeSign=='1'">
+          <div class="msg" *ngIf="provider.priceRangeSign=='1'">
             <ion-icon name="logo-usd" ios="logo-usd" md="logo-usd" class="usd" color="primary"></ion-icon>  
            </div>
-          <div *ngIf="provider.priceRangeSign=='2'">
+          <div class="msg" *ngIf="provider.priceRangeSign=='2'">
             <ion-icon name="logo-usd" ios="logo-usd" md="logo-usd" class="usd" color="primary"></ion-icon>
             <ion-icon name="logo-usd" ios="logo-usd" md="logo-usd" class="usd" color="primary"></ion-icon>              
           </div>
-          <div *ngIf="provider.priceRangeSign=='3'">
+          <div class="msg" *ngIf="provider.priceRangeSign=='3'">
               <ion-icon name="logo-usd" ios="logo-usd" md="logo-usd" class="usd" color="primary"></ion-icon>
               <ion-icon name="logo-usd" ios="logo-usd" md="logo-usd" class="usd" color="primary"></ion-icon>  
               <ion-icon name="logo-usd" ios="logo-usd" md="logo-usd" class="usd" color="primary"></ion-icon>              
           </div>
-          <div *ngIf="provider.priceRangeSign=='4'">
+          <div class="msg" *ngIf="provider.priceRangeSign=='4'">
               <ion-icon name="logo-usd" ios="logo-usd" md="logo-usd" class="usd" color="primary"></ion-icon>
               <ion-icon name="logo-usd" ios="logo-usd" md="logo-usd" class="usd" color="primary"></ion-icon>
               <ion-icon name="logo-usd" ios="logo-usd" md="logo-usd" class="usd" color="primary"></ion-icon>  
               <ion-icon name="logo-usd" ios="logo-usd" md="logo-usd" class="usd" color="primary"></ion-icon>  
           </div>
-          <div *ngIf="provider.priceRangeSign=='5'">
+          <div class="msg" *ngIf="provider.priceRangeSign=='5'">
               <ion-icon name="logo-usd" ios="logo-usd" md="logo-usd" class="usd" color="primary"></ion-icon>
               <ion-icon name="logo-usd" ios="logo-usd" md="logo-usd" class="usd" color="primary"></ion-icon>
               <ion-icon name="logo-usd" ios="logo-usd" md="logo-usd" class="usd" color="primary"></ion-icon>  

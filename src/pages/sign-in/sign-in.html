@@ -14,7 +14,7 @@
         <ion-input formControlName="name" type="text" [class.invalid]="!logInFormname.controls.name.valid && (logInFormname.controls.name.dirty || submitAttempt)"></ion-input>
     </ion-item>
     <div *ngIf="logInFormname.get('name').hasError('required') && logInFormname.get('name').touched">
-      <p>Phone number or Username is required</p>
+      <p class="msg" style="color:#f53d3d;">Phone number or Username is required</p>
     </div>
     <ion-fab right bottom>
       <button ion-fab mini color="info" type="submit" [disabled]="logInFormname.invalid"><ion-icon ios="ios-arrow-round-forward" md="md-arrow-round-forward"></ion-icon></button>
@@ -30,14 +30,14 @@
         <ion-input formControlName="password" type="password" [class.invalid]="!logInFormpassword.controls.password.valid && (logInFormpassword.controls.password.dirty || submitAttempt)"></ion-input>
       </ion-item>
       <div *ngIf="logInFormpassword.get('password').hasError('required') && logInFormpassword.get('password').touched">
-        <p>Password is required</p>
+        <p class="msg" style="color:#f53d3d;">Password is required</p>
       </div>
       <ion-fab right bottom>
         <button ion-fab mini color="info" type="submit" [disabled]="logInFormpassword.invalid"><ion-icon ios="ios-arrow-round-forward" md="md-arrow-round-forward"></ion-icon></button>
       </ion-fab>
     </form>
 
-    <span (click)="test()">Forgoet Password?</span>
+    <span (click)="test()" class="msg" style="color:#f53d3d;">Forgot Password?</span>
   </div>
 </ion-content>
 <!-- (click)="goSignIn()" -->

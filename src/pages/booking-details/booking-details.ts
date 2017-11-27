@@ -15,6 +15,9 @@ export class BookingDetailsPage {
   appointmentdate: any;
   storename: any;
   bookingDetails: any;
+  checkRate: Array<any> = [];
+  halfStarIconName: boolean;
+  rate: number;
 
   constructor(private alertCtrl: AlertController, private serviceApi: ServiceApiProvider, public navCtrl: NavController, public navParams: NavParams) {
   }
@@ -55,5 +58,23 @@ export class BookingDetailsPage {
       }
     })
   }
+  onModelChange(a) {
+    console.log(a)
+    let p = this.checkRate.length
+    // console.log
+    if (this.checkRate[0] != a) {
+     // this.checkRate.pop()
+      this.checkRate.push(a)
+      console.log(this.checkRate)
+      
+
+      this.rate = a - 0.5//display
+    } else if (this.checkRate[0] == a) {
+      this.rate = a
+      this.checkRate.pop()
+      console.log(this.checkRate)
+    }
+  }
+
 
 }

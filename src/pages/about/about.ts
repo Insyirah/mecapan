@@ -24,6 +24,9 @@ export class AboutPage {
   providerr:any;
   completed:any;
   rejected:any;
+  checkRate: Array<any> = [];
+  halfStarIconName: boolean;
+  rate: number;
 
   constructor(public loadingCtrl: LoadingController,private serviceApi: ServiceApiProvider,public navCtrl: NavController,public navParams : NavParams) {
     
@@ -122,6 +125,23 @@ export class AboutPage {
     console.log('Slide changed');
    const currentSlide = this.slides[slider.getActiveIndex()];
     this.selectedSegment = currentSlide.id;
+  }
+  onModelChange(a) {
+    console.log(a)
+    let p = this.checkRate.length
+    // console.log
+    if (this.checkRate[0] != a) {
+     // this.checkRate.pop()
+      this.checkRate.push(a)
+      console.log(this.checkRate)
+      
+
+      this.rate = a - 0.5//display
+    } else if (this.checkRate[0] == a) {
+      this.rate = a
+      this.checkRate.pop()
+      console.log(this.checkRate)
+    }
   }
 
 }

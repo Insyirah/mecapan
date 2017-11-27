@@ -36,4 +36,26 @@ page-about {
         padding-top: 2%;
         margin-left: 7%;
     }
+    .a{
+        padding-left: 5%;
+        font-size: 120%
+    }
+
+    ul {
+        padding: 0px;
+      
+        &.rating li {
+            // margin-left:0.000001px;
+            // margin-right: 0.0000001px;
+          padding: 5px 10px !important;
+          background: none;
+          color: #ffb400;
+      
+          ion-icon {
+            position: fixed;
+           
+            font-size: 30px;
+          }
+        }
+      }
 }

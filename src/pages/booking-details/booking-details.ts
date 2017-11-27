@@ -3,35 +3,27 @@ import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angu
 import { ServiceApiProvider } from '../../providers/service-api/service-api';
 import { AboutPage } from '../about/about';
 
-/**
- * Generated class for the BookingDetailsPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
   selector: 'page-booking-details',
   templateUrl: 'booking-details.html',
 })
 export class BookingDetailsPage {
- 
+
   form: { applicationID: any; };
   applicationId: any;
   appointmentdate: any;
   storename: any;
   bookingDetails: any;
 
-  constructor(private alertCtrl: AlertController,private serviceApi: ServiceApiProvider,public navCtrl: NavController, public navParams: NavParams) {
+  constructor(private alertCtrl: AlertController, private serviceApi: ServiceApiProvider, public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad BookingDetailsPage');
     this.getBookingDetails()
   }
 
-  private presentAlert(text) {
+  presentAlert(text) {
     let alert = this.alertCtrl.create({
       subTitle: text,
       buttons: ['OK']
@@ -39,26 +31,26 @@ export class BookingDetailsPage {
     alert.present();
   }
 
-  getBookingDetails(){
+  getBookingDetails() {
     this.bookingDetails = this.navParams.get("recentStatusDetail")
     console.log(this.bookingDetails)
-    console.log("store",this.bookingDetails.storeName)
-    this.storename= this.bookingDetails.storeName
+    console.log("store", this.bookingDetails.storeName)
+    this.storename = this.bookingDetails.storeName
     this.appointmentdate = this.bookingDetails.appointmentDate
   }
 
 
-  cancelBooking(){
+  cancelBooking() {
     this.applicationId = this.bookingDetails.applicationID
-    this.form ={
-      applicationID:this.applicationId 
+    this.form = {
+      applicationID: this.applicationId
     }
     this.serviceApi.postCancelBooking(this.form).subscribe(data => {
       console.log(data)
-      if(data.status == "success"){
+      if (data.status == "success") {
         this.presentAlert('Your appointment has been canceledd');
         this.navCtrl.setRoot(AboutPage)
-      }else{
+      } else {
         this.presentAlert('Service Errors');
       }
     })

@@ -11,22 +11,23 @@ import { StartPage } from "../start/start";
   templateUrl: 'tabs.html'
 })
 export class TabsPage {
-
+  badgeCount: number;
   tab1Root = HomePage;
   tab2Root = AboutPage;
   tab3Root = ContactPage;
-  tab1BadgeCount : number = 0;
-  constructor(public navCtrl: NavController, public events: Events, ) {
+
+  constructor(public navCtrl: NavController, public events: Events) {
     this.events.subscribe("hehe", () => {
       this.navCtrl.setRoot(StartPage)
       this.navCtrl.popToRoot()
     })
 
     this.getBagdeCountBookingTabs()
-    let badgeCount = 3
   }
 
-  getBagdeCountBookingTabs(){
-    let badgeCount = 3
+  getBagdeCountBookingTabs() {
+    //call api
+    this.badgeCount = 3
   }
+  
 }

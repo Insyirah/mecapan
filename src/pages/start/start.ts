@@ -34,7 +34,6 @@ export class StartPage {
   }
 
   SignInStandBy(provider) {
-    console.log(provider)
     if (provider == "GOOGLE") {
       this.SignInGoogle()
     }
@@ -43,7 +42,7 @@ export class StartPage {
     }
   }
 
-  SignInGoogle() {
+  SignInGoogle() { //google auth
     this.googlePlus.login({}).then(y => {
       this.userData = { email: y.email, username: y.displayName, fullname: y.givenName, loginType: "Google", userType: "Customer" }
       console.log(y)
@@ -56,9 +55,8 @@ export class StartPage {
   }
 
 
-  loginGoogle(form) {
+  loginGoogle(form) { //Our server auth
     this.serviceApi.postLoginGoogle(form).subscribe(data => {
-      console.log("login Google Success", data)
       this.storage.store("user", data)
       this.events.publish('Login')
       this.navCtrl.setRoot(TabsPage)
@@ -66,15 +64,12 @@ export class StartPage {
   }
 
 
-  SignInFacebook() {
+  SignInFacebook() {//facebook auth
     this.fb.login(['public_profile', 'user_friends', 'email'])
       .then((res: FacebookLoginResponse) => {
-        console.log('Logged into Facebook!', res.authResponse)
-        alert("success")
         if (res.status == "connected") {
           this.fb.api('me?fields=id,email,first_name', []).then(profile => {
             this.userData = { email: profile['email'], username: profile['first_name'], fullname: profile['first_name'] + " " + profile['last_name'], loginType: "Facebook", userType: "Customer" }
-            console.log(this.userData)
             this.loginFB(this.userData)
             this.navCtrl.setRoot(TabsPage)
 
@@ -89,7 +84,6 @@ export class StartPage {
 
   loginFB(form) {
     this.serviceApi.postLoginFacebook(form).subscribe(data => {
-      console.log("loginFb Success", data)
       this.storage.store("user", data)
       this.events.publish('Login')
       this.navCtrl.setRoot(TabsPage)

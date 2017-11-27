@@ -24,7 +24,13 @@
   <ion-slides style="height:unset;" #mySlider (ionSlideDidChange)="onSlideChanged($event)">
     <ion-slide>
 
-      <ion-slides pager="true" parallax="true">
+        <ion-slides pager="true" parallax="true">
+            <ion-slide *ngFor="let banner of agentBanner">
+                <img src="data:image/jpeg;base64,{{banner.bannerImage}}" /> 
+            </ion-slide>
+          </ion-slides>
+
+      <!-- <ion-slides pager="true" parallax="true">
         <ion-slide>
           <img src="assets/1.jpg">
         </ion-slide>
@@ -34,7 +40,7 @@
         <ion-slide>
           <img src="assets/3.jpg">
         </ion-slide>
-      </ion-slides>
+      </ion-slides> -->
       <ion-item>
 
         <h2>

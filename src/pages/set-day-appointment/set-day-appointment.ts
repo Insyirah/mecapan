@@ -10,6 +10,7 @@ import { ServiceApiProvider } from '../../providers/service-api/service-api';
   templateUrl: 'set-day-appointment.html',
 })
 export class SetDayAppointmentPage {
+  closedDay: any;
   disabledProceed: boolean = true;
   form: { agentBranchID: any; };
   getDate: { agentBranchID: any; };
@@ -35,31 +36,40 @@ export class SetDayAppointmentPage {
   CalendarOptions: CalendarComponentOptions
 
   constructor(private serviceApi: ServiceApiProvider, public navCtrl: NavController, public navParams: NavParams) {
+    // this.getFulldate()
     this.SetupCalender()
-    this.getFulldate()
   }
 
-  SetupCalender() {
 
+  SetupCalender() {
     this.maxDayCanBook = 60
     this.calendarDefault = {
       todayDate: new Date(this.todayDate),
       dateOutputType: "string",
     }
     let v = new Date(this.todayDate)
-    this.maxDatebooking = new Date(v.setDate(v.getDate() + 60))
+    this.maxDatebooking = new Date(v.setDate(v.getDate() +  this.maxDayCanBook))
 
-    this.CalendarOptions = {
-      daysConfig: this.daysDisable,
-      showToggleButtons: true,
-      disableWeeks: this.disableDay,
-      showMonthPicker: false,
-      from: this.todayDate,
-      to: this.maxDatebooking
-    };
+    this.branchId = this.navParams.get('agentBranchID')
+    this.form = {
+      agentBranchID: this.branchId
+    }
+    this.serviceApi.getBookingCalendar(this.form).subscribe(data => {
+      console.log("data",data)
+      console.log("date from API",data.closedShopDay)
+      this.closedDay = data.closedShopDay
+      console.log("closedDay",this.closedDay) 
+      this.CalendarOptions = {
+        daysConfig: this.daysDisable,
+        showToggleButtons: true,
+        disableWeeks: this.closedDay,
+        showMonthPicker: false,
+        from: this.todayDate,
+        to: this.maxDatebooking
+      };
+    })
 
-
-    this.CalendarOptions.disableWeeks = [0, 6]
+    
     this.DisableMaxDate()
     this.DisableBookedDate()
   }
@@ -123,8 +133,6 @@ export class SetDayAppointmentPage {
         marked: true
       })
     }
-  
-  
   }
 
   pickedDate(x) {
@@ -157,17 +165,7 @@ export class SetDayAppointmentPage {
     })
   }
 
-  getFulldate() {
-    this.branchId = this.navParams.get('agentBranchID')
-
-    this.form = {
-      agentBranchID: this.branchId
-    }
-    this.serviceApi.getBookingCalendar(this.form).subscribe(data => {
-      console.log(data)
-    })
-  }
-
+  
 
 }
 

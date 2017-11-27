@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-// import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs/Observable";
-// import { HttpHeaders } from "@angular/common/http";
 import { Http, Response, RequestOptions, Headers, URLSearchParams } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { LocalStorageService } from 'ng2-webstorage';
@@ -21,7 +19,7 @@ export class ServiceApiProvider {
   host: string = "http://35.203.181.89:300/"
   constructor(public http: Http, private storage: LocalStorageService, public events: Events) {
     this.user = this.storage.retrieve("user")
-    console.log("user", this.user)
+    // console.log("user", this.user)
 
     if (this.user == null) {
       this.loginId = 0
@@ -30,12 +28,12 @@ export class ServiceApiProvider {
     else {
       this.loginId = this.user.listDetail.loginID
       this.userId = this.user.listDetail.userID
-      console.log("loginID", this.loginId)
+      // console.log("loginID", this.loginId)
     }
 
     this.events.subscribe('Login', (userEventData) => {
       this.user = this.storage.retrieve("user")
-      console.log("service")
+      // console.log("service")
       this.loginId = this.user.listDetail.loginID
       this.userId = this.user.listDetail.userID
     })
@@ -122,7 +120,7 @@ export class ServiceApiProvider {
     );
   }
 
-  getSkinType(form): Observable<any> {//contactpage(notDone)
+  getSkinType(form): Observable<any[]> {//contactpage(notDone)
     let url = this.host + 'Global/api/GetMasterData/' + form.moduleName + '/' + form.masterName;
     console.log(url)
     return this.http.get(url)
@@ -133,7 +131,7 @@ export class ServiceApiProvider {
       );
   }
 
-    getHairType(form): Observable<any> {//contactpage(notDone)
+    getHairType(form): Observable<any[]> {//contactpage(notDone)
         let url = this.host + 'Global/api/GetMasterData/'+form.moduleName+'/'+form.masterName;
         console.log(url)
         return this.http.get(url)
@@ -151,8 +149,8 @@ export class ServiceApiProvider {
           );
     }
 
-  postUpdateDetail(form): Observable<any> {//contactpage(notDone)
-    let url = this.host + 'Dashboard/User/api/PostUpdateDetail'
+  postUpdateUserProfile(form): Observable<any> {//contactpage(notDone)
+    let url = this.host + 'Dashboard/User/api/PostUpdateUserProfile'
     console.log(url)
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
@@ -311,6 +309,25 @@ getAgentReview(form): Observable<any> {
   return this.http.get(url).map((res: Response) => res.json()
   );
 }
+
+getForgotPasswordCode(form): Observable<any> {
+  let url = this.host + 'Login/Login/api/SendForgotPasswordCode/' + form.sendTo + '/' + form.forgotPasswordByID
+  console.log(url)
+  return this.http.get(url).map((res: Response) => res.json()
+  );
+}
+
+postForgotPassword(form): Observable<any> {
+  let url = this.host + 'Login/Login/api/PostForgotPassword'
+  console.log(url)
+  let headers = new Headers({ 'Content-Type': 'application/json' });
+  let options = new RequestOptions({ headers: headers });
+  return this.http.post(url, form, options)
+    .map((res: Response) => res.json());
+}
+
+
+
 
 
 

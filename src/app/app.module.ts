@@ -19,12 +19,13 @@ import { LoginService } from '../pages/service/login.service';
 import { LogInMeccapanPage } from '../pages/log-in-meccapan/log-in-meccapan';
 import { SignInPageModule } from '../pages/sign-in/sign-in.module';
 import { BookingDetailsPageModule } from '../pages/booking-details/booking-details.module';
+import { ForgetPasswordPageModule } from '../pages/forget-password/forget-password.module';
 
 import { Facebook } from '@ionic-native/facebook';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { GooglePlus } from '@ionic-native/google-plus';
-import { NgCalendarModule } from 'ionic2-calendar';
+//import { NgCalendarModule } from 'ionic2-calendar';
 import { ServiceApiProvider } from '../providers/service-api/service-api';
 import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
@@ -32,6 +33,8 @@ import { Ng2Webstorage } from 'ng2-webstorage';
 import { NguiMapModule } from '@ngui/map';
 import { HttpModule } from '@angular/http';
 import { Geolocation } from '@ionic-native/geolocation';
+import { ResetPasswordPageModule } from '../pages/reset-password/reset-password.module';
+
 
 
 @NgModule({
@@ -43,8 +46,9 @@ import { Geolocation } from '@ionic-native/geolocation';
     TabsPage,
     LogInMeccapanPage
   ],
-  imports: [CalendarModule,
-    NgCalendarModule,
+  imports: [
+    CalendarModule,
+   // NgCalendarModule,
     HttpClientModule,
     HttpModule,
     IonicStorageModule.forRoot(),
@@ -57,7 +61,9 @@ import { Geolocation } from '@ionic-native/geolocation';
     RegisterPageModule,
     StartPageModule,
     SignInPageModule,
-    BookingDetailsPageModule,  
+    BookingDetailsPageModule,
+    ForgetPasswordPageModule,  
+    ResetPasswordPageModule,
     Ng2Webstorage,
     NguiMapModule.forRoot({ apiUrl: 'https://maps.google.com/maps/api/js?key=AIzaSyBSy0GEQeCrUgJ9LvrYHUBemGUjHE1PhcU' }),
     IonicModule.forRoot(MyApp, {
@@ -82,7 +88,6 @@ import { Geolocation } from '@ionic-native/geolocation';
     Facebook,
     ServiceApiProvider,
     Geolocation
-  
   ]
 })
 export class AppModule { }

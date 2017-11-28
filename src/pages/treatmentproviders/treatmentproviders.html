@@ -26,7 +26,7 @@
 
         <ion-slides pager="true" parallax="true">
             <ion-slide *ngFor="let banner of agentBanner">
-                <img src="data:image/jpeg;base64,{{banner.bannerImage}}" /> 
+                <img [src]="HandleImage(banner.bannerImage)" /> 
             </ion-slide>
           </ion-slides>
 

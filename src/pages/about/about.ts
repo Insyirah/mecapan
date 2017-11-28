@@ -1,5 +1,5 @@
 import {Component, ViewChild} from '@angular/core';
-import { NavController, Slides, IonicPage, NavParams } from 'ionic-angular';
+import { NavController, Slides, IonicPage, NavParams, LoadingController, Loading } from 'ionic-angular';
 import { ServiceApiProvider } from '../../providers/service-api/service-api';
 import { BookingDetailsPage } from '../booking-details/booking-details';
 
@@ -8,6 +8,7 @@ import { BookingDetailsPage } from '../booking-details/booking-details';
   templateUrl: 'about.html'
 })
 export class AboutPage {
+  loading: Loading;
   bookingCompletedStatus: any;
   bookingRejectStatus: Array<any>;
   form: {};
@@ -23,8 +24,11 @@ export class AboutPage {
   providerr:any;
   completed:any;
   rejected:any;
+  checkRate: Array<any> = [];
+  halfStarIconName: boolean;
+  rate: number;
 
-  constructor(private serviceApi: ServiceApiProvider,public navCtrl: NavController,public navParams : NavParams) {
+  constructor(public loadingCtrl: LoadingController,private serviceApi: ServiceApiProvider,public navCtrl: NavController,public navParams : NavParams) {
     
     this.selectedSegment = 'first';
     this.slides = [
@@ -42,21 +46,16 @@ export class AboutPage {
       }
     ];
 
-    this.providerr = [
-      {name:'Johny Saloons',treatment:"Eyelashes, Haircut",date:"Wednesday, March 20, 2PM",status:1},
-      {name:'Johny Saloons',treatment:"Rebonding",date:"date",status:2},
-      {name:'Johny Saloons',treatment:"Rebonding",date:"date",status:3},
-
-    ];
-
-    this.completed = [
-      {name:'Johny Saloons',treatment:"Eyelashes, Haircut",date:"Wednesday, March 20, 2PM"},
-    ];
+    this.loading = this.loadingCtrl.create({
+      content: 'Please wait...'
+    });
+    this.loading.present()
 
     // this.getBookingActivity()
     this.getRecentBookingActivity()
     this.getRejectedBookingActivity()
     this.getCompletedBookingActivity()
+
   }
 
   getRecentBookingActivity(){
@@ -76,18 +75,36 @@ export class AboutPage {
     ]
   }
 
+  doRefresh(refresher) {
+    this.getRecentBookingActivity()
+    refresher.complete();
+    this.getRejectedBookingActivity()
+    refresher.complete();
+    this.getCompletedBookingActivity()
+    refresher.complete();
+    console.log('Begin async operation', refresher);
+
+    // setTimeout(() => {
+    //   console.log('Async operation has ended');
+    //   refresher.complete();
+    // }, 2000);
+  }
+
   getRejectedBookingActivity(){
     this.serviceApi.getRejectedBookingActivity().subscribe(data => {
       this.bookingRejectStatus = data.rejectedBooking
     console.log("data rejected",this.bookingRejectStatus)
     }) 
+    this.loading.dismiss()
   }
 
   getCompletedBookingActivity(){
+    
     this.serviceApi.getCompletedBookingActivity().subscribe(data => {
       this.bookingCompletedStatus = data.completedBooking
     console.log("data complete",data.completedBooking)
     }) 
+    this.loading.dismiss()
   }
 
   viewBooking(status){
@@ -108,6 +125,23 @@ export class AboutPage {
     console.log('Slide changed');
    const currentSlide = this.slides[slider.getActiveIndex()];
     this.selectedSegment = currentSlide.id;
+  }
+  onModelChange(a) {
+    console.log(a)
+    let p = this.checkRate.length
+    // console.log
+    if (this.checkRate[0] != a) {
+     // this.checkRate.pop()
+      this.checkRate.push(a)
+      console.log(this.checkRate)
+      
+
+      this.rate = a - 0.5//display
+    } else if (this.checkRate[0] == a) {
+      this.rate = a
+      this.checkRate.pop()
+      console.log(this.checkRate)
+    }
   }
 
 }

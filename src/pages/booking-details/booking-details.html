@@ -5,13 +5,13 @@
 </ion-header>
 
 <ion-content padding>
-    <ion-item padding class="items">
+    <ion-item padding class="items" style="white-space: normal;" text-wrap>
         <div style="padding-left:10%;">
           <h2 class="bottomLine"><b>Booking Details</b></h2>
           <hr style="border-bottom: 1px solid #e91e63; width:80%;" align="left">
           <h3><b>Store Name  : </b>{{storename}}</h3>
           <h3><b>Appointment Date   : </b>{{appointmentdate| date: 'dd/MM/yyyy'}}</h3>
-          <h3><b>Treatment Name  : </b></h3>
+          <h3><b>Treatment Name  :</b>{{treatment}} </h3>
         </div>
         <br>
         <button ion-button round color="warning" class="pull-right" (click)="cancelBooking(requestId)">Cancel Appointment</button>

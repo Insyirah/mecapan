@@ -87,6 +87,11 @@ export class ListprovidersPage {
     // loader.dismiss()
   }
 
+  goFilter(choosenSearchBy) {
+    this.searchId = choosenSearchBy.searchBy
+    console.log("choosenSearchBy", choosenSearchBy)
+  }
+
   handleSearch() {
     this.providerId = this.navParams.get("treatmentId")
     this.search = this.terms.valueChanges
@@ -115,10 +120,7 @@ export class ListprovidersPage {
 
   }
 
-  goFilter(choosenSearchBy) {
-    this.searchId = choosenSearchBy
-    console.log("choosenSearchBy", choosenSearchBy)
-  }
+ 
 
   filterType() {
     let alert = this.alertCtrl.create({

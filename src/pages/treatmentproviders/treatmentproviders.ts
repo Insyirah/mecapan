@@ -8,6 +8,8 @@ import { Geolocation } from '@ionic-native/geolocation';
 @IonicPage()
 @Component({ selector: 'page-treatmentproviders', templateUrl: 'treatmentproviders.html' })
 export class TreatmentprovidersPage {
+  reviewBil: any;
+  starRate: any;
   loading: Loading;
   reviewDetail: any;
   banner: any;
@@ -94,6 +96,8 @@ export class TreatmentprovidersPage {
       this.banner = this.agentBanner[0].bannerImage
       this.address = this.agentDetail.address
       this.email = this.agentDetail.email
+      this.starRate=this.agentDetail.ratingStar
+      this.reviewBil= this.agentDetail.reviewCount
       this.startBisnes = this.agentDetail.startBussinessHour
       this.endBisnes = this.agentDetail.endBussinessHour
       this.lat = this.agentDetail.latitude

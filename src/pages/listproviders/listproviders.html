@@ -44,11 +44,6 @@
         </ion-col>
       </ion-row>
 
-      <!-- <div *ngIf="!searching">
-        <br>
-        <br>
-        <ion-spinner name="crescent"></ion-spinner>
-      </div> -->
 
       <div>
         <ion-item no-padding *ngFor="let provider of providers" (click)="goTreatment(provider.agentBranchID,provider.treatmentProvidedID)">

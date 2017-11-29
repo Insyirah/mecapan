@@ -30,9 +30,5 @@ export class TabsPage {
     this.badgeCount = 3
   }
 
-  reload(){
-    location.reload()
-    console.log("reload")
-  }
-  
+ 
 }

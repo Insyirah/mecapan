@@ -127,19 +127,18 @@ export class ContactPage implements OnInit {
 
 
   logout() {
-    // if (this.user.loginType == "Google") {
-    //   this.googlePlus.disconnect()
-    //   this.handleLogOut()
-    // }
-    // else if (this.user.loginType == "Facebook") {
-    //   this.facebook.logout()
-    //   this.handleLogOut()
-    // }
-    // else {//meccapan
-    //   this.handleLogOut()
-    // }
-    this.storage.clear('user');
-    this.events.publish("hehe")
+    if (this.user.loginType == "Google") {
+      this.googlePlus.disconnect()
+      this.handleLogOut()
+    }
+    else if (this.user.loginType == "Facebook") {
+      this.facebook.logout()
+      this.handleLogOut()
+    }
+    else {//meccapan
+      this.handleLogOut()
+    }
+
   }
 
   handleLogOut() {

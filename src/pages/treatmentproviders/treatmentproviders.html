@@ -64,7 +64,21 @@
           <ion-item>
             <ion-icon name="logo-usd" ios="logo-usd" md="logo-usd" class="usd"></ion-icon>
             <br>
-            <h5 style="padding-left:9%;">Great price</h5>
+            <!-- <div *ngIf="provider.priceRangeSign == '1'">
+              <ion-icon name="logo-usd" ios="logo-usd" md="logo-usd" class="usd" color="primary"></ion-icon>
+            </div>
+            <div *ngIf="provider.priceRangeSign == '2'">
+              <ion-icon name="logo-usd" ios="logo-usd" md="logo-usd" class="usd" color="primary"></ion-icon>
+            </div>
+            <div *ngIf="provider.priceRangeSign == '3'">
+              <ion-icon name="logo-usd" ios="logo-usd" md="logo-usd" class="usd" color="primary"></ion-icon>
+            </div>
+            <div *ngIf="provider.priceRangeSign == '4'">
+              <ion-icon name="logo-usd" ios="logo-usd" md="logo-usd" class="usd" color="primary"></ion-icon>
+            </div>
+            <div *ngIf="provider.priceRangeSign == '5'">
+              <ion-icon name="logo-usd" ios="logo-usd" md="logo-usd" class="usd" color="primary"></ion-icon>
+            </div> -->
           </ion-item>
         </ion-col>
       </ion-row>
@@ -99,11 +113,25 @@
       <hr>
       <!-- <span style="font-size:80%"><b>Hair</b></span> -->
         <ion-item *ngFor="let treatment of treatmentList;let i = index" style="white-space: normal;" text-wrap>
-          <ion-label>
-          <b> {{treatment.treatmentName}} </b><br>
-          <a><b>Rp&nbsp;{{treatment.price}} k</b></a>
-          <a class="hours"><b>{{treatment.treatmentDuration}} min</b></a>
-          </ion-label>
+          <!-- <ion-label> -->
+          <ion-row>
+            <ion-col>
+              <strong>Treatment</strong>
+              <b> {{treatment.treatmentName}} </b>
+            </ion-col>
+            <ion-col>
+              <strong>Price</strong>
+              <a><b>Rp&nbsp;{{treatment.price}} k</b></a>
+            </ion-col>
+            <ion-col>
+              <strong>Time</strong>
+              <a class="hours"><b>{{treatment.treatmentDuration}} min</b></a>
+            </ion-col>
+          </ion-row>
+          <br>
+          
+          
+          <!-- </ion-label> -->
           <ion-checkbox [(ngModel)]="checkedItems[i]" (ionChange)="choosenTreatment(treatment.treatmentID,checkedItems[i],treatment.agentDiscountID,treatment.agentBranchID)" color="primary"></ion-checkbox>
         </ion-item>
       <button (click)="bookAppointment()" [disabled]='disabledProceed' ion-button color="primary" type="submit"  round full margin-top>Make Appointment</button>

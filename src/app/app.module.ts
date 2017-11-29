@@ -34,8 +34,6 @@ import { HttpModule } from '@angular/http';
 import { Geolocation } from '@ionic-native/geolocation';
 import { ResetPasswordPageModule } from '../pages/reset-password/reset-password.module';
 
-
-
 @NgModule({
   declarations: [
     MyApp,

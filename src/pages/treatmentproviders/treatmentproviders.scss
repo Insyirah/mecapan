@@ -49,4 +49,40 @@ page-treatmentproviders {
         margin-right: 5%;
     }
 
+    .checkbox-md .checkbox-icon {
+        border-radius: 2px;
+        position: relative;
+        width: 16px;
+        height: 16px;
+        border-width: 2px;
+        border-style: solid;
+        border-color: #787878;
+        background-color: #fff;
+        -webkit-transition-duration: 280ms;
+        transition-duration: 280ms;
+        -webkit-transition-property: background;
+        transition-property: background;
+        -webkit-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        margin-top: 17px;
+    }
+
+    .checkbox-ios .checkbox-icon {
+        border-radius: 2px;
+        position: relative;
+        width: 16px;
+        height: 16px;
+        border-width: 2px;
+        border-style: solid;
+        border-color: #787878;
+        background-color: #fff;
+        -webkit-transition-duration: 280ms;
+        transition-duration: 280ms;
+        -webkit-transition-property: background;
+        transition-property: background;
+        -webkit-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        margin-top: 17px;
+    }
+
 }

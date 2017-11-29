@@ -112,28 +112,29 @@
       <br>
       <hr>
       <!-- <span style="font-size:80%"><b>Hair</b></span> -->
-        <ion-item *ngFor="let treatment of treatmentList;let i = index" style="white-space: normal;" text-wrap>
-          <!-- <ion-label> -->
-          <ion-row>
-            <ion-col>
-              <strong>Treatment</strong>
+        <div *ngFor="let treatment of treatmentList;let i = index" style="white-space: normal;" text-wrap>
+          <ion-grid><!-- <ion-label> -->
+          <ion-row>&nbsp;
+              <ion-checkbox [(ngModel)]="checkedItems[i]" (ionChange)="choosenTreatment(treatment.treatmentID,checkedItems[i],treatment.agentDiscountID,treatment.agentBranchID)" color="primary"></ion-checkbox>
+            <ion-col width-15 text-left>
+              Treatment
               <b> {{treatment.treatmentName}} </b>
             </ion-col>
-            <ion-col>
-              <strong>Price</strong>
+            <ion-col width-3 text-center>
+              Price <br>
               <a><b>Rp&nbsp;{{treatment.price}} k</b></a>
             </ion-col>
-            <ion-col>
-              <strong>Time</strong>
+            <ion-col width-3 text-center>
+              Time <br>
               <a class="hours"><b>{{treatment.treatmentDuration}} min</b></a>
             </ion-col>
           </ion-row>
-          <br>
+        </ion-grid>
           
           
           <!-- </ion-label> -->
-          <ion-checkbox [(ngModel)]="checkedItems[i]" (ionChange)="choosenTreatment(treatment.treatmentID,checkedItems[i],treatment.agentDiscountID,treatment.agentBranchID)" color="primary"></ion-checkbox>
-        </ion-item>
+          
+      </div>
       <button (click)="bookAppointment()" [disabled]='disabledProceed' ion-button color="primary" type="submit"  round full margin-top>Make Appointment</button>
     </ion-slide>
 

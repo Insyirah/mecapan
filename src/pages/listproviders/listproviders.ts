@@ -5,7 +5,7 @@ import { ServiceApiProvider } from '../../providers/service-api/service-api';
 import { FormControl, FormBuilder, FormGroup } from "@angular/forms";
 import 'rxjs/Rx';
 import { Observable } from "rxjs/Observable";
-import { LocalStorageService } from 'ng2-webstorage';
+//import { Storage } from '@ionic/storage';
 // import { debounceTime } from 'rxjs/operator/debounceTime'; import {
 // distinctUntilChanged } from 'rxjs/operator/distinctUntilChanged'; import {
 // switchMap } from 'rxjs/operator/switchMap';

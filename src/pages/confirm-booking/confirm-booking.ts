@@ -3,13 +3,6 @@ import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angu
 import { ServiceApiProvider } from '../../providers/service-api/service-api';
 import { AboutPage } from '../about/about';
 
-/**
- * Generated class for the ConfirmBookingPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
   selector: 'page-confirm-booking',

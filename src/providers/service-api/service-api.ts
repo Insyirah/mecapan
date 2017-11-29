@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 import { Observable } from "rxjs/Observable";
 import { Http, Response, RequestOptions, Headers, URLSearchParams } from '@angular/http';
 import 'rxjs/add/operator/map';
-import { LocalStorageService } from 'ng2-webstorage';
+//import { LocalStorageService } from 'ng2-webstorage';
 import { Events } from 'ionic-angular';
 import { DomSanitizer } from "@angular/platform-browser";
+import { Storage } from '@ionic/storage';
 
 
 @Injectable()
@@ -18,42 +19,47 @@ export class ServiceApiProvider {
   url: string
 
   host: string = "http://35.203.181.89:300/"
-  constructor(private _DomSanitizer: DomSanitizer,public http: Http, private storage: LocalStorageService, public events: Events) {
-    this.user = this.storage.retrieve("user")
+  constructor(private storages: Storage, private _DomSanitizer: DomSanitizer, public http: Http, public events: Events) {
+    this.storages.get("user").then(data => {
+      this.user = data
+      console.log("this.user", this.user)
+      if (this.user == null) {
+        this.loginId = 0
+        this.userId = 0
+      }
+      else {
+        this.loginId = this.user.listDetail.loginID
+        this.userId = this.user.listDetail.userID
+       // console.log()
+        // console.log("loginID", this.loginId)
+      }
+    })
     // console.log("user", this.user)
 
-    if (this.user == null) {
-      this.loginId = 0
-      this.userId = 0
-    }
-    else {
-      this.loginId = this.user.listDetail.loginID
-      this.userId = this.user.listDetail.userID
-      // console.log("loginID", this.loginId)
-    }
-
     this.events.subscribe('Login', (userEventData) => {
-      this.user = this.storage.retrieve("user")
-      // console.log("service")
-      this.loginId = this.user.listDetail.loginID
-      this.userId = this.user.listDetail.userID
+      this.storages.get("user").then(data => {
+        console.log("data", data)
+        this.user = data
+        this.loginId = this.user.listDetail.loginID
+        this.userId = this.user.listDetail.userID
+      })      // console.log("service")
     })
 
   }
 
-   ImageHandler(data) {
-    return this._DomSanitizer.bypassSecurityTrustUrl("data:image/jpeg;base64,"+data);
+  ImageHandler(data) {
+    return this._DomSanitizer.bypassSecurityTrustUrl("data:image/jpeg;base64," + data);
   }
 
 
   postLoginFacebook(form): Observable<any> {
     return this.http.post(this.host + 'Login/Login/api/PostLoginFacebook', form)
-    .map((res: Response) => res.json());
+      .map((res: Response) => res.json());
   }
 
-  postLoginGoogle(form): Observable<any>{
-       return this.http.post(this.host + 'Login/Login/api/PostLoginGoogle', form)
-       .map((res: Response) => res.json());
+  postLoginGoogle(form): Observable<any> {
+    return this.http.post(this.host + 'Login/Login/api/PostLoginGoogle', form)
+      .map((res: Response) => res.json());
   }
 
   // postLoginMeccapan(form): Observable<any> {
@@ -86,7 +92,7 @@ export class ServiceApiProvider {
   //     );
   // }
 
-  getCheckPhoneNumber(phoneNumber): Observable<any>{
+  getCheckPhoneNumber(phoneNumber): Observable<any> {
     let url = this.host + 'Login/Register/api/GetCheckPhoneNo/' + phoneNumber;
     console.log(url)
     return this.http.get(url)
@@ -94,7 +100,7 @@ export class ServiceApiProvider {
       );
   }
 
-  getCheckEmail(email): Observable<any>{
+  getCheckEmail(email): Observable<any> {
     let url = this.host + 'Login/Register/api/GetCheckEmail/' + email;
     console.log(url)
     return this.http.get(url)
@@ -102,7 +108,7 @@ export class ServiceApiProvider {
       );
   }
 
-  getCheckUserName(userName): Observable<any>{
+  getCheckUserName(userName): Observable<any> {
     let url = this.host + 'Login/Register/api/GetCheckUsername/' + userName;
     console.log(url)
     return this.http.get(url)
@@ -136,23 +142,24 @@ export class ServiceApiProvider {
       );
   }
 
-    getHairType(form): Observable<any[]> {//contactpage(notDone)
-        let url = this.host + 'Global/api/GetMasterData/'+form.moduleName+'/'+form.masterName;
-        console.log(url)
-        return this.http.get(url)
-          .map((res: Response) =>{ 
-              console.log(res.json())
-        return res.json().masterData}
-          );
+  getHairType(form): Observable<any[]> {//contactpage(notDone)
+    let url = this.host + 'Global/api/GetMasterData/' + form.moduleName + '/' + form.masterName;
+    console.log(url)
+    return this.http.get(url)
+      .map((res: Response) => {
+        console.log(res.json())
+        return res.json().masterData
       }
+      );
+  }
 
-    getProfile(): Observable<any[]> {//contactpage(done)
-        let url = this.host + 'Dashboard/User/api/GetProfile/'+this.loginId
-        console.log(url)
-        return this.http.get(url)
-          .map((res: Response) => res.json()
-          );
-    }
+  getProfile(): Observable<any[]> {//contactpage(done)
+    let url = this.host + 'Dashboard/User/api/GetProfile/' + this.loginId
+    console.log(url)
+    return this.http.get(url)
+      .map((res: Response) => res.json()
+      );
+  }
 
   postUpdateUserProfile(form): Observable<any> {//contactpage(notDone)
     let url = this.host + 'Dashboard/User/api/PostUpdateUserProfile'
@@ -163,23 +170,24 @@ export class ServiceApiProvider {
       .map((res: Response) => res.json());
   }
 
-    // getProviderList(form): Observable<any> {//listproviderpage
-    //     let url = this.host + 'UserApplication/api/GetProviderList'
-    //     console.log(url)
-    //     return this.http.get(url)
-    //       .map((res: Response) => res.json()
-    //       );
-    // }
+  // getProviderList(form): Observable<any> {//listproviderpage
+  //     let url = this.host + 'UserApplication/api/GetProviderList'
+  //     console.log(url)
+  //     return this.http.get(url)
+  //       .map((res: Response) => res.json()
+  //       );
+  // }
 
-    getProviderList(form): Observable<any[]> {//treatmentproviderpage(Done)
-      let url = this.host + 'UserApplication/api/GetProviderList'
-      console.log(url)
-      let headers = new Headers({ 'Content-Type': 'application/json' });
-      let options = new RequestOptions({ headers: headers });
-      return this.http.post(url, form, options)
-        .map((res: Response) => {
-         return res.json().branchList}
-        );
+  getProviderList(form): Observable<any[]> {//treatmentproviderpage(Done)
+    let url = this.host + 'UserApplication/api/GetProviderList'
+    console.log(url)
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this.http.post(url, form, options)
+      .map((res: Response) => {
+        return res.json().branchList
+      }
+      );
   }
 
   getTreatmentList(form): Observable<any> {//treatmentproviderpage(Done)
@@ -278,58 +286,58 @@ export class ServiceApiProvider {
   }
 
 
-getRejectedBookingActivity(): Observable<any> {
-  let url = this.host + 'Dashboard/User/api/GetRejectedBookingActivity/'+this.userId
-  console.log(url)
-  return this.http.get(url)
-    .map((res: Response) => res.json()
+  getRejectedBookingActivity(): Observable<any> {
+    let url = this.host + 'Dashboard/User/api/GetRejectedBookingActivity/' + this.userId
+    console.log(url)
+    return this.http.get(url)
+      .map((res: Response) => res.json()
+      );
+  }
+
+  getCompletedBookingActivity(): Observable<any> {
+    let url = this.host + 'Dashboard/User/api/GetCompletedBookingActivity/' + this.userId
+    console.log(url)
+    return this.http.get(url)
+      .map((res: Response) => res.json()
+      );
+  }
+
+  getBookingCalendar(form): Observable<any> {//homepage(notDone)
+    let url = this.host + 'UserBooking/api/GetBookingCalender/' + form.agentBranchID
+    console.log(url)
+    return this.http.get(url).map((res: Response) => res.json()
     );
-}
+  }
 
-getCompletedBookingActivity(): Observable<any> {
-  let url = this.host + 'Dashboard/User/api/GetCompletedBookingActivity/'+this.userId
-  console.log(url)
-  return this.http.get(url)
-    .map((res: Response) => res.json()
+  getAgentBranchAbout(form): Observable<any> {//homepage(notDone)
+    let url = this.host + 'UserApplication/api/GetAgentBranchAbout/' + form.agentBranchID + '/' + form.lat + '/' + form.lng
+    console.log(url)
+    return this.http.get(url).map((res: Response) => res.json()
     );
-}
+  }
 
-getBookingCalendar(form): Observable<any> {//homepage(notDone)
-  let url = this.host + 'UserBooking/api/GetBookingCalender/'+form.agentBranchID
-  console.log(url)
-  return this.http.get(url).map((res: Response) => res.json()
-  );
-}
+  getAgentReview(form): Observable<any> {
+    let url = this.host + 'UserApplication/api/GetAgentReview/' + form.agentBranchID
+    console.log(url)
+    return this.http.get(url).map((res: Response) => res.json()
+    );
+  }
 
-getAgentBranchAbout(form): Observable<any> {//homepage(notDone)
-  let url = this.host + 'UserApplication/api/GetAgentBranchAbout/'+form.agentBranchID +'/'+form.lat + '/' +form.lng
-  console.log(url)
-  return this.http.get(url).map((res: Response) => res.json()
-  );
-}
+  getForgotPasswordCode(form): Observable<any> {
+    let url = this.host + 'Login/Login/api/SendForgotPasswordCode/' + form.sendTo + '/' + form.forgotPasswordByID
+    console.log(url)
+    return this.http.get(url).map((res: Response) => res.json()
+    );
+  }
 
-getAgentReview(form): Observable<any> {
-  let url = this.host + 'UserApplication/api/GetAgentReview/' +form.agentBranchID
-  console.log(url)
-  return this.http.get(url).map((res: Response) => res.json()
-  );
-}
-
-getForgotPasswordCode(form): Observable<any> {
-  let url = this.host + 'Login/Login/api/SendForgotPasswordCode/' + form.sendTo + '/' + form.forgotPasswordByID
-  console.log(url)
-  return this.http.get(url).map((res: Response) => res.json()
-  );
-}
-
-postForgotPassword(form): Observable<any> {
-  let url = this.host + 'Login/Login/api/PostForgotPassword'
-  console.log(url)
-  let headers = new Headers({ 'Content-Type': 'application/json' });
-  let options = new RequestOptions({ headers: headers });
-  return this.http.post(url, form, options)
-    .map((res: Response) => res.json());
-}
+  postForgotPassword(form): Observable<any> {
+    let url = this.host + 'Login/Login/api/PostForgotPassword'
+    console.log(url)
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this.http.post(url, form, options)
+      .map((res: Response) => res.json());
+  }
 
 
 

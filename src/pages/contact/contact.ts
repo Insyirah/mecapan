@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NavController, App, Nav, Events, LoadingController, Loading } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
-import { LocalStorageService } from 'ng2-webstorage';
+//import { LocalStorageService } from 'ng2-webstorage';
 import { ServiceApiProvider } from '../../providers/service-api/service-api';
 import { StartPage } from '../start/start';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -23,19 +23,29 @@ export class ContactPage implements OnInit {
   skin: any[];
   form: {};
   user: any = {};
-  constructor(public loadingCtrl: LoadingController, public navCtrl: NavController, public events: Events, private appCtrl: App, private facebook: Facebook, private googlePlus: GooglePlus, public fb: FormBuilder, private app: App, private serviceApi: ServiceApiProvider, private storage: LocalStorageService) {
+  constructor(public loadingCtrl: LoadingController, public navCtrl: NavController, public events: Events, private appCtrl: App, private facebook: Facebook, private googlePlus: GooglePlus, public fb: FormBuilder, private app: App, private serviceApi: ServiceApiProvider, private storage: Storage) {
+    this.createFormGroup()
+
     this.loading = this.loadingCtrl.create({
       content: 'Please wait...'
     });
     this.loading.present()
-    this.user = this.storage.retrieve("user")
+    this.storage.get("user").then(data => {
+      this.user = data
+      console.log("this.user", this.user)
+      this.getUserProfile()
+      this.getSkinType()
+      this.getHairType()
+
+
+    })
     //console.log("user", this.user.listDetail)
-    this.createFormGroup()
+
   }
 
   createFormGroup() {
     this.profile = this.fb.group({
-      userID: [this.userId],
+      userID: [""],
       fullName: [''],
       dateOfBirth: [''],
       email: [''],
@@ -47,23 +57,18 @@ export class ContactPage implements OnInit {
     });
   }
 
-  changeProfilePicture(){
-    
+  changeProfilePicture() {
+
   }
 
   ngOnInit() {
-    this.user = this.storage.retrieve("user")
-    //apply loading
-    this.getSkinType()
-    this.getHairType()
-    this.getUserProfile()
   }
 
   getUserProfile() {
     this.serviceApi.getProfile().subscribe(data => {
-      console.log(data)
+      console.log("this.userProfile", data)
       this.userProfile = data
-      this.profile.controls.userID.setValue(this.userProfile.detail.fullName)
+      this.profile.controls.userID.setValue(this.userProfile.detail.userID)
       this.profile.controls.fullName.setValue(this.userProfile.detail.fullName)
       this.profile.controls.dateOfBirth.setValue(this.userProfile.detail.dateOfBirth)
       this.profile.controls.email.setValue(this.userProfile.detail.email)
@@ -90,7 +95,7 @@ export class ContactPage implements OnInit {
     }
     this.serviceApi.getSkinType(this.form).subscribe(data => {
       this.skin = data
-     // this.storage.store("skinType", data)
+      // this.storage.store("skinType", data)
     })
   }
 
@@ -100,7 +105,7 @@ export class ContactPage implements OnInit {
       masterName: "List Of Hair Type"
     }
     this.serviceApi.getHairType(this.form).subscribe(data => {
-     // this.storage.store("hairType", data)
+      // this.storage.store("hairType", data)
       //  console.log(data)
     })
   }
@@ -113,11 +118,11 @@ export class ContactPage implements OnInit {
 
   updateUserDetail(form) {
 
-    console.log("updateForm",form)
+    console.log("updateForm", form)
     this.serviceApi.postUpdateUserProfile(form).subscribe(data => {
       console.log(data)
     })
-     // this.update = this.profile.value
+    // this.update = this.profile.value
     // console.log("update", this.update)
     // this.userId = this.userProfile.detail.userID
     // console.log("id", this.userId)
@@ -140,7 +145,7 @@ export class ContactPage implements OnInit {
   }
 
   handleLogOut() {
-    this.storage.clear('user');
+    this.storage.clear()
     this.events.publish("hehe")
   }
 

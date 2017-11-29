@@ -3,7 +3,6 @@ import { NavController, LoadingController, Loading } from 'ionic-angular';
 import { AboutPage } from '../about/about';
 import { ListprovidersPage } from '../listproviders/listproviders';
 import { ServiceApiProvider } from '../../providers/service-api/service-api';
-import { LocalStorageService } from "ng2-webstorage";
 import { Storage } from '@ionic/storage';
 @Component({
   selector: 'page-home',
@@ -15,13 +14,13 @@ export class HomePage {
   hairTreatment: Array<any>;
   faceTreatment: Array<any>;
 
-  constructor(private Storage: Storage,private storage: LocalStorageService, public loadingCtrl: LoadingController, private serviceApi: ServiceApiProvider, public navCtrl: NavController) {
+  constructor(private storage: Storage, public loadingCtrl: LoadingController, private serviceApi: ServiceApiProvider, public navCtrl: NavController) {
     this.loading = this.loadingCtrl.create({
       content: 'Please wait...'
     });
     this.loading.present()
     this.getAllTreatment()
-    
+
   }
 
   ionViewDidLoad() {
@@ -30,19 +29,21 @@ export class HomePage {
   }
 
   checkData() {
-    let treatmentData = this.storage.retrieve("TreatmentMasterData")
-    if (treatmentData != null) {
-      //call api cek data status
-      this.faceTreatment = treatmentData.FaceMasterData
-      this.hairTreatment = treatmentData.HairMasterData
-      this.bodyTreatment = treatmentData.BodyMasterData
-      this.loading.dismiss()
-      // console.log("facetreatment", this.faceTreatment)
-      // console.log("hairTreatment", this.hairTreatment)
-      // console.log("bodyTreatment", this.bodyTreatment)
-    } else {
-      this.getAllTreatment()
-    }
+    this.storage.get("TreatmentMasterData").then(data => {
+      let treatmentData = data
+      if (treatmentData != null) {
+        //call api cek data status
+        this.faceTreatment = treatmentData.FaceMasterData
+        this.hairTreatment = treatmentData.HairMasterData
+        this.bodyTreatment = treatmentData.BodyMasterData
+        this.loading.dismiss()
+        // console.log("facetreatment", this.faceTreatment)
+        // console.log("hairTreatment", this.hairTreatment)
+        // console.log("bodyTreatment", this.bodyTreatment)
+      } else {
+        this.getAllTreatment()
+      }
+    })
   }
 
 
@@ -56,7 +57,7 @@ export class HomePage {
       console.log("bodyTreatment", this.bodyTreatment)
       this.loading.dismiss()
       // this.storage.store("TreatmentMasterData", data)
-      this.Storage.set("treatment",data)
+      this.storage.set("treatment", data)
     })
   }
 

@@ -20,3 +20,9 @@ ion-card{
     display:inline-block;
     border-radius: 0px !important;
 }
+
+@font-face {
+    font-family: 'animeace2reg';
+    src: url('../assets/fonts/animeace2reg.eot');
+    src: local('animeace2reg'), url('../assets/fonts/animeace2reg.woff') format('woff'), url('../assets/fonts/animeace2reg.ttf') format('truetype');
+    }

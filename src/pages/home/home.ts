@@ -4,6 +4,7 @@ import { AboutPage } from '../about/about';
 import { ListprovidersPage } from '../listproviders/listproviders';
 import { ServiceApiProvider } from '../../providers/service-api/service-api';
 import { Storage } from '@ionic/storage';
+
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'

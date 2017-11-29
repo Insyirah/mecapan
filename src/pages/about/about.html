@@ -78,8 +78,8 @@
                 <ion-img src="assets/img/11.jpg" class="defaultStore"></ion-img>
             </ion-thumbnail>
             <h2>{{status.storeName}}</h2>
-            <p>{{status.appointmentDate| date: 'dd/MM/yyyy'}}</p>  <ion-icon ios="ios-checkmark-circle" md="md-checkmark-circle"></ion-icon>
-           
+            <p>{{status.appointmentDate| date: 'dd/MM/yyyy'}}</p>
+            <ion-icon item-end style="color:green;"ios="ios-checkmark-circle" md="md-checkmark-circle"></ion-icon>
             </ion-item>
 <span *ngIf="bookingCompletedStatus==''">No complete booking</span>    
 </ion-slide>

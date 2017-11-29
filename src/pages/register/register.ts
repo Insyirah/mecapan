@@ -5,12 +5,6 @@ import { Storage } from '@ionic/storage';
 import { StartPage } from '../start/start';
 import { LocalStorageService } from 'ng2-webstorage';
 import { ServiceApiProvider } from '../../providers/service-api/service-api';
-/**
- * Generated class for the RegisterPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -18,7 +12,6 @@ import { ServiceApiProvider } from '../../providers/service-api/service-api';
   templateUrl: 'register.html',
 })
 export class RegisterPage {
- 
   registerFormsfullName: FormGroup;
   registerFormuserName: FormGroup;
   registerFormemail: FormGroup;
@@ -28,10 +21,9 @@ export class RegisterPage {
   form: {};
   fullName: any;
   numberPhone: any;
-  userName : any
-  email :any
+  userName: any
+  email: any
   // submitFormRegister: { phoneNumber: string; fullName: string; email: string; userName: string; password: string; };
-  
   code: boolean = false;
   pw: boolean = false;
   Email: boolean = false;
@@ -39,11 +31,9 @@ export class RegisterPage {
   registerFormphoneNumber: FormGroup;
   phoneNo: boolean = true;
   namaPenuh: boolean = false;
- 
- 
   planCase: any;
 
-  constructor(private alertCtrl: AlertController,private serviceApi : ServiceApiProvider,private storage: LocalStorageService,private fb: FormBuilder,public navCtrl: NavController, public navParams: NavParams,public modalCtrl: ModalController) {
+  constructor(private alertCtrl: AlertController, private serviceApi: ServiceApiProvider, private storage: Storage, private fb: FormBuilder, public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController) {
     this.registerFormphoneNumber = this.fb.group({
       phoneNumber: ['', Validators.compose([Validators.required, Validators.pattern('([0-9]{10,11})')])],
     });
@@ -51,16 +41,16 @@ export class RegisterPage {
       fullName: ['', Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z \/\']+')])],
     });
     this.registerFormuserName = this.fb.group({
-       userName: ['', Validators.required],    
+      userName: ['', Validators.required],
     });
     this.registerFormemail = this.fb.group({
-       email:['', Validators.compose([Validators.required, Validators.pattern('^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$')])],
+      email: ['', Validators.compose([Validators.required, Validators.pattern('^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$')])],
     });
     this.registerFormpassword = this.fb.group({
-       password: ['', Validators.compose([Validators.required, Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,16}$')])],
+      password: ['', Validators.compose([Validators.required, Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,16}$')])],
     });
     this.registerFormcode = this.fb.group({
-       code:['', Validators.required]
+      code: ['', Validators.required]
     });
   }
 
@@ -80,7 +70,7 @@ export class RegisterPage {
       case "email":
         this.Email = true;
         this.phoneNo = false
-        
+
         break
       case "pw":
         this.pw = true;
@@ -90,7 +80,7 @@ export class RegisterPage {
         this.code = true;
         this.phoneNo = false
         break
-        
+
     }
   }
 
@@ -102,137 +92,137 @@ export class RegisterPage {
     alert.present();
   }
 
-  goPhoneNumber(x){
+  goPhoneNumber(x) {
 
     console.log(x.phoneNumber)
 
-    this.serviceApi.getCheckPhoneNumber(x.phoneNumber).subscribe(data=> {
+    this.serviceApi.getCheckPhoneNumber(x.phoneNumber).subscribe(data => {
       console.log(data)
-      if(data.checkPhoneNo=='NotOk'){
-        this.presentAlert('This phone number has been used.Please try again');        
-      }else{
+      if (data.checkPhoneNo == 'NotOk') {
+        this.presentAlert('This phone number has been used.Please try again');
+      } else {
         let myModal = this.modalCtrl.create(RegisterPage, {
-          phoneNumber:x.phoneNumber,
-          planCase:"fullName",
-          vCode:this.verifyCode
+          phoneNumber: x.phoneNumber,
+          planCase: "fullName",
+          vCode: this.verifyCode
         });//ni 
         myModal.present();
       }
     })
   }
 
-  goFullName(x){
+  goFullName(x) {
     // this.submitFormRegister = this.navParams.get("submitFormRegister")
     this.numberPhone = this.navParams.get("phoneNumber")
     this.verifyCode = this.navParams.get("vCode")
     let myModal = this.modalCtrl.create(RegisterPage, {
       fullName: x.fullName,
-      phoneNumber:this.numberPhone,
-      planCase:"userName",
-      vCode:this.verifyCode
+      phoneNumber: this.numberPhone,
+      planCase: "userName",
+      vCode: this.verifyCode
     });
     myModal.present();
   }
 
-  goUserName(x){
+  goUserName(x) {
     this.numberPhone = this.navParams.get("phoneNumber")
     this.fullName = this.navParams.get("fullName")
     this.verifyCode = this.navParams.get("vCode")
 
-    this.serviceApi.getCheckUserName(x.userName).subscribe(data=> {
+    this.serviceApi.getCheckUserName(x.userName).subscribe(data => {
       console.log(data)
-      if(data.checkUsername=='NotOk'){
-        this.presentAlert('This userName has been used.Please try again');        
-      }else{
+      if (data.checkUsername == 'NotOk') {
+        this.presentAlert('This userName has been used.Please try again');
+      } else {
         let myModal = this.modalCtrl.create(RegisterPage, {
           userName: x.userName,
-          phoneNumber:this.numberPhone,
-          fullName:this.fullName,
-          planCase:"email",
-          vCode:this.verifyCode
+          phoneNumber: this.numberPhone,
+          fullName: this.fullName,
+          planCase: "email",
+          vCode: this.verifyCode
         });//then this
         myModal.present();
       }
     })
-    
+
   }
 
-  goEmail(x){
-    console.log("email",x)
+  goEmail(x) {
+    console.log("email", x)
     this.numberPhone = this.navParams.get("phoneNumber")
     this.fullName = this.navParams.get("fullName")
     this.userName = this.navParams.get("userName")
-    this.verifyCode = this.navParams.get("vCode")   
-    
-    this.serviceApi.getCheckEmail(x.email).subscribe(data=> {
+    this.verifyCode = this.navParams.get("vCode")
+
+    this.serviceApi.getCheckEmail(x.email).subscribe(data => {
       console.log(data)
-      if(data.checkEmail=='NotOk'){
-        this.presentAlert('This email has been used.Please try again');        
-      }else{
+      if (data.checkEmail == 'NotOk') {
+        this.presentAlert('This email has been used.Please try again');
+      } else {
         let myModal = this.modalCtrl.create(RegisterPage, {
-          phoneNumber:this.numberPhone,
-          fullName:this.fullName,
-          userName:this.userName,
+          phoneNumber: this.numberPhone,
+          fullName: this.fullName,
+          userName: this.userName,
           email: x.email,
-          planCase:"pw",
-          vCode:this.verifyCode
+          planCase: "pw",
+          vCode: this.verifyCode
         });
         myModal.present();
       }
     })
-    
+
     // console.log(x.email)
   }
 
-  goPassword(x){
-    
-    this.numberPhone = this.navParams.get("phoneNumber")    
+  goPassword(x) {
+
+    this.numberPhone = this.navParams.get("phoneNumber")
     this.fullName = this.navParams.get("fullName")
-    this.userName = this.navParams.get("userName") 
-    this.email = this.navParams.get("email") 
-    this.verifyCode = this.navParams.get("vCode")    
-    console.log("ver",this.verifyCode)
+    this.userName = this.navParams.get("userName")
+    this.email = this.navParams.get("email")
+    this.verifyCode = this.navParams.get("vCode")
+    console.log("ver", this.verifyCode)
     let myModal = this.modalCtrl.create(RegisterPage, {
-      phoneNumber:this.numberPhone,    
-      fullName:this.fullName,  
-      userName:this.userName,   
-      email: this.email,   
+      phoneNumber: this.numberPhone,
+      fullName: this.fullName,
+      userName: this.userName,
+      email: this.email,
       password: x.password,//
-      planCase:"code",
-      
+      planCase: "code",
+
     });
     myModal.present();
     console.log(this.email)
   }
 
-  goRegister(form){
+  goRegister(form) {
     form.phoneNumber = this.navParams.get("phoneNumber");
-    form.fullName = this.navParams.get("fullName")    
+    form.fullName = this.navParams.get("fullName")
     form.userName = this.navParams.get("userName")
-    form.email = this.navParams.get("email") 
+    form.email = this.navParams.get("email")
     form.password = this.navParams.get("password")
-    
+
     this.form = {
-      userName : form.userName,
-      password : form.password,
-      loginType : "Username",
-      userType :"Customer",
-      phoneNo :form.phoneNumber,
-      fullName:form.fullName,
-      email:form.email,
-      verificationCode:form.code
+      userName: form.userName,
+      password: form.password,
+      loginType: "Username",
+      userType: "Customer",
+      phoneNo: form.phoneNumber,
+      fullName: form.fullName,
+      email: form.email,
+      verificationCode: form.code
     }
 
-    console.log("form",this.form)
+    console.log("form", this.form)
     this.serviceApi.postRegister(this.form).subscribe(data => {
-      console.log("ini",data)
-      if(data.status=="error"){
+      console.log("ini", data)
+      if (data.status == "error") {
         alert("your code might be wrong,please try again")
-      }else{
+      } else {
         this.navCtrl.push(StartPage)
       }
-     })
-    
+    })
+
   }
 
 

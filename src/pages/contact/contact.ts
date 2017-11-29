@@ -15,6 +15,7 @@ import { MyApp } from "../../app/app.component";
   templateUrl: 'contact.html'
 })
 export class ContactPage implements OnInit {
+  hair: any[];
   loading: Loading;
   update: any;
   userId: any;
@@ -27,7 +28,7 @@ export class ContactPage implements OnInit {
     this.loading = this.loadingCtrl.create({
       content: 'Please wait...'
     });
-    this.loading.present()
+    // this.loading.present()
     this.user = this.storage.retrieve("user")
     //console.log("user", this.user.listDetail)
     this.createFormGroup()
@@ -63,7 +64,7 @@ export class ContactPage implements OnInit {
     this.serviceApi.getProfile().subscribe(data => {
       console.log(data)
       this.userProfile = data
-      this.profile.controls.userID.setValue(this.userProfile.detail.fullName)
+      this.profile.controls.userID.setValue(this.userProfile.detail.userID)
       this.profile.controls.fullName.setValue(this.userProfile.detail.fullName)
       this.profile.controls.dateOfBirth.setValue(this.userProfile.detail.dateOfBirth)
       this.profile.controls.email.setValue(this.userProfile.detail.email)
@@ -71,7 +72,7 @@ export class ContactPage implements OnInit {
       this.profile.controls.phoneNo.setValue(this.userProfile.detail.phoneNo)
       this.profile.controls.weight.setValue(this.userProfile.detail.weight)// form ni x de lagi
       this.profile.controls.skinTypeID.setValue(this.userProfile.detail.skinTypeID)
-      //    this.profile.controls.hairLengthID.setValue(this.userProfile.detail.hairLengthID)
+      this.profile.controls.hairLengthID.setValue(this.userProfile.detail.hairLengthID)
       //  console.log("profile", this.userProfile)
       //  console.log("fullName", this.userProfile.detail.fullName)
       this.loading.dismiss()
@@ -97,11 +98,11 @@ export class ContactPage implements OnInit {
   getHairType() {
     this.form = {
       moduleName: "UserAccount",
-      masterName: "List Of Hair Type"
+      masterName: "List Of Hair Length"
     }
     this.serviceApi.getHairType(this.form).subscribe(data => {
-     // this.storage.store("hairType", data)
-      //  console.log(data)
+      this.hair = data
+       console.log("hair",data)
     })
   }
 
@@ -126,17 +127,19 @@ export class ContactPage implements OnInit {
 
 
   logout() {
-    if (this.user.loginType == "Google") {
-      this.googlePlus.disconnect()
-      this.handleLogOut()
-    }
-    else if (this.user.loginType == "Facebook") {
-      this.facebook.logout()
-      this.handleLogOut()
-    }
-    else {//meccapan
-      this.handleLogOut()
-    }
+    // if (this.user.loginType == "Google") {
+    //   this.googlePlus.disconnect()
+    //   this.handleLogOut()
+    // }
+    // else if (this.user.loginType == "Facebook") {
+    //   this.facebook.logout()
+    //   this.handleLogOut()
+    // }
+    // else {//meccapan
+    //   this.handleLogOut()
+    // }
+    this.storage.clear('user');
+    this.events.publish("hehe")
   }
 
   handleLogOut() {

@@ -56,7 +56,8 @@
             <ion-col>
               <ion-thumbnail item-left>
                 <!-- <img src="data:image/jpeg;base64,{{provider.storeImage}}"  /> -->
-                <ion-img  src="data:image/jpeg;base64,{{provider.storeImage}}" class="defaultStore"></ion-img>
+                <img [src]="HandleImage(provider.storeImage)" class="defaultStore" /> 
+                <!-- <ion-img [src]="HandleImage(provider.storeImage)" class="defaultStore"></ion-img> -->
               </ion-thumbnail>
             </ion-col>
             <ion-col>

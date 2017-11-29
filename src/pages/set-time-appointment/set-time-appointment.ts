@@ -5,13 +5,6 @@ import { ConfirmBookingPage } from '../confirm-booking/confirm-booking';
 import { ServiceApiProvider } from '../../providers/service-api/service-api';
 import { LocalStorageService } from 'ng2-webstorage';
 
-/**
- * Generated class for the SetTimeAppointmentPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
   selector: 'page-set-time-appointment',

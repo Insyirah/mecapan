@@ -6,6 +6,8 @@ import { FormControl, FormBuilder, FormGroup } from "@angular/forms";
 import 'rxjs/Rx';
 import { Observable } from "rxjs/Observable";
 import { LocalStorageService } from 'ng2-webstorage';
+import { Geolocation } from '@ionic-native/geolocation';
+
 // import { debounceTime } from 'rxjs/operator/debounceTime'; import {
 // distinctUntilChanged } from 'rxjs/operator/distinctUntilChanged'; import {
 // switchMap } from 'rxjs/operator/switchMap';
@@ -13,6 +15,8 @@ import { LocalStorageService } from 'ng2-webstorage';
 @IonicPage()
 @Component({ selector: 'page-listproviders', templateUrl: 'listproviders.html' })
 export class ListprovidersPage {
+  longitude: number;
+  latitude: number;
   handleChecked: { value: string; checked: boolean; }[];
   seachInput: any;
   hehe: any
@@ -35,12 +39,13 @@ export class ListprovidersPage {
 
   @ViewChild('mySlider') slider: Slides;
 
-  constructor(public fb: FormBuilder, public event: Events, public loadingCtrl: LoadingController, private serviceApi: ServiceApiProvider, public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController) {
+  constructor(private geolocation: Geolocation,public fb: FormBuilder, public event: Events, public loadingCtrl: LoadingController, private serviceApi: ServiceApiProvider, public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController) {
     this.loading = this.loadingCtrl.create({ content: 'Please wait...' });
     this.loading.present();
     this.SetupSlider()
     this.SetupSearchFormGroup()
     this.marker = [3.135111, 101.684282];
+    this.getCurrentLocation()
     this.handleSearch() //utk search
     // this.getListProvider()
   }
@@ -68,6 +73,20 @@ export class ListprovidersPage {
     this.seachInput = ''
   }
 
+  getCurrentLocation() {
+    this.geolocation.getCurrentPosition().then((resp) => { //get user current location
+      this.latitude = resp.coords.latitude
+      this.longitude = resp.coords.longitude
+      console.log("lati", resp.coords.latitude)
+      console.log("longi", resp.coords.longitude)
+      // this.handleSearch(this.latitude, this.longitude)
+    }).catch((error) => {
+      alert("cannot get location")
+      console.log('Error getting location', error);
+    });
+    // loader.dismiss()
+  }
+
   handleSearch() {
     this.providerId = this.navParams.get("treatmentId")
     this.search = this.terms.valueChanges
@@ -78,10 +97,13 @@ export class ListprovidersPage {
           treatmentProvidedDetailID: this.providerId,
           searchValue: x,
           searchID: this.searchId,
-          sortingID: this.sortingId
+          sortingID: this.sortingId,
+          lat:this.latitude,
+          lng:this.longitude
         }
         //  console.log(this.form)
         //console.log("cd", x)
+        console.log("form",this.form)
       })
       .switchMap(term => this.serviceApi.getProviderList(this.form))//switchmap tu observable so kena ada subscribe
 
@@ -211,6 +233,8 @@ export class ListprovidersPage {
       treatmentProId: treatmentProvidedID
     })
   }
+
+
 
 
 

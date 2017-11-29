@@ -302,7 +302,7 @@ getBookingCalendar(form): Observable<any> {//homepage(notDone)
 }
 
 getAgentBranchAbout(form): Observable<any> {//homepage(notDone)
-  let url = this.host + 'UserApplication/api/GetAgentBranchAbout/'+form.agentBranchID +'/'+form.lat + '/' +form.lng
+  let url = this.host + 'UserApplication/api/GetAgentBranchAbout/'+form.agentBranchID 
   console.log(url)
   return this.http.get(url).map((res: Response) => res.json()
   );

@@ -45,13 +45,13 @@
     <ion-item>
       <ion-label floating>Skin Type</ion-label>
       <ion-select formControlName="skinTypeID" interface="popover" type="number">
-        <ion-option [value]="skinType.skinTypeID" *ngFor="let skinType of skin">{{skinType.ParameterName}} </ion-option>
+        <ion-option [value]="skinType.MasterDataMaintenanceItemID" *ngFor="let skinType of skin">{{skinType.ParameterName}} </ion-option>
       </ion-select>
     </ion-item>
     <ion-item>
       <ion-label floating>Hair Length</ion-label>
       <ion-select formControlName="hairLengthID" interface="popover" type="number">
-        <ion-option [value]="20">20cm</ion-option>
+        <ion-option [value]="hairType.MasterDataMaintenanceItemID" *ngFor="let hairType of hair">{{hairType.ParameterName}}</ion-option>
       </ion-select>
     </ion-item>
     <ion-item>

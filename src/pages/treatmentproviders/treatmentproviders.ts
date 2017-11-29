@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, Slides } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Slides, LoadingController, Loading } from 'ionic-angular';
 import { AboutPage } from '../about/about';
 import { SetDayAppointmentPage } from '../set-day-appointment/set-day-appointment';
 import { ServiceApiProvider } from '../../providers/service-api/service-api';
@@ -8,6 +8,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 @IonicPage()
 @Component({ selector: 'page-treatmentproviders', templateUrl: 'treatmentproviders.html' })
 export class TreatmentprovidersPage {
+  loading: Loading;
   reviewDetail: any;
   banner: any;
   disabledProceed: boolean = true;
@@ -20,7 +21,7 @@ export class TreatmentprovidersPage {
   storeName: any;
   agentBanner: any;
   agentDetail: any;
-  agentForm: { agentBranchID: any; lat: any; lng: any; };
+  agentForm: { agentBranchID: any;  };
   longitude: any;
   latitude: any;
 
@@ -48,7 +49,9 @@ export class TreatmentprovidersPage {
   slides: any;
   treatments: any[]
   checked: boolean[]
-  constructor(private geolocation: Geolocation, private serviceApi: ServiceApiProvider, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public loadingCtrl: LoadingController,private geolocation: Geolocation, private serviceApi: ServiceApiProvider, public navCtrl: NavController, public navParams: NavParams) {
+    this.loading = this.loadingCtrl.create({ content: 'Please wait...' });
+    this.loading.present();
     this.selectedSegment = 'first';
     this.slides = [
       {
@@ -74,30 +77,18 @@ export class TreatmentprovidersPage {
     this.list1 = this.navParams.get("agentId")
     this.list2 = this.navParams.get("treatmentProId")
     this.getListTreatment()
-    this.getCurrentLocation()
+    // this.getCurrentLocation()
     this.postReview()
+    this.getAgentDetail()
 
   }
 
-  getCurrentLocation() {
-    this.geolocation.getCurrentPosition().then((resp) => { //get user current location
-      this.latitude = resp.coords.latitude
-      this.longitude = resp.coords.longitude
-      console.log("lati", resp.coords.latitude)
-      console.log("longi", resp.coords.longitude)
-      this.getAgentDetail(this.latitude, this.longitude)
-    }).catch((error) => {
-      alert("cannot get location")
-      console.log('Error getting location', error);
-    });
-    // loader.dismiss()
-  }
 
-  getAgentDetail(lat, lng) {
+
+  getAgentDetail() {
     this.agentForm = {
       agentBranchID: this.list1,
-      lat: lat,
-      lng: lng
+     
     }
     this.serviceApi.getAgentBranchAbout(this.agentForm).subscribe(data => {
       console.log("agent", data)
@@ -113,6 +104,7 @@ export class TreatmentprovidersPage {
       this.lang = this.agentDetail.longitude
       console.log("agent", this.agentDetail.storeName)
       console.log("banners", this.agentBanner)
+      this.loading.dismiss()
     })
   }
 
@@ -184,7 +176,7 @@ export class TreatmentprovidersPage {
       this.applicationId = this.bookingDetail.applicationMainDetail[0].applicationID
       this.applicationDetail = this.bookingDetail.applicationMainDetail
       console.log("bookingDetail", this.bookingDetail)
-      console.log("AppID TreatPro", this.appID)
+      console.log("AppID TreatPro", this.applicationId)
       console.log("applicationMainDetail", this.applicationDetail)
       this.navCtrl.push(SetDayAppointmentPage, {
         applicationID: this.applicationId,

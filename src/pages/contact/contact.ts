@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NavController, App, Nav, Events, LoadingController, Loading } from 'ionic-angular';
+import { NavController, App, Nav, Events, LoadingController, Loading, AlertController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { LocalStorageService } from 'ng2-webstorage';
 import { ServiceApiProvider } from '../../providers/service-api/service-api';
@@ -15,6 +15,7 @@ import { MyApp } from "../../app/app.component";
   templateUrl: 'contact.html'
 })
 export class ContactPage implements OnInit {
+  hair: any[];
   loading: Loading;
   update: any;
   userId: any;
@@ -23,11 +24,11 @@ export class ContactPage implements OnInit {
   skin: any[];
   form: {};
   user: any = {};
-  constructor(public loadingCtrl: LoadingController, public navCtrl: NavController, public events: Events, private appCtrl: App, private facebook: Facebook, private googlePlus: GooglePlus, public fb: FormBuilder, private app: App, private serviceApi: ServiceApiProvider, private storage: LocalStorageService) {
+  constructor(private alertCtrl: AlertController,public loadingCtrl: LoadingController, public navCtrl: NavController, public events: Events, private appCtrl: App, private facebook: Facebook, private googlePlus: GooglePlus, public fb: FormBuilder, private app: App, private serviceApi: ServiceApiProvider, private storage: LocalStorageService) {
     this.loading = this.loadingCtrl.create({
       content: 'Please wait...'
     });
-    this.loading.present()
+    // this.loading.present()
     this.user = this.storage.retrieve("user")
     //console.log("user", this.user.listDetail)
     this.createFormGroup()
@@ -59,11 +60,19 @@ export class ContactPage implements OnInit {
     this.getUserProfile()
   }
 
+  private presentAlert(text) {
+    let alert = this.alertCtrl.create({
+      subTitle: text,
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+
   getUserProfile() {
     this.serviceApi.getProfile().subscribe(data => {
       console.log(data)
       this.userProfile = data
-      this.profile.controls.userID.setValue(this.userProfile.detail.fullName)
+      this.profile.controls.userID.setValue(this.userProfile.detail.userID)
       this.profile.controls.fullName.setValue(this.userProfile.detail.fullName)
       this.profile.controls.dateOfBirth.setValue(this.userProfile.detail.dateOfBirth)
       this.profile.controls.email.setValue(this.userProfile.detail.email)
@@ -71,7 +80,7 @@ export class ContactPage implements OnInit {
       this.profile.controls.phoneNo.setValue(this.userProfile.detail.phoneNo)
       this.profile.controls.weight.setValue(this.userProfile.detail.weight)// form ni x de lagi
       this.profile.controls.skinTypeID.setValue(this.userProfile.detail.skinTypeID)
-      //    this.profile.controls.hairLengthID.setValue(this.userProfile.detail.hairLengthID)
+      this.profile.controls.hairLengthID.setValue(this.userProfile.detail.hairLengthID)
       //  console.log("profile", this.userProfile)
       //  console.log("fullName", this.userProfile.detail.fullName)
       this.loading.dismiss()
@@ -90,6 +99,7 @@ export class ContactPage implements OnInit {
     }
     this.serviceApi.getSkinType(this.form).subscribe(data => {
       this.skin = data
+      console.log("skin",this.skin)
      // this.storage.store("skinType", data)
     })
   }
@@ -97,11 +107,11 @@ export class ContactPage implements OnInit {
   getHairType() {
     this.form = {
       moduleName: "UserAccount",
-      masterName: "List Of Hair Type"
+      masterName: "List Of Hair Length"
     }
     this.serviceApi.getHairType(this.form).subscribe(data => {
-     // this.storage.store("hairType", data)
-      //  console.log(data)
+      this.hair = data
+       console.log("hair",data)
     })
   }
 
@@ -115,6 +125,9 @@ export class ContactPage implements OnInit {
 
     console.log("updateForm",form)
     this.serviceApi.postUpdateUserProfile(form).subscribe(data => {
+      if(data.status = "success"){
+        this.presentAlert('Your profile successfully update');                
+      }
       console.log(data)
     })
      // this.update = this.profile.value

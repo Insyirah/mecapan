@@ -24,7 +24,6 @@ export class TreatmentprovidersPage {
   agentForm: { agentBranchID: any;  };
   longitude: any;
   latitude: any;
-
   applicationDetail: any;
   branchId: any;
   discountId: any;
@@ -35,15 +34,12 @@ export class TreatmentprovidersPage {
   bookingDetail: any;
   choosenForm: { treatmentID: any; agentDiscountID: any; agentBranchID: any; };
   submitChoosenTreatment: Array<any> = []
-
   list2: any;
   list1: any;
   treatmentList: Array<any>;
   form: {};
   list: any;
-
   checkedItems: boolean[];
-
   @ViewChild('mySlider') slider: Slides;
   selectedSegment: string;
   slides: any;

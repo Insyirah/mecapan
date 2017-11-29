@@ -10,6 +10,7 @@ import { ServiceApiProvider } from '../../providers/service-api/service-api';
 import { SetDayAppointmentPage } from '../set-day-appointment/set-day-appointment';
 import { ListprovidersPage } from "../listproviders/listproviders";
 import { LocalStorageService } from "ng2-webstorage";
+import { Storage } from '@ionic/storage';
 
 
 @IonicPage()
@@ -21,7 +22,7 @@ import { LocalStorageService } from "ng2-webstorage";
 export class StartPage {
   userData: { email: any; username: any; fullname: any; loginType: string; userType: string; };
 
-  constructor(private events: Events, private storage: LocalStorageService, private serviceApi: ServiceApiProvider, private googlePlus: GooglePlus, private fb: Facebook, private platform: Platform, public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController) {
+  constructor(private storages: Storage, private events: Events, private serviceApi: ServiceApiProvider, private googlePlus: GooglePlus, private fb: Facebook, private platform: Platform, public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController) {
     this.platform.ready().then(x => { })
   }
 
@@ -57,7 +58,7 @@ export class StartPage {
 
   loginGoogle(form) { //Our server auth
     this.serviceApi.postLoginGoogle(form).subscribe(data => {
-      this.storage.store("user", data)
+      this.storages.set("user", data)
       this.events.publish('Login')
       this.navCtrl.setRoot(TabsPage)
     })
@@ -84,7 +85,7 @@ export class StartPage {
 
   loginFB(form) {
     this.serviceApi.postLoginFacebook(form).subscribe(data => {
-      this.storage.store("user", data)
+      this.storages.set("user", data)
       this.events.publish('Login')
       this.navCtrl.setRoot(TabsPage)
     })

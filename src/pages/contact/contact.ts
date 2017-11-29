@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NavController, App, Nav, Events, LoadingController, Loading, AlertController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
-import { LocalStorageService } from 'ng2-webstorage';
+//import { LocalStorageService } from 'ng2-webstorage';
 import { ServiceApiProvider } from '../../providers/service-api/service-api';
 import { StartPage } from '../start/start';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -9,6 +9,7 @@ import { Observable } from 'rxjs/Observable';
 import { GooglePlus } from "@ionic-native/google-plus";
 import { Facebook } from "@ionic-native/facebook";
 import { MyApp } from "../../app/app.component";
+import { LocalStorageService } from 'ng2-webstorage';
 
 @Component({
   selector: 'page-contact',
@@ -31,12 +32,12 @@ export class ContactPage implements OnInit {
     // this.loading.present()
     this.user = this.storage.retrieve("user")
     //console.log("user", this.user.listDetail)
-    this.createFormGroup()
+
   }
 
   createFormGroup() {
     this.profile = this.fb.group({
-      userID: [this.userId],
+      userID: [""],
       fullName: [''],
       dateOfBirth: [''],
       email: [''],
@@ -48,16 +49,11 @@ export class ContactPage implements OnInit {
     });
   }
 
-  changeProfilePicture(){
-    
+  changeProfilePicture() {
+
   }
 
   ngOnInit() {
-    this.user = this.storage.retrieve("user")
-    //apply loading
-    this.getSkinType()
-    this.getHairType()
-    this.getUserProfile()
   }
 
   private presentAlert(text) {
@@ -70,7 +66,7 @@ export class ContactPage implements OnInit {
 
   getUserProfile() {
     this.serviceApi.getProfile().subscribe(data => {
-      console.log(data)
+      console.log("this.userProfile", data)
       this.userProfile = data
       this.profile.controls.userID.setValue(this.userProfile.detail.userID)
       this.profile.controls.fullName.setValue(this.userProfile.detail.fullName)
@@ -123,14 +119,14 @@ export class ContactPage implements OnInit {
 
   updateUserDetail(form) {
 
-    console.log("updateForm",form)
+    console.log("updateForm", form)
     this.serviceApi.postUpdateUserProfile(form).subscribe(data => {
       if(data.status = "success"){
         this.presentAlert('Your profile successfully update');                
       }
       console.log(data)
     })
-     // this.update = this.profile.value
+    // this.update = this.profile.value
     // console.log("update", this.update)
     // this.userId = this.userProfile.detail.userID
     // console.log("id", this.userId)
@@ -153,7 +149,7 @@ export class ContactPage implements OnInit {
   }
 
   handleLogOut() {
-    this.storage.clear('user');
+    this.storage.clear()
     this.events.publish("hehe")
   }
 

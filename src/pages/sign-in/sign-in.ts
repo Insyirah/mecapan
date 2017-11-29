@@ -26,7 +26,7 @@ export class SignInPage {
   submitForm: { email: any; phoneNumber: string; userName: string; password: any; type: number; };
   ph: boolean;
   emails: boolean;
-  constructor(private storages: Storage, public events: Events, private serviceApi: ServiceApiProvider, private view: ViewController, private fb: FormBuilder, public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController) {
+  constructor(private storage: LocalStorageService, public events: Events, private serviceApi: ServiceApiProvider, private view: ViewController, private fb: FormBuilder, public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController) {
     this.logInFormname = this.fb.group({
       name: ['', Validators.compose([Validators.required])],
     });
@@ -83,8 +83,8 @@ export class SignInPage {
         alert("login success")
         // console.log("ini",data)
         console.log("itu", data)
-        this.storages.set("user", data)
-        //  this.storage.store("user", data)
+        // this.storages.set("user", data)
+         this.storage.store("user", data)
         this.events.publish('Login')
         this.navCtrl.push(TabsPage)
       } else if (data.status == "error") {

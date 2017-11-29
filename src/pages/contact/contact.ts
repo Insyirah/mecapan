@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NavController, App, Nav, Events, LoadingController, Loading, AlertController } from 'ionic-angular';
+import { NavController, App, Nav, Events, LoadingController, Loading } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
-//import { LocalStorageService } from 'ng2-webstorage';
+import { LocalStorageService } from 'ng2-webstorage';
 import { ServiceApiProvider } from '../../providers/service-api/service-api';
 import { StartPage } from '../start/start';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -9,7 +9,6 @@ import { Observable } from 'rxjs/Observable';
 import { GooglePlus } from "@ionic-native/google-plus";
 import { Facebook } from "@ionic-native/facebook";
 import { MyApp } from "../../app/app.component";
-import { LocalStorageService } from 'ng2-webstorage';
 
 @Component({
   selector: 'page-contact',
@@ -25,19 +24,19 @@ export class ContactPage implements OnInit {
   skin: any[];
   form: {};
   user: any = {};
-  constructor(private alertCtrl: AlertController,public loadingCtrl: LoadingController, public navCtrl: NavController, public events: Events, private appCtrl: App, private facebook: Facebook, private googlePlus: GooglePlus, public fb: FormBuilder, private app: App, private serviceApi: ServiceApiProvider, private storage: LocalStorageService) {
+  constructor(public loadingCtrl: LoadingController, public navCtrl: NavController, public events: Events, private appCtrl: App, private facebook: Facebook, private googlePlus: GooglePlus, public fb: FormBuilder, private app: App, private serviceApi: ServiceApiProvider, private storage: LocalStorageService) {
     this.loading = this.loadingCtrl.create({
       content: 'Please wait...'
     });
     // this.loading.present()
     this.user = this.storage.retrieve("user")
     //console.log("user", this.user.listDetail)
-
+    this.createFormGroup()
   }
 
   createFormGroup() {
     this.profile = this.fb.group({
-      userID: [""],
+      userID: [this.userId],
       fullName: [''],
       dateOfBirth: [''],
       email: [''],
@@ -49,24 +48,21 @@ export class ContactPage implements OnInit {
     });
   }
 
-  changeProfilePicture() {
-
+  changeProfilePicture(){
+    
   }
 
   ngOnInit() {
-  }
-
-  private presentAlert(text) {
-    let alert = this.alertCtrl.create({
-      subTitle: text,
-      buttons: ['OK']
-    });
-    alert.present();
+    this.user = this.storage.retrieve("user")
+    //apply loading
+    this.getSkinType()
+    this.getHairType()
+    this.getUserProfile()
   }
 
   getUserProfile() {
     this.serviceApi.getProfile().subscribe(data => {
-      console.log("this.userProfile", data)
+      console.log(data)
       this.userProfile = data
       this.profile.controls.userID.setValue(this.userProfile.detail.userID)
       this.profile.controls.fullName.setValue(this.userProfile.detail.fullName)
@@ -95,7 +91,6 @@ export class ContactPage implements OnInit {
     }
     this.serviceApi.getSkinType(this.form).subscribe(data => {
       this.skin = data
-      console.log("skin",this.skin)
      // this.storage.store("skinType", data)
     })
   }
@@ -119,14 +114,11 @@ export class ContactPage implements OnInit {
 
   updateUserDetail(form) {
 
-    console.log("updateForm", form)
+    console.log("updateForm",form)
     this.serviceApi.postUpdateUserProfile(form).subscribe(data => {
-      if(data.status = "success"){
-        this.presentAlert('Your profile successfully update');                
-      }
       console.log(data)
     })
-    // this.update = this.profile.value
+     // this.update = this.profile.value
     // console.log("update", this.update)
     // this.userId = this.userProfile.detail.userID
     // console.log("id", this.userId)
@@ -135,21 +127,23 @@ export class ContactPage implements OnInit {
 
 
   logout() {
-    if (this.user.loginType == "Google") {
-      this.googlePlus.disconnect()
-      this.handleLogOut()
-    }
-    else if (this.user.loginType == "Facebook") {
-      this.facebook.logout()
-      this.handleLogOut()
-    }
-    else {//meccapan
-      this.handleLogOut()
-    }
+    // if (this.user.loginType == "Google") {
+    //   this.googlePlus.disconnect()
+    //   this.handleLogOut()
+    // }
+    // else if (this.user.loginType == "Facebook") {
+    //   this.facebook.logout()
+    //   this.handleLogOut()
+    // }
+    // else {//meccapan
+    //   this.handleLogOut()
+    // }
+    this.storage.clear('user');
+    this.events.publish("hehe")
   }
 
   handleLogOut() {
-    this.storage.clear()
+    this.storage.clear('user');
     this.events.publish("hehe")
   }
 

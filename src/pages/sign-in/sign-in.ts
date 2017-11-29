@@ -4,7 +4,6 @@ import { IonicPage, NavController, NavParams, ModalController, ViewController, E
 import { TabsPage } from '../tabs/tabs';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms/";
 import { ServiceApiProvider } from '../../providers/service-api/service-api';
-import { LocalStorageService } from 'ng2-webstorage';
 import { ForgetPasswordPage } from '../forget-password/forget-password';
 
 
@@ -26,7 +25,7 @@ export class SignInPage {
   submitForm: { email: any; phoneNumber: string; userName: string; password: any; type: number; };
   ph: boolean;
   emails: boolean;
-  constructor(private storage: LocalStorageService, public events: Events, private serviceApi: ServiceApiProvider, private view: ViewController, private fb: FormBuilder, public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController) {
+  constructor(private storage: Storage, public events: Events, private serviceApi: ServiceApiProvider, private view: ViewController, private fb: FormBuilder, public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController) {
     this.logInFormname = this.fb.group({
       name: ['', Validators.compose([Validators.required])],
     });
@@ -83,8 +82,8 @@ export class SignInPage {
         alert("login success")
         // console.log("ini",data)
         console.log("itu", data)
-        // this.storages.set("user", data)
-         this.storage.store("user", data)
+        this.storage.set("user", data)
+        //     this.storage.store("user", data)
         this.events.publish('Login')
         this.navCtrl.push(TabsPage)
       } else if (data.status == "error") {

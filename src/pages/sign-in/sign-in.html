@@ -7,9 +7,8 @@
 <ion-content padding >
   <div *ngIf="usernameForm">
     <form [formGroup]="logInFormname" (ngSubmit)="goPassword(logInFormname.value)">
-
       <br><br><br><br><br><br><br><br>
-      <a class="a"><b>Enter phone number or username</b></a>
+      <a class="a"><b>Enter Phone Number or Username</b></a>
       <ion-item>
         <ion-input formControlName="name" type="text" [class.invalid]="!logInFormname.controls.name.valid && (logInFormname.controls.name.dirty || submitAttempt)"></ion-input>
     </ion-item>

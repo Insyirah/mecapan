@@ -1,6 +1,6 @@
 import { Storage } from '@ionic/storage';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController, ViewController, Events } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, ViewController, Events, LoadingController, Loading } from 'ionic-angular';
 import { TabsPage } from '../tabs/tabs';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms/";
 import { ServiceApiProvider } from '../../providers/service-api/service-api';
@@ -13,6 +13,8 @@ import { ForgetPasswordPage } from '../forget-password/forget-password';
   templateUrl: 'sign-in.html',
 })
 export class SignInPage {
+  loading: Loading;
+  UserName: string;
   form: { username: any; password: any; loginType: string; userType: string; };
   FinalForm: any;
   user: any;
@@ -25,7 +27,11 @@ export class SignInPage {
   submitForm: { email: any; phoneNumber: string; userName: string; password: any; type: number; };
   ph: boolean;
   emails: boolean;
-  constructor(private storage: Storage, public events: Events, private serviceApi: ServiceApiProvider, private view: ViewController, private fb: FormBuilder, public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController) {
+  
+  constructor(public loadingCtrl: LoadingController, private storage: Storage, public events: Events, private serviceApi: ServiceApiProvider, private view: ViewController, private fb: FormBuilder, public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController) {
+    this.loading = this.loadingCtrl.create({
+      content: 'Please wait...'
+    });
     this.logInFormname = this.fb.group({
       name: ['', Validators.compose([Validators.required])],
     });
@@ -35,7 +41,6 @@ export class SignInPage {
   }
 
   ionViewDidLoad() {
-    //console.log('ionViewDidLoad SignInPage');
     this.planCase = this.navParams.get("planCase");
     switch (this.planCase) {
       case "userName":
@@ -47,52 +52,39 @@ export class SignInPage {
     }
   }
 
-  test() {
+  ForgetPassword() {
     this.navCtrl.push(ForgetPasswordPage)
   }
 
-  // goSign(){
-  //   let myModal = this.modalCtrl.create(SignInPage, {
-  //     planCase: "userName"
-  //   });
-  //   myModal.present();
-  // }
-
   goPassword(x) {
-    let myModal = this.modalCtrl.create(SignInPage, {
+    this.navCtrl.push(SignInPage, {
       name: x.name,
       planCase: "pw"
-    });
-    myModal.present();
+    })
   }
 
   goSignIn(form) {
-    form.name = this.navParams.get("name");
-    // this.FinalForm = this.SubmitLogIn(form)
+    this.loading.present()
+    this.UserName = this.navParams.get("name");
     this.form = {
-      username: form.name,
+      username: this.UserName,
       password: form.password,
       loginType: "Username",
       userType: "Customer"
     }
     console.log("form", this.form)
-
     this.serviceApi.postLoginMeccapan(this.form).subscribe(data => {
       if (data.status == "success") {
-        alert("login success")
-        // console.log("ini",data)
-        console.log("itu", data)
+        console.log("postLoginMeccapan", data)
         this.storage.set("user", data)
-        //     this.storage.store("user", data)
         this.events.publish('Login')
+        this.loading.dismiss()
         this.navCtrl.push(TabsPage)
       } else if (data.status == "error") {
-        console.log(data)
+        console.log("error", data)
         alert("your detail might be wrong")
-        let myModal = this.modalCtrl.create(SignInPage, {
-          planCase: "userName"
-        });
-        myModal.present();
+        this.loading.dismiss()
+        this.navCtrl.popTo(SignInPage)
       } else {
         alert("error")
       }

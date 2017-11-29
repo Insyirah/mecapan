@@ -20,14 +20,12 @@ export class HomePage {
       content: 'Please wait...'
     });
     this.loading.present()
-    this.getAllTreatment()
-
-  }
-
-  ionViewDidLoad() {
     this.checkData()
-
   }
+
+  // ionViewDidLoad() {
+
+  // }
 
   checkData() {
     this.storage.get("TreatmentMasterData").then(data => {
@@ -53,9 +51,9 @@ export class HomePage {
       this.faceTreatment = data.FaceMasterData
       this.hairTreatment = data.HairMasterData
       this.bodyTreatment = data.BodyMasterData
-      console.log("facetreatment", this.faceTreatment)
-      console.log("hairTreatment", this.hairTreatment)
-      console.log("bodyTreatment", this.bodyTreatment)
+      // console.log("facetreatment", this.faceTreatment)
+      // console.log("hairTreatment", this.hairTreatment)
+      // console.log("bodyTreatment", this.bodyTreatment)
       this.loading.dismiss()
       // this.storage.store("TreatmentMasterData", data)
       this.storage.set("treatment", data)

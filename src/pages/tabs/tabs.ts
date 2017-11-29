@@ -17,11 +17,10 @@ export class TabsPage {
   tab3Root = ContactPage;
 
   constructor(public navCtrl: NavController, public events: Events) {
-    this.events.subscribe("hehe", () => {
+    this.events.subscribe("LogOut", () => {
       this.navCtrl.setRoot(StartPage)
       this.navCtrl.popToRoot()
     })
-
     this.getBagdeCountBookingTabs()
   }
 

@@ -73,7 +73,6 @@ export class StartPage {
             this.userData = { email: profile['email'], username: profile['first_name'], fullname: profile['first_name'] + " " + profile['last_name'], loginType: "Facebook", userType: "Customer" }
             this.loginFB(this.userData)
             this.navCtrl.setRoot(TabsPage)
-
           })
         }
         else {
@@ -91,13 +90,10 @@ export class StartPage {
     })
   }
 
-
   goSignIn() {
-    let myModal = this.modalCtrl.create(SignInPage, {
+    this.navCtrl.push(SignInPage, {
       planCase: "userName"
-    });
-    myModal.present();
-
+    })
   }
 
 }

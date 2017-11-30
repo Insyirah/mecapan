@@ -33,6 +33,7 @@ import { NguiMapModule } from '@ngui/map';
 import { HttpModule } from '@angular/http';
 import { Geolocation } from '@ionic-native/geolocation';
 import { ResetPasswordPageModule } from '../pages/reset-password/reset-password.module';
+import { ReviewPageModule } from '../pages/review/review.module';
 
 @NgModule({
   declarations: [
@@ -65,6 +66,7 @@ import { ResetPasswordPageModule } from '../pages/reset-password/reset-password.
     ForgetPasswordPageModule,
     ResetPasswordPageModule,
     Ng2Webstorage,
+    ReviewPageModule,
     NguiMapModule.forRoot({ apiUrl: 'https://maps.google.com/maps/api/js?key=AIzaSyBSy0GEQeCrUgJ9LvrYHUBemGUjHE1PhcU' }),
     IonicModule.forRoot(MyApp, {
       scrollAssist: false,

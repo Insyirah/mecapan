@@ -30,10 +30,10 @@
        <!-- <p>Johny Saloons</p>
        <p>Eye Lashes</p>
        <p>Wednesday, 3.00pm</p> -->
-       <ion-item class="background">
+       <ion-item class="background" >
          <b><h2 class="upcoming">Upcoming Booking</h2></b>
-         <h3>Location:{{store}}</h3>
-         <h4>Date:{{date| date: 'dd/MM/yyyy'}}</h4>
+         <h3 style="color:white;">Location:{{store}}</h3>
+         <h4 style="color:white;">Date:{{date| date: 'dd/MM/yyyy'}}</h4>
       </ion-item>
 
        <ion-item no-padding *ngFor="let status of bookingRecentStatus" (click)="viewBooking(status)">
@@ -48,32 +48,14 @@
           <h4 class="recent" style="color: green" *ngIf="status.applicationStatusName=='Completed Without Review'"><b>Appointment accepted</b></h4>
           <h4 class="recent" style="color: #56C8C8" *ngIf="status.applicationStatusName=='Pending Acceptance'"><b>Appointment Pending </b></h4>
           <h4 class="recent" style="color: #56C8C8" *ngIf="status.applicationStatusName=='Accept Without Downpayment'"><b>Pending </b></h4>
+          <h4 class="recent" style="color: red" *ngIf="status.applicationStatusName=='Rejected'"><b>Appointment  rejected </b></h4>
           
         </ion-item>
         <span *ngIf="bookingRecentStatus==''">No Recent booking</span>
     </ion-slide>
     <ion-slide>
-        <ion-card>
-            <ion-item>
-            <ion-card-content>
-                <rating [(ngModel)]="rate" 
-                readOnly="false"
-                max="5" 
-                emptyStarIconName="star-outline" 
-                halfStarIconName="star-half" 
-                starIconName="star" 
-                nullable="false" 
-                (ngModelChange)="onModelChange($event)"></rating>
-              <a class="a"><b>Enter Review</b></a>
-              <ion-item>
-                <ion-input></ion-input>
-                
-              </ion-item>
-              <button ion-button round style="background-color: #56C8C8;">Submit</button>
-            </ion-card-content>
-          </ion-item>
-          </ion-card>
-        <ion-item no-padding  *ngFor="let status of bookingCompletedStatus">
+       
+        <ion-item no-padding  *ngFor="let status of bookingCompletedStatus" (click)="makeReview()">
             <ion-thumbnail item-left>
                 <ion-img src="assets/img/11.jpg" class="defaultStore"></ion-img>
             </ion-thumbnail>

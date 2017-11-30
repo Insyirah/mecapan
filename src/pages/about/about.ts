@@ -61,13 +61,18 @@ export class AboutPage {
     this.serviceApi.getRecentBookingActivity().subscribe(data => {
       this.bookingRecentStatus=data.recentBooking
       this.bookingUpcomingStatus = data.upcomingBooking
-      this.store=this.bookingUpcomingStatus.storeName
-      this.date=this.bookingUpcomingStatus.appointmentDate
+      
+      
+      
       console.log("store",this.bookingUpcomingStatus.storeName)
       console.log("data",data)
       console.log("upcoming",this.bookingUpcomingStatus)      
       console.log("recent",this.bookingRecentStatus)
       console.log("upcoming",this.bookingUpcomingStatus)
+      if(this.bookingUpcomingStatus!=null){
+        this.store=this.bookingUpcomingStatus.storeName
+        this.date=this.bookingUpcomingStatus.appointmentDate
+      }
       // this.store=this.bookingUpcomingStatus.storeName
       // this.date=this.bookingUpcomingStatus.appointmentDate
     })

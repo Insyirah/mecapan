@@ -47,11 +47,17 @@
           <h4 class="recent" style="color: red" *ngIf="status.applicationStatusName=='Canceled'"><b>Appointment cancelled</b></h4>
           <h4 class="recent" style="color: green" *ngIf="status.applicationStatusName=='Completed Without Review'"><b>Appointment accepted</b></h4>
           <h4 class="recent" style="color: #56C8C8" *ngIf="status.applicationStatusName=='Pending Acceptance'"><b>Appointment Pending </b></h4>
-          <h4 class="recent" style="color: #56C8C8" *ngIf="status.applicationStatusName=='Accept Without Downpayment'"><b>Pending </b></h4>
+          <h4 class="recent" style="color: #56C8C8" *ngIf="status.applicationStatusName=='Accept Without Downpayment'"><b>Appointment not done </b></h4>
           <h4 class="recent" style="color: red" *ngIf="status.applicationStatusName=='Rejected'"><b>Appointment  rejected </b></h4>
           
         </ion-item>
-        <span *ngIf="bookingRecentStatus==''">No Recent booking</span>
+        <!-- <span *ngIf="bookingRecentStatus==''">No Recent booking</span> -->
+        <div *ngIf="bookingRecentStatus==''"  style="padding-top:55px;">
+            <div align="center" style=" font-style: italic;">
+              <p small style="color:lightgrey;">No Recent booking! <br>
+                <ion-icon style="font-size:5.2em;color:lightgrey"  ios="ios-clipboard" md="md-clipboard"></ion-icon> </p>
+            </div>
+          </div>
     </ion-slide>
     <ion-slide>
        
@@ -63,7 +69,13 @@
             <p>{{status.appointmentDate| date: 'dd/MM/yyyy'}}</p>
             <ion-icon item-end style="color:green;"ios="ios-checkmark-circle" md="md-checkmark-circle"></ion-icon>
             </ion-item>
-<span *ngIf="bookingCompletedStatus==''">No complete booking</span>    
+<!-- <span *ngIf="bookingCompletedStatus==''">No complete booking</span>     -->
+<div *ngIf="bookingCompletedStatus==''"  style="padding-top:55px;">
+    <div align="center" style=" font-style: italic;">
+      <p small style="color:lightgrey;">No complete booking! <br>
+        <ion-icon style="font-size:5.2em;color:lightgrey"  ios="ios-clipboard" md="md-clipboard"></ion-icon> </p>
+    </div>
+  </div>
 </ion-slide>
 
     <ion-slide>
@@ -73,8 +85,15 @@
           </ion-thumbnail>
           <h2  class="reject">{{status.storeName}}</h2>
           <p  class="reject">{{status.appointmentDate| date: 'dd/MM/yyyy'}}</p>
+          <ion-icon style="color:red;" ios="ios-close-circle" item-end md="md-close-circle"></ion-icon>
           </ion-item>
-          <span *ngIf="bookingRejectStatus==''">No rejected booking</span>
+          <!-- <span *ngIf="bookingRejectStatus==''">No rejected booking</span> -->
+          <div *ngIf="bookingRejectStatus==''"  style="padding-top:55px;">
+              <div align="center" style=" font-style: italic;">
+                <p small style="color:lightgrey;">No rejected booking! <br>
+                  <ion-icon style="font-size:5.2em;color:lightgrey"  ios="ios-clipboard" md="md-clipboard"></ion-icon> </p>
+              </div>
+            </div>
   </ion-slide>
   </ion-slides>
 </ion-content>

@@ -2,6 +2,7 @@ import {Component, ViewChild} from '@angular/core';
 import { NavController, Slides, IonicPage, NavParams, LoadingController, Loading } from 'ionic-angular';
 import { ServiceApiProvider } from '../../providers/service-api/service-api';
 import { BookingDetailsPage } from '../booking-details/booking-details';
+import { ReviewPage } from '../review/review';
 
 @Component({
   selector: 'page-about',
@@ -24,9 +25,7 @@ export class AboutPage {
   providerr:any;
   completed:any;
   rejected:any;
-  checkRate: Array<any> = [];
-  halfStarIconName: boolean;
-  rate: number;
+  
 
   constructor(public loadingCtrl: LoadingController,private serviceApi: ServiceApiProvider,public navCtrl: NavController,public navParams : NavParams) {
     
@@ -62,10 +61,18 @@ export class AboutPage {
     this.serviceApi.getRecentBookingActivity().subscribe(data => {
       this.bookingRecentStatus=data.recentBooking
       this.bookingUpcomingStatus = data.upcomingBooking
+      
+      
+      
+      console.log("store",this.bookingUpcomingStatus.storeName)
       console.log("data",data)
       console.log("upcoming",this.bookingUpcomingStatus)      
       console.log("recent",this.bookingRecentStatus)
       console.log("upcoming",this.bookingUpcomingStatus)
+      if(this.bookingUpcomingStatus!=null){
+        this.store=this.bookingUpcomingStatus.storeName
+        this.date=this.bookingUpcomingStatus.appointmentDate
+      }
       // this.store=this.bookingUpcomingStatus.storeName
       // this.date=this.bookingUpcomingStatus.appointmentDate
     })
@@ -113,6 +120,10 @@ export class AboutPage {
     })
   }
 
+  makeReview(){
+    this.navCtrl.push(ReviewPage)
+  }
+
   onSegmentChanged(segmentButton) {
     console.log("Segment changed to", segmentButton.value);
     const selectedIndex = this.slides.findIndex((slide) => {
@@ -125,23 +136,6 @@ export class AboutPage {
     console.log('Slide changed');
    const currentSlide = this.slides[slider.getActiveIndex()];
     this.selectedSegment = currentSlide.id;
-  }
-  onModelChange(a) {
-    console.log(a)
-    let p = this.checkRate.length
-    // console.log
-    if (this.checkRate[0] != a) {
-     // this.checkRate.pop()
-      this.checkRate.push(a)
-      console.log(this.checkRate)
-      
-
-      this.rate = a - 0.5//display
-    } else if (this.checkRate[0] == a) {
-      this.rate = a
-      this.checkRate.pop()
-      console.log(this.checkRate)
-    }
   }
 
 }

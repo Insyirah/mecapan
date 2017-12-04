@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, LoadingController, Loading } from 'ionic-angular';
 import { ServiceApiProvider } from '../../providers/service-api/service-api';
 import { AboutPage } from '../about/about';
 
@@ -9,19 +9,24 @@ import { AboutPage } from '../about/about';
   templateUrl: 'confirm-booking.html',
 })
 export class ConfirmBookingPage {
+  loading: Loading;
   totalPrice: number;
   storeName: string;
   bookdate: Date;
   form: { applicationID: any; };
   applicationId: any;
   bookings: Array<any>;
-  constructor(private alertCtrl: AlertController, private serviceApi: ServiceApiProvider, public navCtrl: NavController, public navParams: NavParams) {
-
+  constructor(public loadingCtrl: LoadingController,private alertCtrl: AlertController, private serviceApi: ServiceApiProvider, public navCtrl: NavController, public navParams: NavParams) {
+    this.loading = this.loadingCtrl.create({
+      content: 'Please wait...'
+    });
+    this.loading.present()
   }
 
   async ionViewDidLoad() {
     console.log('ionViewDidLoad ConfirmBookingPage');
     await this.getBookingSummary()
+    this.loading.dismiss()
   }
 
   private presentAlert(text) {

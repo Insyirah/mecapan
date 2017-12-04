@@ -9,6 +9,7 @@ import { AboutPage } from '../about/about';
   templateUrl: 'booking-details.html',
 })
 export class BookingDetailsPage {
+  statusId: any;
   treatment: any;
 
   form: { applicationID: any; };
@@ -42,23 +43,25 @@ export class BookingDetailsPage {
     this.storename = this.bookingDetails.storeName
     this.appointmentdate = this.bookingDetails.appointmentDate
     this.treatment = this.bookingDetails.treatmentDetailName
+    this.statusId = this.bookingDetails.applicationStatusID
   }
 
 
   cancelBooking() {
     this.applicationId = this.bookingDetails.applicationID
+    console.log("id",this.applicationId)
     this.form = {
       applicationID: this.applicationId
     }
-    this.serviceApi.postCancelBooking(this.form).subscribe(data => {
-      console.log(data)
-      if (data.status == "success") {
-        this.presentAlert('Your appointment has been canceledd');
-        this.navCtrl.setRoot(AboutPage)
-      } else {
-        this.presentAlert('Service Errors');
-      }
-    })
+    // this.serviceApi.postCancelBooking(this.form).subscribe(data => {
+    //   console.log(data)
+    //   if (data.status == "success") {
+    //     this.presentAlert('Your appointment has been canceledd');
+    //     this.navCtrl.setRoot(AboutPage)
+    //   } else {
+    //     this.presentAlert('Service Errors');
+    //   }
+    // })
   }
   onModelChange(a) {
     console.log(a)

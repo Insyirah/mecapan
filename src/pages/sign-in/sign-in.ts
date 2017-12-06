@@ -82,7 +82,7 @@ export class SignInPage {
         this.navCtrl.push(TabsPage)
       } else if (data.status == "error") {
         console.log("error", data)
-        alert("your detail might be wrong")
+        alert("Your password might be wrong")
         this.loading.dismiss()
         this.navCtrl.popTo(SignInPage)
       } else {

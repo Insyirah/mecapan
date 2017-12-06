@@ -1,6 +1,6 @@
 import { Storage } from '@ionic/storage';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController, ViewController, Events, LoadingController, Loading } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, ViewController, Events, LoadingController, Loading, AlertController } from 'ionic-angular';
 import { TabsPage } from '../tabs/tabs';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms/";
 import { ServiceApiProvider } from '../../providers/service-api/service-api';
@@ -28,7 +28,7 @@ export class SignInPage {
   ph: boolean;
   emails: boolean;
   
-  constructor(public loadingCtrl: LoadingController, private storage: Storage, public events: Events, private serviceApi: ServiceApiProvider, private view: ViewController, private fb: FormBuilder, public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController) {
+  constructor(public loadingCtrl: LoadingController,private alertCtrl: AlertController, private storage: Storage, public events: Events, private serviceApi: ServiceApiProvider, private view: ViewController, private fb: FormBuilder, public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController) {
     this.loading = this.loadingCtrl.create({
       content: 'Please wait...'
     });
@@ -62,6 +62,13 @@ export class SignInPage {
       planCase: "pw"
     })
   }
+  private presentAlert(text) {
+    let alert = this.alertCtrl.create({
+      subTitle: text,
+      buttons: ['OK']
+    });
+    alert.present();
+  }
 
   goSignIn(form) {
     this.loading.present()
@@ -80,9 +87,11 @@ export class SignInPage {
         this.events.publish('Login')
         this.loading.dismiss()
         this.navCtrl.push(TabsPage)
+        this.presentAlert('Login success');
       } else if (data.status == "error") {
         console.log("error", data)
-        alert("Your password might be wrong")
+        // alert("Your password might be wrong")
+        this.presentAlert('Your username or password might be wrong');
         this.loading.dismiss()
         this.navCtrl.popTo(SignInPage)
       } else {

@@ -99,7 +99,7 @@ export class RegisterPage {
     this.serviceApi.getCheckPhoneNumber(x.phoneNumber).subscribe(data => {
       console.log(data)
       if (data.checkPhoneNo == 'NotOk') {
-        this.presentAlert('This phone number has been used.Please try again');
+        this.presentAlert('This phone number has been used. Please try again');
       } else {
         let myModal = this.modalCtrl.create(RegisterPage, {
           phoneNumber: x.phoneNumber,
@@ -132,7 +132,7 @@ export class RegisterPage {
     this.serviceApi.getCheckUserName(x.userName).subscribe(data => {
       console.log(data)
       if (data.checkUsername == 'NotOk') {
-        this.presentAlert('This userName has been used.Please try again');
+        this.presentAlert('This userName has been used. Please try again');
       } else {
         let myModal = this.modalCtrl.create(RegisterPage, {
           userName: x.userName,
@@ -157,7 +157,7 @@ export class RegisterPage {
     this.serviceApi.getCheckEmail(x.email).subscribe(data => {
       console.log(data)
       if (data.checkEmail == 'NotOk') {
-        this.presentAlert('This email has been used.Please try again');
+        this.presentAlert('This email has been used. Please try again');
       } else {
         let myModal = this.modalCtrl.create(RegisterPage, {
           phoneNumber: this.numberPhone,
@@ -217,9 +217,10 @@ export class RegisterPage {
     this.serviceApi.postRegister(this.form).subscribe(data => {
       console.log("ini", data)
       if (data.status == "error") {
-        alert("your code might be wrong,please try again")
+        alert("Your code might be wrong, please try again.")
       } else {
         this.navCtrl.push(StartPage)
+        alert("Successfully Registered your account")
       }
     })
 

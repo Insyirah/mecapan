@@ -17,7 +17,7 @@
       <p class="msg1" style="color:#f53d3d;">Phone Number is required</p>
     </div>
     <div *ngIf="registerFormphoneNumber.get('phoneNumber').hasError('pattern') && registerFormphoneNumber.get('phoneNumber').touched">
-      <p>Enter valid mobile phone no.</p>
+      <p class="msg1" style="color:#f53d3d;">Enter valid mobile phone no.</p>
     </div>
   <ion-fab right bottom>
       <button ion-fab mini color="info" type="submit"  [disabled]="registerFormphoneNumber.invalid"><ion-icon ios="ios-arrow-round-forward" md="md-arrow-round-forward"></ion-icon></button>
@@ -70,6 +70,9 @@
           <div *ngIf="registerFormemail.get('email').hasError('required') && registerFormemail.get('email').touched">
               <p class="msg1" style="color:#f53d3d;">Email is required</p>
             </div>
+            <div *ngIf="registerFormemail.get('email').hasError('pattern') && registerFormemail.get('email').touched">
+              <p class="msg1" style="color:#f53d3d;">Email is required and format should be email@example.com</p>
+            </div>
           <ion-fab right bottom>
               <button ion-fab mini color="info" type="submit" [disabled]="registerFormemail.invalid"><ion-icon ios="ios-arrow-round-forward" md="md-arrow-round-forward"></ion-icon></button>
           </ion-fab>
@@ -85,7 +88,8 @@
             </ion-item>
 
             <div *ngIf="registerFormpassword.get('password').hasError('pattern') && registerFormpassword.get('password').touched">
-              </div>
+             <p class="msg1" style="color:#f53d3d;">Password is required. Use at least 8-16 characters and must contain combination of lower case, upper case and number</p>  
+            </div>
             <div *ngIf="registerFormpassword.get('password').hasError('required') && registerFormpassword.get('password').touched">
                 <p class="msg1" style="color:#f53d3d;">Password is required</p>
 

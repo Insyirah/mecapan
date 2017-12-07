@@ -31,6 +31,9 @@
       <div *ngIf="logInFormpassword.get('password').hasError('required') && logInFormpassword.get('password').touched">
         <p class="msg" style="color:#f53d3d;">Password is required</p>
       </div>
+      <div *ngIf="logInFormpassword.get('password').hasError('pattern') && logInFormpassword.get('password').touched">
+        <p class="msg" style="color:#f53d3d;">Password is required. Use at least 8-16 characters and must contain combination of lower case, upper case and number</p>
+      </div>
       <ion-fab right bottom>
         <button ion-fab mini color="info" type="submit" [disabled]="logInFormpassword.invalid"><ion-icon ios="ios-arrow-round-forward" md="md-arrow-round-forward"></ion-icon></button>
       </ion-fab>

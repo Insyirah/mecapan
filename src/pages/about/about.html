@@ -45,9 +45,10 @@
           <h3  class="recent">{{status.appointmentDate| date: 'dd/MM/yyyy'}}</h3>
          
           <h4 class="recent" style="color: red" *ngIf="status.applicationStatusName=='Canceled'"><b>Appointment cancelled</b></h4>
-          <h4 class="recent" style="color: green" *ngIf="status.applicationStatusName=='Completed Without Review'"><b>Appointment accepted</b></h4>
+          <h4 class="recent" style="color: green" *ngIf="status.applicationStatusName=='Completed Without Review'"><b>Completed Without Review</b></h4>
           <h4 class="recent" style="color: #56C8C8" *ngIf="status.applicationStatusName=='Pending Acceptance'"><b>Appointment Pending </b></h4>
-          <h4 class="recent" style="color: #56C8C8" *ngIf="status.applicationStatusName=='Accept Without Downpayment'"><b>Appointment not done </b></h4>
+          <h4 class="recent" style="color: #56C8C8" *ngIf="status.applicationStatusName=='Accept Without Downpayment'"><b>Accept Without Downpayment </b></h4>
+          <h4 class="recent" style="color: #56C8C8" *ngIf="status.applicationStatusName=='Accept With Downpayment'"><b>Accept With Downpayment </b></h4>          
           <h4 class="recent" style="color: red" *ngIf="status.applicationStatusName=='Rejected'"><b>Appointment  rejected </b></h4>
           
         </ion-item>
@@ -61,13 +62,14 @@
     </ion-slide>
     <ion-slide>
        
-        <ion-item no-padding  *ngFor="let status of bookingCompletedStatus" (click)="makeReview()">
+        <ion-item no-padding  *ngFor="let status of bookingCompletedStatus">
             <ion-thumbnail item-left>
                 <ion-img src="assets/img/11.jpg" class="defaultStore"></ion-img>
             </ion-thumbnail>
             <h2>{{status.storeName}}</h2>
             <p>{{status.appointmentDate| date: 'dd/MM/yyyy'}}</p>
             <ion-icon item-end style="color:green;"ios="ios-checkmark-circle" md="md-checkmark-circle"></ion-icon>
+            <button  ion-button round  (click)="makeReview()">Make Review</button>             
             </ion-item>
 <!-- <span *ngIf="bookingCompletedStatus==''">No complete booking</span>     -->
 <div *ngIf="bookingCompletedStatus==''"  style="padding-top:55px;">

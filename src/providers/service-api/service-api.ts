@@ -68,6 +68,12 @@ export class ServiceApiProvider {
   // }
 
 
+  getMasterData(form): Observable<any> {//countrycode for register
+    let url = this.host + 'Global/api/GetMasterData/Registration/Phone Country Code'
+    console.log(url)
+    return this.http.get(url).map((res: Response) => res.json()
+    );
+  }
 
   postRegister(form): Observable<any> {//registerpage(done)
     let url = this.host + 'Login/Register/api/PostRegister'

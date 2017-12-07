@@ -34,6 +34,8 @@ import { HttpModule } from '@angular/http';
 import { Geolocation } from '@ionic-native/geolocation';
 import { ResetPasswordPageModule } from '../pages/reset-password/reset-password.module';
 import { ReviewPageModule } from '../pages/review/review.module';
+import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
+
 
 @NgModule({
   declarations: [
@@ -42,7 +44,8 @@ import { ReviewPageModule } from '../pages/review/review.module';
     ContactPage,
     HomePage,
     TabsPage,
-    LogInMeccapanPage
+    LogInMeccapanPage,
+   
   ],
   imports: [
     CalendarModule,
@@ -67,6 +70,7 @@ import { ReviewPageModule } from '../pages/review/review.module';
     ResetPasswordPageModule,
     Ng2Webstorage,
     ReviewPageModule,
+    NgIdleKeepaliveModule.forRoot(),
     NguiMapModule.forRoot({ apiUrl: 'https://maps.google.com/maps/api/js?key=AIzaSyBSy0GEQeCrUgJ9LvrYHUBemGUjHE1PhcU' }),
     IonicModule.forRoot(MyApp, {
       scrollAssist: false,

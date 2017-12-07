@@ -1,3 +1,4 @@
+import { SignInPage } from './../sign-in/sign-in';
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Slides, AlertController, LoadingController, Loading, Events } from 'ionic-angular';
 import { TreatmentprovidersPage } from '../treatmentproviders/treatmentproviders';
@@ -236,7 +237,13 @@ export class ListprovidersPage {
     })
   }
 
-
+  ngOnInit(){
+    setTimeout(() => {
+         this.navCtrl.popToRoot();
+        // might try this instead
+        //this.navCtrl.setRoot(SignInPage);
+    }, 500);
+}
 
 
 

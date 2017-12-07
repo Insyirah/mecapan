@@ -26,6 +26,9 @@
 <br> 
   <ion-slides style="height:unset;" #mySlider (ionSlideDidChange)="onSlideChanged($event)">
     <ion-slide class="wrapper">
+        <!-- <p><strong>{{idleState}}</strong></p>
+        <p *ngIf="lastPing"><small>Last keepalive ping <strong>{{lastPing | amTimeAgo}}</strong></small></p>
+        <button (click)="reset()" *ngIf="timedOut">Restart</button> -->
        <!-- <img src="assets/1.jpg" class="pic">  -->
        <!-- <p>Johny Saloons</p>
        <p>Eye Lashes</p>
@@ -56,8 +59,12 @@
             <div align="center" style=" font-style: italic;">
               <p small style="color:lightgrey;">No Recent booking! <br>
                 <ion-icon style="font-size:5.2em;color:lightgrey"  ios="ios-clipboard" md="md-clipboard"></ion-icon> </p>
-            </div>
+            </div
+            >
           </div>
+          <!-- <p><strong>{{idleState}}</strong></p>
+<p *ngIf="lastPing"><small>Last keepalive ping <strong>{{lastPing | amTimeAgo}}</strong></small></p>
+<button (click)="reset()" *ngIf="timedOut">Restart</button> -->
     </ion-slide>
     <ion-slide>
        

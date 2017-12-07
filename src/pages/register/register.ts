@@ -12,6 +12,7 @@ import { ServiceApiProvider } from '../../providers/service-api/service-api';
   templateUrl: 'register.html',
 })
 export class RegisterPage {
+  countryCode: any;
   registerFormsfullName: FormGroup;
   registerFormuserName: FormGroup;
   registerFormemail: FormGroup;
@@ -52,9 +53,11 @@ export class RegisterPage {
     this.registerFormcode = this.fb.group({
       code: ['', Validators.required]
     });
+    this.getPhoneCountryCode()
   }
 
   ionViewDidLoad() {
+    
     console.log('ionViewDidLoad RegisterPage');
 
     this.planCase = this.navParams.get("planCase");
@@ -224,6 +227,13 @@ export class RegisterPage {
       }
     })
 
+  }
+
+  getPhoneCountryCode(){
+    this.serviceApi.getMasterData(this.form).subscribe(data => {
+      this.countryCode = data.masterData
+      console.log("code phone", this.countryCode)
+    })
   }
 
 

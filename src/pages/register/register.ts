@@ -53,9 +53,11 @@ export class RegisterPage {
     this.registerFormcode = this.fb.group({
       code: ['', Validators.required]
     });
+    this.getPhoneCountryCode()
   }
 
   ionViewDidLoad() {
+    
     console.log('ionViewDidLoad RegisterPage');
     this.getPhoneCountryCode()
 
@@ -232,6 +234,13 @@ export class RegisterPage {
       }
     })
 
+  }
+
+  getPhoneCountryCode(){
+    this.serviceApi.getMasterData(this.form).subscribe(data => {
+      this.countryCode = data.masterData
+      console.log("code phone", this.countryCode)
+    })
   }
 
 

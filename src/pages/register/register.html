@@ -9,7 +9,12 @@
     <form [formGroup]="registerFormphoneNumber" (ngSubmit)="goPhoneNumber(registerFormphoneNumber.value)">
   <br><br><br><br><br><br><br><br>
     <a class="a"><b>Enter Your Phone Number Here</b></a>
-
+    <ion-item>
+      <ion-label floating>Country Code</ion-label>
+      <ion-select interface="popover" type="number">
+        <ion-option [value]="code.ParameterName" *ngFor="let code of countryCode">{{code.ParameterName}}</ion-option>
+      </ion-select>
+    </ion-item>
   <ion-item>
     <ion-input formControlName="phoneNumber" type="text" [class.invalid]="!registerFormphoneNumber.controls.phoneNumber.valid && (registerFormphoneNumber.controls.phoneNumber.dirty || submitAttempt)"></ion-input> 
   </ion-item>

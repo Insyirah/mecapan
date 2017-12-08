@@ -332,7 +332,7 @@ export class ServiceApiProvider {
       .map((res: Response) => res.json());
   }
 
-  getMasterData(form): Observable<any> {//countrycode for register
+  getPhoneCountryCode(): Observable<any> {//countrycode for register
     let url = this.host + 'Global/api/GetMasterData/Registration/Phone Country Code' 
     console.log(url)
     return this.http.get(url).map((res: Response) => res.json()

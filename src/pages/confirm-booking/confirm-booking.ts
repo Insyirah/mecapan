@@ -17,10 +17,7 @@ export class ConfirmBookingPage {
   applicationId: any;
   bookings: Array<any>;
   constructor(public loadingCtrl: LoadingController,private alertCtrl: AlertController, private serviceApi: ServiceApiProvider, public navCtrl: NavController, public navParams: NavParams) {
-    this.loading = this.loadingCtrl.create({
-      content: 'Please wait...'
-    });
-    this.loading.present()
+  
   }
 
   async ionViewDidLoad() {

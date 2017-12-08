@@ -102,7 +102,7 @@
             <ion-label>
               
             <b> {{treatment.treatmentName}} </b><br>
-            <a><b>Rp&nbsp;{{treatment.price}} k</b></a>
+            <a><b>Rp&nbsp;{{treatment.price}} k</b></a>&nbsp;&nbsp;&nbsp;
             <a class="hours"><b>{{treatment.treatmentDuration}} min</b></a>
             </ion-label>
             <ion-checkbox [(ngModel)]="checkedItems[i]" (ionChange)="choosenTreatment(treatment.treatmentID,checkedItems[i],treatment.agentDiscountID,treatment.agentBranchID)" color="primary"></ion-checkbox>

@@ -12,6 +12,8 @@ import { ServiceApiProvider } from '../../providers/service-api/service-api';
   templateUrl: 'register.html',
 })
 export class RegisterPage {
+  phoneCode: any;
+  phoneNumDetail: any;
   countryCode: any;
   registerFormsfullName: FormGroup;
   registerFormuserName: FormGroup;
@@ -36,6 +38,7 @@ export class RegisterPage {
 
   constructor(private alertCtrl: AlertController, private serviceApi: ServiceApiProvider, private storage: Storage, private fb: FormBuilder, public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController) {
     this.registerFormphoneNumber = this.fb.group({
+      codePhoneNumber:[''],
       phoneNumber: ['', Validators.compose([Validators.required, Validators.pattern('([0-9]{10,11})')])],
     });
     this.registerFormsfullName = this.fb.group({
@@ -53,7 +56,7 @@ export class RegisterPage {
     this.registerFormcode = this.fb.group({
       code: ['', Validators.required]
     });
-    this.getPhoneCountryCode()
+    this.getPhoneCode()
   }
 
   ionViewDidLoad() {
@@ -98,7 +101,7 @@ export class RegisterPage {
   goPhoneNumber(x) {
 
     console.log(x.phoneNumber)
-
+    console.log("kodfon",x.codePhoneNumber)
     this.serviceApi.getCheckPhoneNumber(x.phoneNumber).subscribe(data => {
       console.log(data)
       if (data.checkPhoneNo == 'NotOk') {
@@ -229,10 +232,15 @@ export class RegisterPage {
 
   }
 
-  getPhoneCountryCode(){
-    this.serviceApi.getMasterData(this.form).subscribe(data => {
+  getPhoneCode(){
+    this.serviceApi.getPhoneCountryCode().subscribe(data => {
+      this.phoneNumDetail = data
       this.countryCode = data.masterData
+      
       console.log("code phone", this.countryCode)
+      console.log("phoneNumDetail", this.phoneNumDetail)
+  
+
     })
   }
 

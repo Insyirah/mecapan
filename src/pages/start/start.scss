@@ -2,16 +2,11 @@ page-start {
     ::-webkit-scrollbar{
         display:none;
     }
+    .row{
+        margin-bottom: -6%;
+    }
     .button-md.facebook{
-        margin-left: 18%;
+        margin-bottom: 3%;
     }
-    .button-md.google{
-        margin-left: 19%;
-    }
-    // .button-md.sigin{
-    //     margin-left: 13%;
-    // }
-    // .button-md.register{
-    //     margin-left: -10%;
-    // }
+
 }

@@ -1,11 +1,20 @@
 page-home {
-  img{
-    max-width: 70%;
-    margin-left: 13%;
+  .head{
+    margin-top: 0%;
+    padding-bottom: -2%;
+  }
+  img.title{
+    max-width: 50%;
+    margin-left: 25%;
+    margin-bottom: -1%;
+  }
+  ion-slides.slide{
+    margin-top: -52%;
+    padding-top: -20%;
   }
   ion-navbar.bar{
     margin-bottom: -3%;
-    margin-top: -2%;
+    margin-top: 0%;
   }
   h6.face{
     padding-left: 4%;
@@ -29,11 +38,11 @@ page-home {
     }
   
     div img{
-      margin: 10px;
+      margin: 1%;
       border-radius: 23%;
-      width:25%;
-      height:25%;
-      box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+      width:30%;
+      height:30%;
+      // box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
     }
   }
   

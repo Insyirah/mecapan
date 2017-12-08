@@ -1,10 +1,24 @@
-<ion-header>
+<ion-header class="head">
     <ion-navbar class="bar">
-        <ion-title><img src="assets/logo.png"></ion-title>
+        <ion-title><img class ="title" src="assets/logo.png"></ion-title>        
     </ion-navbar>
 </ion-header>
 
 <ion-content>
+    <ion-slides pager="true" parallax="true" class="slide">
+        <ion-slide>
+            <img src="assets/banner.png"> 
+        </ion-slide>
+        <ion-slide>
+            <img src="assets/banner.png"> 
+        </ion-slide>
+        <ion-slide>
+            <img src="assets/banner.png"> 
+        </ion-slide>
+    </ion-slides>
+    <button ion-button full outline color="primary" icon start>
+        <ion-icon name="search" ios="ios-search" md="md-search">&nbsp;Search</ion-icon>
+    </button>
     <ion-row>
         <ion-item>
             <h5 class="face">Face</h5>

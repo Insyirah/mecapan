@@ -5,6 +5,7 @@ import { Storage } from '@ionic/storage';
 import { StartPage } from '../start/start';
 import { LocalStorageService } from 'ng2-webstorage';
 import { ServiceApiProvider } from '../../providers/service-api/service-api';
+import { CountryPhoneNumberPage } from '../country-phone-number/country-phone-number';
 
 @IonicPage()
 @Component({
@@ -12,6 +13,10 @@ import { ServiceApiProvider } from '../../providers/service-api/service-api';
   templateUrl: 'register.html',
 })
 export class RegisterPage {
+  phones: any;
+  phone: { phoneNo: any; phoneCountryCode: any; };
+  phoneNumber: any;
+  a: any;
   phoneCode: any;
   phoneNumDetail: any;
   countryCode: any;
@@ -38,8 +43,7 @@ export class RegisterPage {
 
   constructor(private alertCtrl: AlertController, private serviceApi: ServiceApiProvider, private storage: Storage, private fb: FormBuilder, public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController) {
     this.registerFormphoneNumber = this.fb.group({
-      codePhoneNumber:[''],
-      phoneNumber: ['', Validators.compose([Validators.required, Validators.pattern('([0-9]{10,11})')])],
+      phoneNumber: ['', Validators.compose([Validators.required])],
     });
     this.registerFormsfullName = this.fb.group({
       fullName: ['', Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z \/\']+')])],
@@ -56,7 +60,7 @@ export class RegisterPage {
     this.registerFormcode = this.fb.group({
       code: ['', Validators.required]
     });
-    this.getPhoneCode()
+    // this.getPhoneCode()
   }
 
   ionViewDidLoad() {
@@ -98,11 +102,32 @@ export class RegisterPage {
     alert.present();
   }
 
-  goPhoneNumber(x) {
+  goNumberCountry(){
+    // this.navCtrl.push(CountryPhoneNumberPage)
+    let myModal = this.modalCtrl.create(CountryPhoneNumberPage, {
+    });
+    myModal.present();
 
+    myModal.onDidDismiss(lol=>{
+      this.phones = lol
+      this.countryCode= lol
+      console.log("v",lol)
+    })
+  }
+
+  goPhoneNumber(x) {
+    // this.a = this.navParams.get("phoneCode")
+   console.log("s",this.phones)
     console.log(x.phoneNumber)
     console.log("kodfon",x.codePhoneNumber)
-    this.serviceApi.getCheckPhoneNumber(x.phoneNumber).subscribe(data => {
+
+    this.phone= {
+      phoneNo:x.phoneNumber,
+      phoneCountryCode:this.countryCode
+    }
+    console.log(this.phone)
+
+    this.serviceApi.getCheckPhoneNumber(this.phone).subscribe(data => {
       console.log(data)
       if (data.checkPhoneNo == 'NotOk') {
         this.presentAlert('This phone number has been used. Please try again');
@@ -232,17 +257,10 @@ export class RegisterPage {
 
   }
 
-  getPhoneCode(){
-    this.serviceApi.getPhoneCountryCode().subscribe(data => {
-      this.phoneNumDetail = data
-      this.countryCode = data.masterData
-      
-      console.log("code phone", this.countryCode)
-      console.log("phoneNumDetail", this.phoneNumDetail)
-  
 
-    })
-  }
+
+
+ 
 
 
 

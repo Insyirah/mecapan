@@ -85,12 +85,13 @@ export class ServiceApiProvider {
   //     );
   // }
 
-  getCheckPhoneNumber(phoneNumber): Observable<any> {
-    let url = this.host + 'Login/Register/api/GetCheckPhoneNo/' + phoneNumber;
+  getCheckPhoneNumber(form): Observable<any> {
+    let url = this.host + 'Login/Register/api/GetCheckPhoneNo'
     console.log(url)
-    return this.http.get(url)
-      .map((res: Response) => res.json()
-      );
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this.http.post(url, form, options)
+      .map((res: Response) => res.json());
   }
 
   getCheckEmail(email): Observable<any> {

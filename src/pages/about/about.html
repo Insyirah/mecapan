@@ -43,7 +43,9 @@
           <h2  class="recent">{{status.storeName}}</h2>
           <h3  class="recent" text-wrap>{{status.treatmentDetailName}}</h3>  
           <h3  class="recent">{{status.appointmentDate| date: 'dd/MM/yyyy'}}</h3>
-         
+          <h3  class="recent">{{status.appointmentStartSlot}} - {{status.appointmentEndSlot}}</h3>           
+          
+                   
           <h4 class="recent" style="color: red" *ngIf="status.applicationStatusName=='Canceled'"><b>Appointment cancelled</b></h4>
           <h4 class="recent" style="color: green" *ngIf="status.applicationStatusName=='Completed Without Review'"><b>Completed Without Review</b></h4>
           <h4 class="recent" style="color: #56C8C8" *ngIf="status.applicationStatusName=='Pending Acceptance'"><b>Appointment Pending </b></h4>
@@ -68,8 +70,10 @@
             <ion-thumbnail item-left>
                 <ion-img src="assets/img/11.jpg" class="defaultStore"></ion-img>
             </ion-thumbnail>
-            <h2>{{status.storeName}}</h2>
-            <p>{{status.appointmentDate| date: 'dd/MM/yyyy'}}</p>
+            <h2  class="complete">{{status.storeName}}</h2>
+            <h3  class="complete" text-wrap>{{status.treatmentDetailName}}</h3>  
+            <h3  class="complete">{{status.appointmentDate| date: 'dd/MM/yyyy'}}</h3>
+            <h3  class="complete">{{status.appointmentStartSlot}} - {{status.appointmentEndSlot}}</h3>
             <ion-icon item-end style="color:green;"ios="ios-checkmark-circle" md="md-checkmark-circle"></ion-icon>
             <button  ion-button round  (click)="makeReview()">Make Review</button>             
             </ion-item>
@@ -88,7 +92,9 @@
               <ion-img src="assets/img/11.jpg" class="defaultStore"></ion-img>
           </ion-thumbnail>
           <h2  class="reject">{{status.storeName}}</h2>
-          <p  class="reject">{{status.appointmentDate| date: 'dd/MM/yyyy'}}</p>
+          <h3  class="reject" text-wrap>{{status.treatmentDetailName}}</h3>  
+          <h3  class="reject">{{status.appointmentDate| date: 'dd/MM/yyyy'}}</h3>
+          <h3  class="reject">{{status.appointmentStartSlot}} - {{status.appointmentEndSlot}}</h3>
           <ion-icon style="color:red;" ios="ios-close-circle" item-end md="md-close-circle"></ion-icon>
           </ion-item>
           <!-- <span *ngIf="bookingRejectStatus==''">No rejected booking</span> -->

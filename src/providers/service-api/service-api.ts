@@ -22,7 +22,7 @@ export class ServiceApiProvider {
     constructor(public http: Http,private storage: LocalStorageService,public events: Events) {
         this.user = this.storage.retrieve("user")
         console.log("user",this.user)
-        
+        this.loginId =0
         if (this.user == null) {
             this.loginId = 0
             this.userId = 0

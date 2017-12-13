@@ -2,6 +2,18 @@ page-start {
     ::-webkit-scrollbar{
         display:none;
     }
+    img.banner{
+        width: 100vw;
+        margin-top: -5%; 
+    }
+    ion-thumbnail{
+        img.small{
+            height:30vw; 
+            width:30vw;
+            margin-left: 33%;
+            border-radius: 25%;
+        }
+    }
     .row{
         margin-bottom: -6%;
     }

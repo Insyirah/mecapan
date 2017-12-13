@@ -61,7 +61,7 @@ export class ConfirmBookingPage {
     this.serviceApi.postSubmitBooking(this.form).subscribe(data => {
       console.log(data)
       if (data.status == "success") {
-        this.presentAlert('You have successfully booking.');
+        this.presentAlert('Successfully booked for appointment.');
         this.navCtrl.setRoot(AboutPage, {
           applicationID: this.applicationId
         })

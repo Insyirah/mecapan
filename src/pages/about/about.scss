@@ -5,12 +5,58 @@ page-about {
         opacity: 0.4;
         background-size:cover 
     }
+    h2.upcoming{
+        padding-top: 2%;
+        color:#56C8C8
+    }
     ion-icon {
         font-size: 220%; 
         padding-left: 20%;//Preferred size here
     }
+    .button-md.reject{
+        margin-left: 25%;
+        padding-left: 10%;
+        padding-right: 10%;
+        height: 27px;
+    }
+    .defaultStore{
+        min-width: 4rem;
+        min-height: 4rem;
+        margin-left: 18%;
+        border-radius: 23%;
+    }
+    .recent{
+        padding-top: 2%;
+        margin-left: 7%;
+    }
+    .complete{
+        padding-top: 2%;
+        margin-left: 7%;
+    }
+    .reject{
+        padding-top: 2%;
+        margin-left: 7%;
+    }
+    .a{
+        padding-left: 5%;
+        font-size: 120%
+    }
 
+    ul {
+        padding: 0px;
+      
+        &.rating li {
+            // margin-left:0.000001px;
+            // margin-right: 0.0000001px;
+          padding: 5px 10px !important;
+          background: none;
+          color: #ffb400;
+      
+          ion-icon {
+            position: fixed;
+           
+            font-size: 30px;
+          }
+        }
+      }
 }
-// days-btn.small{
-//     opacity: 0 !important;
-// }

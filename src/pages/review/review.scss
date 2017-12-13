@@ -1,0 +1,20 @@
+page-review {
+    ul {
+        padding: 0px;
+      
+        &.rating li {
+            // margin-left:0.000001px;
+            // margin-right: 0.0000001px;
+          padding: 5px 10px !important;
+          background: none;
+          color: #ffb400;
+      
+          ion-icon {
+            position: fixed;
+           
+            font-size: 30px;
+          }
+        }
+      }
+
+}

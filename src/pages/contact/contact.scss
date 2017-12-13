@@ -15,12 +15,17 @@ page-contact {
         background-image: url('../assets/2.jpg');
         background-size: cover;
     }
+
+    .button-md.update{
+        padding-left: 27%;
+        padding-right: 27%;
+        font-size: 1.4rem;
+        height: 30px;
+    }
     
     .logout .item-inner{
             border-bottom: 0px !important;
     }
-    
-    
-    }
+}
     
     

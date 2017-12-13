@@ -1,36 +1,34 @@
-<!--
-  Generated template for the StartPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
-
-
-
+<!-- <ion-content tabsHideOnSubPages padding > -->
 <ion-content padding>
-    <div style="padding-top:50%;">
+    <img class="banner" src="assets/banner.jpg"/>
+    <ion-thumbnail item-center style="margin-top:-10%;">
+        <img class="small" src="assets/back.png">
+    </ion-thumbnail>
+    <ion-icon name="search" ios="ios-search" md="md-search" color="primary" class="search"></ion-icon><br>
+    <ion-icon name="chatboxes" ios="ios-chatboxes-outline" md="md-chatboxes" color="primary" class="chatbox"></ion-icon><br>
+    <ion-icon name="bookmark" ios="ios-bookmark-outline" md="md-bookmark" color="primary" class="bookmark"></ion-icon>
+    <div>
         <ion-grid>
-            <ion-row>
-                <button (click)="SignInStandBy('FACEBOOK')" ion-button icon-left full margin-top color="facebook">
-        <ion-icon ios="logo-facebook" md="logo-facebook"></ion-icon>Sign In with Facebook
-  </button>
-            </ion-row>
-            <ion-row>
-                <button (click)="SignInStandBy('GOOGLE')" ion-button icon-left full margin-top color="google">
-        <ion-icon ios="logo-googleplus" md="logo-googleplus"></ion-icon>Sign in with Google
-  </button>
-            </ion-row>
-            <ion-row>
+            <ion-row style="padding-bottom: -10%;padding-top:70%;">
                 <ion-col>
-                    <button (click)="goSignIn()" ion-button color="primary" type="submit" class="submitButton" full>SIGN IN</button>
+                    <button class="register" (click)="goRegister()" ion-button full color="primary" type="submit">REGISTER</button>
                 </ion-col>
                 <ion-col>
-                    <button (click)="goRegister()" ion-button color="primary" type="submit" class="submitButton" full>REGISTER</button>
+                    <button class="signin" (click)="goSignIn()" ion-button full color="primary" type="submit">SIGN IN</button>
                 </ion-col>
+            </ion-row>
+            <ion-row>
+                <button class="facebook" (click)="SignInStandBy('FACEBOOK')" ion-button full icon-left margin-top color="facebook">
+                    <ion-icon ios="logo-facebook" md="logo-facebook"></ion-icon>Sign In with Facebook
+                </button>
+            </ion-row>
+            <ion-row>
+                <button class="google" (click)="SignInStandBy('GOOGLE')" ion-button full icon-left margin-top color="google">
+                    <ion-icon ios="logo-googleplus" md="logo-googleplus"></ion-icon>Sign in with Google
+                </button>
             </ion-row>
         </ion-grid>
     </div>
-
-
-
 </ion-content>
+
+<!-- tabsHideOnSubPages -->

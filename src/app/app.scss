@@ -15,9 +15,14 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 ion-card{
-    // border-bottom:1px solid #ddd;
     box-shadow: 0 2px 2px 0 rgba(233, 30, 99, 0.05), 0 3px 1px -2px rgba(233, 30, 99, 0.1), 0 1px 5px 0 rgba(233, 30, 99, 0.08)!important;
     overflow:visible!important;
     display:inline-block;
     border-radius: 0px !important;
 }
+
+@font-face {
+    font-family: 'animeace2reg';
+    src: url('../assets/fonts/animeace2reg.eot');
+    src: local('animeace2reg'), url('../assets/fonts/animeace2reg.woff') format('woff'), url('../assets/fonts/animeace2reg.ttf') format('truetype');
+    }

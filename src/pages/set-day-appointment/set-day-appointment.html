@@ -7,20 +7,18 @@
 <ion-content padding>
   <span class="select"><b>Select the day to have your appointment</b></span><br><br>
 
-  <button [disabled]="previousMonths" (click)="previousMonth()" ion-button icon-left outline class="previous">
+  <!-- <button [disabled]="previousMonths" (click)="previousMonth()" ion-button icon-left outline class="previous">
     <ion-icon  
        name="arrow-dropleft" ios="ios-arrow-dropleft" md="md-arrow-dropleft"  left>
     </ion-icon>
   </button>
-    
-  <button ion-button class="today" round style color="primary" (click)="setToday()" center>Today</button>
 
   <button [disabled]="nextmonths" (click)="nextMonth()" ion-button icon-right outline class="after">
     <ion-icon 
        name="arrow-dropright" ios="ios-arrow-dropright" md="md-arrow-dropright"  right>
     </ion-icon>
   </button>
-  
+   -->
   <ion-calendar 
   [options]="CalendarOptions"
   [(ngModel)]="calendarDefault.todayDate" 
@@ -30,5 +28,5 @@
   >
   </ion-calendar>
   
-    <button (click)="setTime()" ion-button color="primary" type="submit" class="submitButton" full margin-top>Proceed</button>
+    <button class="proceed" (click)="setTime()" [disabled]='disabledProceed' ion-button round color="primary" type="submit" class="submitButton" full margin-top>Proceed</button>
 </ion-content>

@@ -1,107 +1,148 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NavController, App, Nav } from 'ionic-angular';
+import { NavController, App, Nav, Events, LoadingController, Loading } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
-import { LocalStorageService } from 'ng2-webstorage';
 import { ServiceApiProvider } from '../../providers/service-api/service-api';
 import { StartPage } from '../start/start';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
+import { GooglePlus } from "@ionic-native/google-plus";
+import { Facebook } from "@ionic-native/facebook";
+import { MyApp } from "../../app/app.component";
 
 @Component({
   selector: 'page-contact',
   templateUrl: 'contact.html'
 })
 export class ContactPage implements OnInit {
-  testing: Observable<any>;
-  @ViewChild(Nav)nav : Nav;
+  hair: any[];
+  loading: Loading;
   update: any;
   userId: any;
   profile: FormGroup;
-  
   userProfile: any = {}
- 
   skin: any[];
-  skinTypes: any[];
   form: {};
   user: any = {};
 
-  constructor(public fb: FormBuilder,private app: App,private serviceApi : ServiceApiProvider,private storage: LocalStorageService,public navCtrl: NavController) {
-    this.user=this.storage.retrieve("user")
-    console.log("user",this.user.listDetail)
-
-    this.profile = fb.group({
-      fullName:[''],
-      dateOfBirth: [''],
-      email: [''],
-      gender: [''],
-      phoneNumber: ['']
+  constructor(public loadingCtrl: LoadingController, public navCtrl: NavController, public events: Events, private appCtrl: App, private facebook: Facebook, private googlePlus: GooglePlus, public fb: FormBuilder, private app: App, private serviceApi: ServiceApiProvider, private storage: Storage) {
+    this.loading = this.loadingCtrl.create({
+      content: 'Please wait...'
     });
-
-   
+    this.createFormGroup()
+    this.loading.present()
   }
 
-  ngOnInit():void{
-    this.user=this.storage.retrieve("user")
-    this.getSkinType()
-    this.getUserProfile()
+  createFormGroup() {
+    this.profile = this.fb.group({
+      userID: ["", Validators.required],
+      fullName: ['', Validators.required],
+      dateOfBirth: ['', Validators.required],
+      email: ['', Validators.required],
+      gender: ['', Validators.required],
+      phoneNo: ['', Validators.required],
+      weight: ['', Validators.required],
+      skinTypeID: ["", Validators.required],
+      hairLengthID: ["", Validators.required]
+    });
   }
 
-  getUserProfile(){
+  changeProfilePicture() {
+  }
+
+  ngOnInit() {
+    this.storage.get("user").then(data => {
+      this.user = data
+      this.getSkinType()
+      this.getHairType()
+      this.getUserProfile()
+    })
+  }
+
+  getUserProfile() {
     this.serviceApi.getProfile().subscribe(data => {
-      // console.log(data.status)
-      this.userProfile=data
+      console.log("getProfile", data)
+      this.userProfile = data
+      this.profile.controls.userID.setValue(this.userProfile.detail.userID)
       this.profile.controls.fullName.setValue(this.userProfile.detail.fullName)
       this.profile.controls.dateOfBirth.setValue(this.userProfile.detail.dateOfBirth)
       this.profile.controls.email.setValue(this.userProfile.detail.email)
       this.profile.controls.gender.setValue(this.userProfile.detail.gender)
-      this.profile.controls.phoneNumber.setValue(this.userProfile.detail.phoneNumber)
-      console.log("profile",this.userProfile)
-      console.log("fullName",this.userProfile.detail.fullName)
+      this.profile.controls.phoneNo.setValue(this.userProfile.detail.phoneNo)
+      this.profile.controls.weight.setValue(this.userProfile.detail.weight)// form ni x de lagi
+      this.profile.controls.skinTypeID.setValue(this.userProfile.detail.skinTypeID)
+      this.profile.controls.hairLengthID.setValue(this.userProfile.detail.hairLengthID)
+      this.loading.dismiss()
     })
   }
 
-  updateDetail(form){
-    this.update=this.profile.value
-    console.log("update",this.update)
-    this.userId = this.userProfile.detail.userID
-    console.log("id",this.userId)
+  chooseGender(gender) {
+    console.log(gender)
+  }
 
+  getSkinType() {
     this.form = {
-      userID : this.userId,
-      fullName:this.update.fullName,
-      dateOfBirth:this.update.birthDate,
-      email:this.update.email,
-      gender:this.update.gender,
-      phoneNumber:this.update.phoneNumber
+      moduleName: "UserAccount",
+      masterName: "List Of Skin Type"
     }
-
-    console.log("updateForm",this.form)
-    this.serviceApi.postUpdateDetail(this.form).subscribe(data => {
-      console.log(data)
-    })
-
-  }
-
-  getSkinType(){
-    this.form={
-      moduleName : "UserAccount",
-      masterName : "List Of Skin Type"
-    }
-    // this.testing = this.serviceApi.getSkinType(this.form)
     this.serviceApi.getSkinType(this.form).subscribe(data => {
-      this.storage.store("skinType",data)
+      this.skin = data
     })
-    
   }
 
-  setSkinType(){
-    this.skin = this.storage.retrieve("skinType")
-    console.log("skin",this.skin)
+  getHairType() {
+    this.form = {
+      moduleName: "UserAccount",
+      masterName: "List Of Hair Length"
+    }
+    this.serviceApi.getHairType(this.form).subscribe(data => {
+      this.hair = data
+    })
   }
 
-  logout(){
-    this.storage.clear('user');
-    this.navCtrl.setRoot(StartPage)
+  // setSkinType(ParameterName) {
+  //   this.skin = this.storage.retrieve("skinType")
+  //   console.log("skin", this.skin)
+  //   console.log("p",ParameterName)
+  // }
+
+  updateUserDetail(form) {
+
+    console.log("updateUserDetail", form)
+    if (form.valid == false) {    //check dulu data valid x
+      alert("Please Complete The Profile")
+    } else {
+      this.serviceApi.postUpdateUserProfile(form).subscribe(data => {
+        console.log("postUpdateUserProfile", data)
+      })
+      this.update = this.profile.value
+      console.log("update", this.update)
+      this.userId = this.userProfile.detail.userID
+    }
   }
+
+  logout() {
+    if (this.user.loginType == "Google") {
+      this.googlePlus.disconnect()
+      this.handleLogOut()
+    }
+    else if (this.user.loginType == "Facebook") {
+      this.facebook.logout()
+      this.handleLogOut()
+    }
+    else {//meccapan
+      this.handleLogOut()
+    }
+
+  }
+
+  handleLogOut() {
+    this.storage.clear();
+    this.events.publish("LogOut")
+  }
+
+
+
 
 }
+
+

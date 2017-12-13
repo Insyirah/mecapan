@@ -1,16 +1,11 @@
+import { Storage } from '@ionic/storage';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController, ViewController, Events } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, ViewController, Events, LoadingController, Loading, AlertController } from 'ionic-angular';
 import { TabsPage } from '../tabs/tabs';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms/";
 import { ServiceApiProvider } from '../../providers/service-api/service-api';
-import { LocalStorageService } from 'ng2-webstorage';
+import { ForgetPasswordPage } from '../forget-password/forget-password';
 
-/**
- * Generated class for the SignInPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -18,6 +13,8 @@ import { LocalStorageService } from 'ng2-webstorage';
   templateUrl: 'sign-in.html',
 })
 export class SignInPage {
+  loading: Loading;
+  UserName: string;
   form: { username: any; password: any; loginType: string; userType: string; };
   FinalForm: any;
   user: any;
@@ -25,19 +22,25 @@ export class SignInPage {
   passwordForm: boolean = false;
   usernameForm: boolean = false;
   planCase: any;
-  logInForm: FormGroup;
+  logInFormname: FormGroup;
+  logInFormpassword: FormGroup;
   submitForm: { email: any; phoneNumber: string; userName: string; password: any; type: number; };
   ph: boolean;
   emails: boolean;
-  constructor(public events: Events,private storage: LocalStorageService,private serviceApi : ServiceApiProvider,private view: ViewController, private fb: FormBuilder, public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController) {
-    this.logInForm = this.fb.group({
-      name: [''],
-      password: ['', Validators.required]
+  
+  constructor(public loadingCtrl: LoadingController,private alertCtrl: AlertController, private storage: Storage, public events: Events, private serviceApi: ServiceApiProvider, private view: ViewController, private fb: FormBuilder, public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController) {
+    this.loading = this.loadingCtrl.create({
+      content: 'Please wait...'
+    });
+    this.logInFormname = this.fb.group({
+      name: ['', Validators.compose([Validators.required])],
+    });
+    this.logInFormpassword = this.fb.group({
+      password: ['', Validators.compose([Validators.required, Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,16}$')])]
     });
   }
-  
+
   ionViewDidLoad() {
-    console.log('ionViewDidLoad SignInPage');
     this.planCase = this.navParams.get("planCase");
     switch (this.planCase) {
       case "userName":
@@ -49,95 +52,98 @@ export class SignInPage {
     }
   }
 
-  // goSign(){
-  //   let myModal = this.modalCtrl.create(SignInPage, {
-  //     planCase: "userName"
-  //   });
-  //   myModal.present();
-  // }
+  ForgetPassword() {
+    this.navCtrl.push(ForgetPasswordPage)
+  }
 
   goPassword(x) {
-    let myModal = this.modalCtrl.create(SignInPage, {
+    this.navCtrl.push(SignInPage, {
       name: x.name,
       planCase: "pw"
+    })
+  }
+  private presentAlert(text) {
+    let alert = this.alertCtrl.create({
+      subTitle: text,
+      buttons: ['OK']
     });
-    myModal.present();
+    alert.present();
   }
 
   goSignIn(form) {
-    form.name = this.navParams.get("name");
-    // this.FinalForm = this.SubmitLogIn(form)
-
-    this.form={
-      username : form.name,
-      password : form.password,
-      loginType :"Username",
-      userType : "Customer"
+    this.loading.present()
+    this.UserName = this.navParams.get("name");
+    this.form = {
+      username: this.UserName,
+      password: form.password,
+      loginType: "Username",
+      userType: "Customer"
     }
-    console.log("form",this.form)
-    
+    console.log("form", this.form)
     this.serviceApi.postLoginMeccapan(this.form).subscribe(data => {
-      if(data.status=="success"){
-        alert("login success")
-        // console.log("ini",data)
-        console.log("itu",data)
-        this.storage.store("user",data)
+      if (data.status == "success") {
+        console.log("postLoginMeccapan", data)
+        this.storage.set("user", data)
         this.events.publish('Login')
-    
-        this.navCtrl.setRoot(TabsPage)
-      }else if(data.status=="error"){
-        console.log(data)
-        alert("your detail might be wrong")
-      }else{
+        this.loading.dismiss()
+        this.navCtrl.push(TabsPage)
+        this.presentAlert('Login success');
+      } else if (data.status == "error") {
+        console.log("error", data)
+        // alert("Your password might be wrong")
+        this.presentAlert('Your username or password might be wrong');
+        this.loading.dismiss()
+        this.navCtrl.popTo(SignInPage)
+      } else {
         alert("error")
-      }  
-     })
+      }
+    })
   }
 
 
 
-//   SubmitLogIn(form) {
-//     this.emails = this.emailFilter(form.name)
-//     console.log(this.emails)
-//     if (this.emails == true) {
-//       this.submitForm = {
-//         email: form.name,
-//         phoneNumber: "",
-//         userName: "",
-//         password: form.password,
-//         type: 1
-//       }
-//       console.log(this.submitForm)
-//       //  this.goLogInMeccapan(this.submitForm)
-//     }
-//     else {
-//       this.ph = this.phFilter(form.name)
-//       if (this.ph == true) {
-//         this.submitForm = {
-//           email: "",
-//           phoneNumber: form.name,
-//           userName: "",
-//           password: form.password,
-//           type: 1
-//         }
-//         console.log(this.submitForm)
-//         // this.goLogInMeccapan(this.submitForm)
-//       }
+  //   SubmitLogIn(form) {
+  //     this.emails = this.emailFilter(form.name)
+  //     console.log(this.emails)
+  //     if (this.emails == true) {
+  //       this.submitForm = {
+  //         email: form.name,
+  //         phoneNumber: "",
+  //         userName: "",
+  //         password: form.password,
+  //         type: 1
+  //       }
+  //       console.log(this.submitForm)
+  //       //  this.goLogInMeccapan(this.submitForm)
+  //     }
+  //     else {
+  //       this.ph = this.phFilter(form.name)
+  //       if (this.ph == true) {
+  //         this.submitForm = {
+  //           email: "",
+  //           phoneNumber: form.name,
+  //           userName: "",
+  //           password: form.password,
+  //           type: 1
+  //         }
+  //         console.log(this.submitForm)
+  //         // this.goLogInMeccapan(this.submitForm)
+  //       }
 
-//       else {
-//         this.submitForm = {
-//           email: "",
-//           phoneNumber: "",
-//           userName: form.name,
-//           password: form.password,
-//           type: 1
-//         }
-//         console.log(this.submitForm)
-//         //   this.goLogInMeccapan(this.submitForm)
-//       }
-//     }
-// return this.submitForm
-//   }
+  //       else {
+  //         this.submitForm = {
+  //           email: "",
+  //           phoneNumber: "",
+  //           userName: form.name,
+  //           password: form.password,
+  //           type: 1
+  //         }
+  //         console.log(this.submitForm)
+  //         //   this.goLogInMeccapan(this.submitForm)
+  //       }
+  //     }
+  // return this.submitForm
+  //   }
 
 
 

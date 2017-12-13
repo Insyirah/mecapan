@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar hideBackButton >
     <ion-title>Providers</ion-title>
   </ion-navbar>
 </ion-header>
@@ -17,13 +17,23 @@
 
   <ion-slides style="height:unset;" #mySlider (ionSlideDidChange)="onSlideChanged($event)">
     <ion-slide>
+        <form [formGroup]="filter"  #searchBy="ngForm">
+            <ion-item>
+              <ion-label stacked>Search By:</ion-label>
+              <ion-select interface="popover" (ionChange)="goFilter(searchBy.value)" formControlName="searchBy" type="number">
+                <ion-option value="97">Saloon Name</ion-option>
+                <ion-option value="98">Price Level</ion-option>
+                <ion-option value="99">Rating</ion-option>
+                <ion-option value="100">Type Beauty Provider</ion-option>
+              </ion-select>
+            </ion-item>
+          </form>
       <ion-row>
         <ion-col col-10 class="search">
-          <ion-searchbar  [(ngModel)]="seachInput" [formControl]="terms" (ionCancel)="searchCancel($event)" [showCancelButton]="true"
+          <ion-searchbar  [(ngModel)]="seachInput" (ionCancel)="searchCancel($event)" [formControl]="terms" [showCancelButton]="true"
             color="primary" placeholder="Search">
           </ion-searchbar>
           <!-- //  <ion-list  *ngFor="let item of items ">{{item}}</ion-list> -->
-
         </ion-col>
         <ion-col col-1 class="butang">
           <ion-buttons end class="filter" (click)="filterType()">
@@ -34,31 +44,57 @@
         </ion-col>
       </ion-row>
 
-      <div *ngIf="!searching">
-        <br>
-        <br>
-        <ion-spinner name="crescent"></ion-spinner>
-      </div>
 
       <div>
         <ion-item no-padding *ngFor="let provider of providers" (click)="goTreatment(provider.agentBranchID,provider.treatmentProvidedID)">
-          <ion-thumbnail item-left>
-            <ion-img class="defaultStore"></ion-img>
-          </ion-thumbnail>
-          <h2 class="name">{{provider.storeName}}</h2>
-          <p class="name2">
-            <ion-icon ios="ios-pin-outline" md="md-pin" color="primary"></ion-icon>&nbsp;{{provider.address}}</p>
-          <br>
-          <!-- <ion-icon name="star" color="gold" *ngFor="let item of [1,2,3,4,5];"></ion-icon>
-            <br> -->
-          <!-- <button ion-button full color="warning" class="pull-right" (click)="requestService(agent,$event)">Book Now</button>
-            <p text-center class="distance-tag">{{agent.distance | number : '1.2-2'}} km</p> -->
+          <ion-row>
+            <ion-col>
+              <ion-thumbnail item-left>
+                <!-- <img src="data:image/jpeg;base64,{{provider.storeImage}}"  /> -->
+                <img [src]="HandleImage(provider.storeImage)" class="defaultStore" /> 
+                <!-- <ion-img [src]="HandleImage(provider.storeImage)" class="defaultStore"></ion-img> -->
+              </ion-thumbnail>
+            </ion-col>
+            <ion-col>
+              <h2 class="name" text-wrap>{{provider.storeName}}</h2>
+              <p class="name2" text-wrap>
+                <ion-icon ios="ios-pin-outline" md="md-pin" color="primary"></ion-icon>&nbsp;{{provider.address}}</p>
+              <br>
+            </ion-col>
+            <ion-col><br>
+              <div class="one" *ngIf="provider.priceRangeSign=='1'">
+                <ion-icon name="logo-usd" ios="logo-usd" md="logo-usd" class="usd" color="primary"></ion-icon>  
+              </div>
+              <div class="two" *ngIf="provider.priceRangeSign=='2'">
+                <ion-icon name="logo-usd" ios="logo-usd" md="logo-usd" class="usd" color="primary"></ion-icon>
+                <ion-icon name="logo-usd" ios="logo-usd" md="logo-usd" class="usd" color="primary"></ion-icon>              
+              </div>
+              <div class="three" *ngIf="provider.priceRangeSign=='3'">
+                  <ion-icon name="logo-usd" ios="logo-usd" md="logo-usd" class="usd" color="primary"></ion-icon>
+                  <ion-icon name="logo-usd" ios="logo-usd" md="logo-usd" class="usd" color="primary"></ion-icon>  
+                  <ion-icon name="logo-usd" ios="logo-usd" md="logo-usd" class="usd" color="primary"></ion-icon>              
+              </div>
+              <div class="four" *ngIf="provider.priceRangeSign=='4'">
+                  <ion-icon name="logo-usd" ios="logo-usd" md="logo-usd" class="usd" color="primary"></ion-icon>
+                  <ion-icon name="logo-usd" ios="logo-usd" md="logo-usd" class="usd" color="primary"></ion-icon>
+                  <ion-icon name="logo-usd" ios="logo-usd" md="logo-usd" class="usd" color="primary"></ion-icon>  
+                  <ion-icon name="logo-usd" ios="logo-usd" md="logo-usd" class="usd" color="primary"></ion-icon>  
+              </div>
+              <div class="five" *ngIf="provider.priceRangeSign=='5'">
+                  <ion-icon name="logo-usd" ios="logo-usd" md="logo-usd" class="usd" color="primary"></ion-icon>
+                  <ion-icon name="logo-usd" ios="logo-usd" md="logo-usd" class="usd" color="primary"></ion-icon>
+                  <ion-icon name="logo-usd" ios="logo-usd" md="logo-usd" class="usd" color="primary"></ion-icon>  
+                  <ion-icon name="logo-usd" ios="logo-usd" md="logo-usd" class="usd" color="primary"></ion-icon>
+                  <ion-icon name="logo-usd" ios="logo-usd" md="logo-usd" class="usd" color="primary"></ion-icon>  
+              </div>
+            </ion-col>
+          </ion-row>
         </ion-item>
       </div>
 
-       <div *ngIf="!noProvider">
+       <!-- <div *ngIf="!noProvider">
        <p> no provider </p>
-      </div>
+      </div> -->
 
     </ion-slide>
 
@@ -71,8 +107,6 @@
 
     </ion-slide>
 
-
   </ion-slides>
-
 
 </ion-content>

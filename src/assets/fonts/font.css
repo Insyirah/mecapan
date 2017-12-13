@@ -1,0 +1,11 @@
+@font-face {
+	font-family: 'animeace2reg';
+	src: url('./animeace2reg.eot');
+	src: local('animeace2reg'), url('./animeace2reg.woff') format('woff'), url('./animeace2reg.ttf') format('truetype');
+}
+/* use this class to attach this font to any element i.e. <p class="fontsforweb_fontid_289">Text with this font applied</p> */
+.fontsforweb_fontid_289 {
+	font-family: 'animeace2reg' !important;
+}
+
+/* Font downloaded from FontsForWeb.com */

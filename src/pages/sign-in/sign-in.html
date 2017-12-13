@@ -1,44 +1,43 @@
-<!--
-  Generated template for the RegisterPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
   <ion-navbar>
     <ion-title>Sign In</ion-title>
   </ion-navbar>
 </ion-header>
 
-
-<ion-content padding>
+<ion-content padding >
   <div *ngIf="usernameForm">
-    <form [formGroup]="logInForm" (ngSubmit)="goPassword(logInForm.value)">
-
+    <form [formGroup]="logInFormname" (ngSubmit)="goPassword(logInFormname.value)">
       <br><br><br><br><br><br><br><br>
-      <a class="a"><b>Enter phone number or username</b></a>
-
+      <a class="a"><b>Enter Phone Number or Username</b></a>
       <ion-item>
-        <ion-input formControlName="name" type="text"></ion-input>
-
+        <ion-input formControlName="name" type="text" [class.invalid]="!logInFormname.controls.name.valid && (logInFormname.controls.name.dirty || submitAttempt)"></ion-input>
     </ion-item>
+    <div *ngIf="logInFormname.get('name').hasError('required') && logInFormname.get('name').touched">
+      <p class="msg" style="color:#f53d3d;">Phone number or Username is required</p>
+    </div>
     <ion-fab right bottom>
-      <button ion-fab mini color="info" type="submit"><ion-icon ios="ios-arrow-round-forward" md="md-arrow-round-forward"></ion-icon></button>
+      <button ion-fab mini color="info" type="submit" [disabled]="logInFormname.invalid"><ion-icon ios="ios-arrow-round-forward" md="md-arrow-round-forward"></ion-icon></button>
     </ion-fab>
         </form>
   </div>
 
   <div *ngIf="passwordForm">
-    <form [formGroup]="logInForm" (ngSubmit)="goSignIn(logInForm.value)">
+    <form [formGroup]="logInFormpassword" (ngSubmit)="goSignIn(logInFormpassword.value)">
       <br><br><br><br><br><br><br><br>
       <a class="a"><b>Enter password</b></a>
       <ion-item>
-        <ion-input formControlName="password" type="password"></ion-input>
+        <ion-input formControlName="password" type="password" [class.invalid]="!logInFormpassword.controls.password.valid && (logInFormpassword.controls.password.dirty || submitAttempt)"></ion-input>
       </ion-item>
+      <div *ngIf="logInFormpassword.get('password').hasError('required') && logInFormpassword.get('password').touched">
+        <p class="msg" style="color:#f53d3d;">Password is required</p>
+      </div>
+      <div *ngIf="logInFormpassword.get('password').hasError('pattern') && logInFormpassword.get('password').touched">
+        <p class="msg" style="color:#f53d3d;">Password is required. Use at least 8-16 characters and must contain combination of lower case, upper case and number</p>
+      </div>
       <ion-fab right bottom>
-        <button ion-fab mini color="info" type="submit"><ion-icon ios="ios-arrow-round-forward" md="md-arrow-round-forward"></ion-icon></button>
+        <button ion-fab mini color="info" type="submit" [disabled]="logInFormpassword.invalid"><ion-icon ios="ios-arrow-round-forward" md="md-arrow-round-forward"></ion-icon></button>
       </ion-fab>
-    </form>
+    </form><br><br><br><br>
+    <span (click)="ForgetPassword()" class="msg" style="color:lightgrey;"><b>Forgot Password?</b></span>
   </div>
 </ion-content>
-<!-- (click)="goSignIn()" -->

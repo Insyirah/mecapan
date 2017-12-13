@@ -1,19 +1,29 @@
-<ion-header>
-    <ion-navbar>
-        <ion-title>Treatment</ion-title>
+<ion-header class="head">
+    <ion-navbar class="bar">
+        <ion-title><img class ="title" src="assets/logo.png"></ion-title>        
     </ion-navbar>
 </ion-header>
 
 <ion-content>
-    <!-- <calendar 
-        [currentDate]="calendar"
-        [markDisabled]= "markDisabled"
-    
-        step="30">
-      </calendar> -->
+    <ion-row>
+        <ion-slides pager="true" parallax="true" class="slide">
+            <ion-slide>
+                <img src="assets/banner.jpg"> 
+            </ion-slide>
+            <ion-slide>
+                <img src="assets/banner.jpg"> 
+            </ion-slide>
+            <ion-slide>
+                <img src="assets/banner.jpg"> 
+            </ion-slide>
+        </ion-slides>
+    </ion-row>
+    <button ion-button full outline color="primary" icon start>
+        <ion-icon name="search" ios="ios-search" md="md-search">&nbsp;Search</ion-icon>
+    </button>
     <ion-row>
         <ion-item>
-            <h6 class="face">Face</h6>
+            <h5 class="face">Face</h5>
             <ion-scroll scrollX="true">
                 <div>
                     <img src="data:image/jpeg;base64,{{treatment.ParameterIcon}}" *ngFor="let treatment of faceTreatment" (click)="goTreatmentProvider(treatment.MasterDataMaintenanceItemID)" />
@@ -24,7 +34,7 @@
 
     <ion-row>
         <ion-item>
-            <h6 class="hair">Hair</h6>
+            <h5 class="hair">Hair</h5>
             <ion-scroll scrollX="true">
                 <div>
                     <img src="data:image/jpeg;base64,{{treatment.ParameterIcon}}" *ngFor="let treatment of hairTreatment" (click)="goTreatmentProvider(treatment.MasterDataMaintenanceItemID)"
@@ -36,7 +46,7 @@
 
     <ion-row>
         <ion-item>
-            <h6 class="body">Body</h6>
+            <h5 class="body">Body</h5>
             <ion-scroll scrollX="true" scroll-avatar>
                 <div>
                     <img src="data:image/jpeg;base64,{{treatment.ParameterIcon}}" *ngFor="let treatment of bodyTreatment" (click)="goTreatmentProvider(treatment.MasterDataMaintenanceItemID)" class="scroll-item" />
@@ -44,5 +54,4 @@
             </ion-scroll>
         </ion-item>
     </ion-row>
-
 </ion-content>

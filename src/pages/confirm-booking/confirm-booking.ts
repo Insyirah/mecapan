@@ -1,14 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, LoadingController, Loading } from 'ionic-angular';
 import { ServiceApiProvider } from '../../providers/service-api/service-api';
 import { AboutPage } from '../about/about';
-
-/**
- * Generated class for the ConfirmBookingPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -16,19 +9,21 @@ import { AboutPage } from '../about/about';
   templateUrl: 'confirm-booking.html',
 })
 export class ConfirmBookingPage {
+  loading: Loading;
   totalPrice: number;
   storeName: string;
   bookdate: Date;
   form: { applicationID: any; };
   applicationId: any;
   bookings: Array<any>;
-  constructor(private alertCtrl: AlertController, private serviceApi: ServiceApiProvider, public navCtrl: NavController, public navParams: NavParams) {
-
+  constructor(public loadingCtrl: LoadingController,private alertCtrl: AlertController, private serviceApi: ServiceApiProvider, public navCtrl: NavController, public navParams: NavParams) {
+  
   }
 
   async ionViewDidLoad() {
     console.log('ionViewDidLoad ConfirmBookingPage');
     await this.getBookingSummary()
+    this.loading.dismiss()
   }
 
   private presentAlert(text) {
@@ -66,7 +61,7 @@ export class ConfirmBookingPage {
     this.serviceApi.postSubmitBooking(this.form).subscribe(data => {
       console.log(data)
       if (data.status == "success") {
-        this.presentAlert('You have successfully booking.');
+        this.presentAlert('Successfully booked for appointment.');
         this.navCtrl.setRoot(AboutPage, {
           applicationID: this.applicationId
         })

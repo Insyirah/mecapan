@@ -5,19 +5,14 @@ import { ConfirmBookingPage } from '../confirm-booking/confirm-booking';
 import { ServiceApiProvider } from '../../providers/service-api/service-api';
 import { LocalStorageService } from 'ng2-webstorage';
 
-/**
- * Generated class for the SetTimeAppointmentPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
   selector: 'page-set-time-appointment',
   templateUrl: 'set-time-appointment.html',
 })
 export class SetTimeAppointmentPage {
+  listTreatment: string;
+  disabledProceed: boolean = true;
   name2: any;
   name1: any;
   name: any;
@@ -42,12 +37,13 @@ export class SetTimeAppointmentPage {
 
     this.bookDate = this.navParams.get("date")
     console.log("bookDate", this.bookDate)
-    this.getTimeSlot()
+    
 
   }
 
-  ionViewDidLoad() {
+  async ionViewDidLoad() {
     console.log('ionViewDidLoad SetTimeAppointmentPage');
+    await this.getTimeSlot()
   }
 
   getTimeSlot() {
@@ -64,10 +60,23 @@ export class SetTimeAppointmentPage {
     console.log("Dates", this.dates)
     console.log("ApplicationDetail",this.applicationDetail)
 
-    this.name = this.applicationDetail[0].treatmentName.ParameterValue
-    this.name1 = this.applicationDetail[1].treatmentName.ParameterValue
+    // this.name = this.applicationDetail[0].treatmentName.ParameterValue
+    // this.name1 = this.applicationDetail[1].treatmentName.ParameterValue
     // this.name2 = this.applicationDetail[2].treatmentName.ParameterValue
-    
+    let num = this.applicationDetail.length
+    console.log("a",num)
+    this.listTreatment = ""
+    for (let i = 0; i<num ;i++){
+      let c = this.applicationDetail[i].treatmentName.ParameterValue
+      this.listTreatment += c
+      if(i+num>=num){
+        this.listTreatment +=', '
+      }
+      console.log("c",this.listTreatment)
+    }
+
+   this.name =this.listTreatment
+   console.log("namessssss",this.name)
     
     console.log("nama",this.name)
     this.form = {
@@ -88,7 +97,7 @@ export class SetTimeAppointmentPage {
   chooseSlot(startHour) {
     console.log(startHour)
     console.log(this.slot)
-
+    this.disabledProceed ==false? "":this.disabledProceed = false;
     let p = this.timeSlot.filter(x => { return x.startHour == startHour })
     let o = p[0]
     console.log("o",o)

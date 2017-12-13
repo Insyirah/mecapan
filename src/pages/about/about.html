@@ -1,67 +1,109 @@
 <ion-header>
-    <ion-navbar >
-      <ion-title>
-        Bookings
-      </ion-title>
-    </ion-navbar>
-  </ion-header>
-  
-  <ion-content padding>
-    <ion-segment color="primary" [(ngModel)]="selectedSegment" (ionChange)="onSegmentChanged($event)">
-      <ion-segment-button value="first">
-        RECENT 
-      </ion-segment-button>
-  
-      <ion-segment-button value="second">
-        COMPLETED
-      </ion-segment-button>
+  <ion-navbar >
+    <ion-title>
+      Bookings
+    </ion-title>
+  </ion-navbar>
+</ion-header>
 
-      <ion-segment-button value="third">
-        REJECTED
-      </ion-segment-button>
-    </ion-segment>
-  <br> 
-    <ion-slides style="height:unset;" #mySlider (ionSlideDidChange)="onSlideChanged($event)">
-      <ion-slide class="wrapper">
-         <!-- <img src="assets/1.jpg" class="pic">  -->
-         <!-- <p>Johny Saloons</p>
-         <p>Eye Lashes</p>
-         <p>Wednesday, 3.00pm</p> -->
-         <ion-item class="background">
-           <b><h2>Upcoming Booking</h2></b>
-           <h3>Location:{{store}}</h3>
-           <h4>Date:{{date| date: 'dd/MM/yyyy'}}</h4>
+<ion-content padding>
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+      </ion-refresher>
+  <ion-segment color="primary" [(ngModel)]="selectedSegment" (ionChange)="onSegmentChanged($event)">
+    <ion-segment-button value="first">
+      RECENT 
+    </ion-segment-button>
+
+    <ion-segment-button value="second">
+      COMPLETED
+    </ion-segment-button>
+
+    <ion-segment-button value="third">
+      REJECTED
+    </ion-segment-button>
+  </ion-segment>
+<br> 
+  <ion-slides style="height:unset;" #mySlider (ionSlideDidChange)="onSlideChanged($event)">
+    <ion-slide class="wrapper">
+       <!-- <img src="assets/1.jpg" class="pic">  -->
+       <!-- <p>Johny Saloons</p>
+       <p>Eye Lashes</p>
+       <p>Wednesday, 3.00pm</p> -->
+       <ion-item class="background" >
+         <b><h2 class="upcoming">Upcoming Booking</h2></b>
+         <h3 style="color:white;">Location:{{store}}</h3>
+         <h4 style="color:white;">Date:{{date| date: 'dd/MM/yyyy'}}</h4>
+      </ion-item>
+
+       <ion-item no-padding *ngFor="let status of bookingRecentStatus" (click)="viewBooking(status)">
+          <ion-thumbnail item-left>
+            <ion-img src="assets/1.jpg" class="defaultStore"></ion-img>
+          </ion-thumbnail>
+          <h2  class="recent"><b>{{status.storeName}}</b></h2>
+          <h3  class="recent" text-wrap>{{status.treatmentDetailName}}</h3>  
+          <h3  class="recent">{{status.appointmentDate| date: 'dd/MM/yyyy'}}</h3>
+          <h3  class="recent">{{status.appointmentStartSlot}} - {{status.appointmentEndSlot}}</h3>           
+          
+                   
+          <h4 class="recent" style="color: red" *ngIf="status.applicationStatusName=='Canceled'"><b>Appointment cancelled</b></h4>
+          <h4 class="recent" style="color: green" *ngIf="status.applicationStatusName=='Completed Without Review'"><b>Completed Without Review</b></h4>
+          <h4 class="recent" style="color: #56C8C8" *ngIf="status.applicationStatusName=='Pending Acceptance'"><b>Appointment Pending </b></h4>
+          <h4 class="recent" style="color: #56C8C8" *ngIf="status.applicationStatusName=='Accept Without Downpayment'"><b>Accept Without Downpayment </b></h4>
+          <h4 class="recent" style="color: #56C8C8" *ngIf="status.applicationStatusName=='Accept With Downpayment'"><b>Accept With Downpayment </b></h4>          
+          <h4 class="recent" style="color: red" *ngIf="status.applicationStatusName=='Rejected'"><b>Appointment  rejected </b></h4>
+          <h4 class="recent" style="color: red" *ngIf="status.applicationStatusName=='Not Coming'"><b>Not Coming</b></h4>
+          
+          
         </ion-item>
-
-         <ion-item no-padding  *ngFor="let status of bookingRecentStatus" (click)="viewBooking(status)">
-            <ion-thumbnail item-left>
-              <ion-img src="assets/1.jpg" class="defaultStore"></ion-img>
-            </ion-thumbnail>
-            <h2>{{status.storeName}}</h2>
-            <p>{{status.appointmentDate| date: 'dd/MM/yyyy'}}&nbsp;&nbsp;<ion-icon (click)="cancelBooking()" color="danger" ios="ios-close-circle" md="md-close-circle"></ion-icon></p> 
-          </ion-item>
-      </ion-slide>
-      <ion-slide>
-          <ion-item no-padding  *ngFor="let complete of completed">
-              <ion-thumbnail item-left>
-                  <ion-img src="assets/img/11.jpg" class="defaultStore"></ion-img>
-              </ion-thumbnail>
-              <h2>{{complete.name}}</h2>
-              <p>{{complete.treatment}}<ion-icon style="padding-left:30%;color:darkgreen;zoom:2.0;"ios="ios-checkmark-circle" md="md-checkmark-circle"></ion-icon></p>
-              <p>{{complete.date}}</p>
-              </ion-item>
-      </ion-slide>
-
-      <ion-slide>
-        <ion-item no-padding  *ngFor="let reject of rejected">
+        <!-- <span *ngIf="bookingRecentStatus==''">No Recent booking</span> -->
+        <div *ngIf="bookingRecentStatus==''"  style="padding-top:55px;">
+            <div align="center" style=" font-style: italic;">
+              <p small style="color:lightgrey;">No Recent booking! <br>
+                <ion-icon style="font-size:5.2em;color:lightgrey"  ios="ios-clipboard" md="md-clipboard"></ion-icon> </p>
+            </div>
+          </div>
+    </ion-slide>
+    <ion-slide>
+       
+        <ion-item no-padding  *ngFor="let status of bookingCompletedStatus">
             <ion-thumbnail item-left>
                 <ion-img src="assets/img/11.jpg" class="defaultStore"></ion-img>
             </ion-thumbnail>
-            <h2>{{reject.name}}</h2>
-            <p>{{reject.treatment}}<ion-icon style="padding-left:30%;color:darkgreen;zoom:2.0;"ios="ios-checkmark-circle" md="md-checkmark-circle"></ion-icon></p>
-            <p>{{reject.date}}</p>
+            <h2  class="complete"><b>{{status.storeName}}</b></h2>
+            <h3  class="complete" text-wrap>{{status.treatmentDetailName}}</h3>  
+            <h3  class="complete">{{status.appointmentDate| date: 'dd/MM/yyyy'}}</h3>
+            <h3  class="complete">{{status.appointmentStartSlot}} - {{status.appointmentEndSlot}}</h3>
+            <ion-icon item-end style="color:green;"ios="ios-checkmark-circle" md="md-checkmark-circle"></ion-icon>
+            <button  ion-button round  (click)="makeReview()">Make Review</button>             
             </ion-item>
-    </ion-slide>
-    </ion-slides>
-  </ion-content>
-  
+<!-- <span *ngIf="bookingCompletedStatus==''">No complete booking</span>     -->
+<div *ngIf="bookingCompletedStatus==''"  style="padding-top:55px;">
+    <div align="center" style=" font-style: italic;">
+      <p small style="color:lightgrey;">No complete booking! <br>
+        <ion-icon style="font-size:5.2em;color:lightgrey"  ios="ios-clipboard" md="md-clipboard"></ion-icon> </p>
+    </div>
+  </div>
+</ion-slide>
+
+    <ion-slide>
+      <ion-item no-padding *ngFor="let status of bookingRejectStatus">
+          <ion-thumbnail item-left>
+              <ion-img src="assets/img/11.jpg" class="defaultStore"></ion-img>
+          </ion-thumbnail>
+          <h2  class="reject"><b>{{status.storeName}}</b></h2>
+          <h3  class="reject" text-wrap>{{status.treatmentDetailName}}</h3>  
+          <h3  class="reject">{{status.appointmentDate| date: 'dd/MM/yyyy'}}</h3>
+          <h3  class="reject">{{status.appointmentStartSlot}} - {{status.appointmentEndSlot}}</h3>
+          <ion-icon style="color:red;" ios="ios-close-circle" item-end md="md-close-circle"></ion-icon>
+          </ion-item>
+          <!-- <span *ngIf="bookingRejectStatus==''">No rejected booking</span> -->
+          <div *ngIf="bookingRejectStatus==''"  style="padding-top:55px;">
+              <div align="center" style=" font-style: italic;">
+                <p small style="color:lightgrey;">No rejected booking! <br>
+                  <ion-icon style="font-size:5.2em;color:lightgrey"  ios="ios-clipboard" md="md-clipboard"></ion-icon> </p>
+              </div>
+            </div>
+  </ion-slide>
+  </ion-slides>
+</ion-content>

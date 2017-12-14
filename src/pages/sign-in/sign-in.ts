@@ -1,6 +1,6 @@
 import { Storage } from '@ionic/storage';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController, ViewController, Events, LoadingController, Loading, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, ViewController, Events, LoadingController, Loading, AlertController, ToastController } from 'ionic-angular';
 import { TabsPage } from '../tabs/tabs';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms/";
 import { ServiceApiProvider } from '../../providers/service-api/service-api';
@@ -28,7 +28,7 @@ export class SignInPage {
   ph: boolean;
   emails: boolean;
   
-  constructor(public loadingCtrl: LoadingController,private alertCtrl: AlertController, private storage: Storage, public events: Events, private serviceApi: ServiceApiProvider, private view: ViewController, private fb: FormBuilder, public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController) {
+  constructor(private toastCtrl: ToastController,public loadingCtrl: LoadingController,private alertCtrl: AlertController, private storage: Storage, public events: Events, private serviceApi: ServiceApiProvider, private view: ViewController, private fb: FormBuilder, public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController) {
     this.loading = this.loadingCtrl.create({
       content: 'Please wait...'
     });
@@ -69,7 +69,14 @@ export class SignInPage {
     });
     alert.present();
   }
-
+  private presentToast(text) {
+    let toast = this.toastCtrl.create({
+      message: text,
+      duration: 3000,
+      position: 'top'
+    });
+    toast.present();
+  }
   goSignIn(form) {
     this.loading.present()
     this.UserName = this.navParams.get("name");
@@ -87,11 +94,11 @@ export class SignInPage {
         this.events.publish('Login')
         this.loading.dismiss()
         this.navCtrl.push(TabsPage)
-        this.presentAlert('Login success');
+        this.presentToast('Login success');
       } else if (data.status == "error") {
         console.log("error", data)
         // alert("Your password might be wrong")
-        this.presentAlert('Your username or password might be wrong');
+        this.presentToast('Your username or password might be wrong');
         this.loading.dismiss()
         this.navCtrl.popTo(SignInPage)
       } else {

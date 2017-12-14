@@ -147,6 +147,17 @@ export class ServiceApiProvider {
       );
   }
 
+  getCancelReason(form): Observable<any[]> {//contactpage(notDone)
+    let url = this.host + 'Global/api/GetMasterData/' + form.moduleName + '/' + form.masterName;
+    console.log(url)
+    return this.http.get(url)
+      .map((res: Response) => {
+        console.log(res.json())
+        return res.json().masterData
+      }
+      );
+  }
+
   getProfile(): Observable<any[]> {//contactpage(done)
     let url = this.host + 'Dashboard/User/api/GetProfile/' + this.loginId
     console.log(url)
@@ -317,6 +328,13 @@ export class ServiceApiProvider {
     );
   }
 
+  getCheckReview(): Observable<any> {
+    let url = this.host + 'Dashboard/User/api/GetCheckReview/' + this.userId
+    console.log(url)
+    return this.http.get(url).map((res: Response) => res.json()
+    );
+  }
+
   getForgotPasswordCode(form): Observable<any> {
     let url = this.host + 'Login/Login/api/SendForgotPasswordCode/' + form.sendTo + '/' + form.forgotPasswordByID
     console.log(url)
@@ -338,6 +356,15 @@ export class ServiceApiProvider {
     console.log(url)
     return this.http.get(url).map((res: Response) => res.json()
     );
+  }
+
+  postReview(form): Observable<any> {
+    let url = this.host + 'UserApplication/api/PostReview'
+    console.log(url)
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this.http.post(url, form, options)
+      .map((res: Response) => res.json());
   }
 
 

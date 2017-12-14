@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { ServiceApiProvider } from '../../providers/service-api/service-api';
 import { AboutPage } from '../about/about';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @IonicPage()
 @Component({
@@ -9,6 +10,11 @@ import { AboutPage } from '../about/about';
   templateUrl: 'booking-details.html',
 })
 export class BookingDetailsPage {
+  showButtonCancel: boolean = true;
+  userReason: FormGroup;
+  
+  reasons: any[];
+  cancelReason: { moduleName: string; masterName: string; };
   statusId: any;
   treatment: any;
 
@@ -20,12 +26,17 @@ export class BookingDetailsPage {
   checkRate: Array<any> = [];
   halfStarIconName: boolean;
   rate: number;
+  counter:number=0
 
-  constructor(private alertCtrl: AlertController, private serviceApi: ServiceApiProvider, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public fb: FormBuilder,private alertCtrl: AlertController, private serviceApi: ServiceApiProvider, public navCtrl: NavController, public navParams: NavParams) {
+    this.userReason = this.fb.group({
+      reasonID: [""]
+    });
   }
 
   ionViewDidLoad() {
     this.getBookingDetails()
+    this.getCancelReason()
   }
 
   presentAlert(text) {
@@ -46,12 +57,29 @@ export class BookingDetailsPage {
     this.statusId = this.bookingDetails.applicationStatusID
   }
 
+  getCancelReason(){
+    this.cancelReason = {
+      moduleName: "UserApplication",
+      masterName: "List Of Cancel Booking Reason"
+    }
+    this.serviceApi.getCancelReason(this.cancelReason).subscribe(data => {
+      this.reasons = data
+      console.log('reason',this.reasons)
+    })
+  }
+
+
 
   cancelBooking() {
     this.applicationId = this.bookingDetails.applicationID
     console.log("id",this.applicationId)
-    this.form = {
-      applicationID: this.applicationId
+    // this.form = {
+    //   applicationID: this.applicationId
+    // }
+    this.counter +=1
+    console.log(this.counter)
+    if(this.counter==1){
+      this.showButtonCancel = false
     }
     // this.serviceApi.postCancelBooking(this.form).subscribe(data => {
     //   console.log(data)

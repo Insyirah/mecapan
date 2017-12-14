@@ -14,6 +14,16 @@
           <h3><b>Treatment Name  :</b>{{treatment}} </h3>
         </div>
         <br>
-        <button ion-button round color="warning" class="pull-right" *ngIf="statusId==2" (click)="cancelBooking(requestId)">Cancel Appointment</button>
-      </ion-item>
+        <div *ngIf="showButtonCancel">
+        <button ion-button round color="warning" class="pull-right" *ngIf="statusId==2" (click)="cancelBooking()">Cancel Appointment</button>
+        </div>
+    </ion-item>
+    <form [formGroup]="userReason">
+    <ion-item *ngIf="counter == '1'">
+        <ion-label floating>Select Reasons:</ion-label>
+              <ion-select formControlName="reasonID" interface="popover">
+                <ion-option [value]="reason.MasterDataMaintenanceItemID" *ngFor="let reason of reasons">{{reason.ParameterName}} </ion-option>
+        </ion-select>
+    </ion-item>
+  </form>
 </ion-content>

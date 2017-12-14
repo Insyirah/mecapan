@@ -25,7 +25,6 @@ export class MyApp implements OnInit {
   }
 
   ngOnInit(): void {
-
     this.storage.get("user").then(data => {
       this.user = data
       if (this.user != null) {

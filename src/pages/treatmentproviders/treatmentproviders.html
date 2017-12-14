@@ -117,8 +117,8 @@
         <br>
         <ion-item *ngFor="let review of reviewDetail;let i = index" style="white-space: normal;" text-wrap>
           <ion-label>
-            <b> {{review.fullName}} </b><br>
-            <a><b>Rp&nbsp;{{review.review}} k</b></a>
+            <a><b> {{review.fullName}} </b></a><br>
+            {{review.review}}
           </ion-label>
         </ion-item>
       </ion-slide>

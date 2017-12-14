@@ -10,11 +10,9 @@
     <span class="date">
           <ion-icon ios="ios-calendar" md="md-calendar"></ion-icon>&nbsp;{{bookdate| date: 'dd/MM/yyyy'}}
       </span>
-    <br><br> <b><h2 class="storeName">{{storeName}}</h2></b>
-    <br><br> The treatment you have choosen are :<br>
-
+    <br><br> <h2 class="storeName"><b>{{storeName}}</b><br>
+      List of treatment:</h2>
     <hr>
-    <br>
     <ion-grid>
       <div *ngFor="let book of bookings">
 

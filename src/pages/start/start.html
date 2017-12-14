@@ -1,9 +1,15 @@
 <!-- <ion-content tabsHideOnSubPages padding > -->
 <ion-content padding>
-    <img src="assets/banner.jpg"/>
+    <img class="banner" src="assets/banner.jpg"/>
+    <ion-thumbnail item-center style="margin-top:-10%;">
+        <img class="small" src="assets/back.png">
+    </ion-thumbnail>
+    <ion-icon name="search" ios="ios-search" md="md-search" color="primary" class="search"></ion-icon><br>
+    <ion-icon name="chatboxes" ios="ios-chatboxes-outline" md="md-chatboxes" color="primary" class="chatbox"></ion-icon><br>
+    <ion-icon name="bookmark" ios="ios-bookmark-outline" md="md-bookmark" color="primary" class="bookmark"></ion-icon>
     <div>
         <ion-grid>
-            <ion-row style="padding-bottom: -10%;padding-top:90%;">
+            <ion-row style="padding-bottom: -10%;padding-top:70%;">
                 <ion-col>
                     <button class="register" (click)="goRegister()" ion-button full color="primary" type="submit">REGISTER</button>
                 </ion-col>

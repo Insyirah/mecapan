@@ -75,7 +75,7 @@
             <h3  class="complete">{{status.appointmentDate| date: 'dd/MM/yyyy'}}</h3>
             <h3  class="complete">{{status.appointmentStartSlot}} - {{status.appointmentEndSlot}}</h3>
             <ion-icon item-end style="color:green;"ios="ios-checkmark-circle" md="md-checkmark-circle"></ion-icon>
-            <button  ion-button round  (click)="makeReview(status)">Make Review</button>             
+            <button  ion-button round *ngIf="status.applicationStatusName=='Completed'" (click)="makeReview(status)">Make Review</button>             
             </ion-item>
 <!-- <span *ngIf="bookingCompletedStatus==''">No complete booking</span>     -->
 <div *ngIf="bookingCompletedStatus==''"  style="padding-top:55px;">

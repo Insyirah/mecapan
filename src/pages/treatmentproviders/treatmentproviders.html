@@ -62,7 +62,31 @@
           </ion-col>
           <ion-col>
             <ion-item>
-              <ion-icon name="logo-usd" ios="logo-usd" md="logo-usd" class="usd"></ion-icon>
+              <div class="one" *ngIf="dollarCount=='1'">
+                <ion-icon small name="logo-usd" ios="logo-usd" md="logo-usd" class="usd" color="primary"></ion-icon>  
+              </div>
+              <div class="two" *ngIf="dollarCount=='2'">
+                <ion-icon small name="logo-usd" ios="logo-usd" md="logo-usd" class="usd" color="primary"></ion-icon>
+                <ion-icon small name="logo-usd" ios="logo-usd" md="logo-usd" class="usd" color="primary"></ion-icon>              
+              </div>
+              <div class="three" *ngIf="dollarCount=='3'">
+                  <ion-icon small name="logo-usd" ios="logo-usd" md="logo-usd" class="usd" color="primary"></ion-icon>
+                  <ion-icon small name="logo-usd" ios="logo-usd" md="logo-usd" class="usd" color="primary"></ion-icon>  
+                  <ion-icon small name="logo-usd" ios="logo-usd" md="logo-usd" class="usd" color="primary"></ion-icon>              
+              </div>
+              <div class="four" *ngIf="dollarCount=='4'">
+                  <ion-icon small name="logo-usd" ios="logo-usd" md="logo-usd" class="usd" color="primary"></ion-icon>
+                  <ion-icon small name="logo-usd" ios="logo-usd" md="logo-usd" class="usd" color="primary"></ion-icon>
+                  <ion-icon small name="logo-usd" ios="logo-usd" md="logo-usd" class="usd" color="primary"></ion-icon>  
+                  <ion-icon small name="logo-usd" ios="logo-usd" md="logo-usd" class="usd" color="primary"></ion-icon>  
+              </div>
+              <div class="five" *ngIf="dollarCount=='5'">
+                  <ion-icon small name="logo-usd" ios="logo-usd" md="logo-usd" class="usd" color="primary"></ion-icon>
+                  <ion-icon small name="logo-usd" ios="logo-usd" md="logo-usd" class="usd" color="primary"></ion-icon>
+                  <ion-icon small name="logo-usd" ios="logo-usd" md="logo-usd" class="usd" color="primary"></ion-icon>  
+                  <ion-icon small name="logo-usd" ios="logo-usd" md="logo-usd" class="usd" color="primary"></ion-icon>
+                  <ion-icon small name="logo-usd" ios="logo-usd" md="logo-usd" class="usd" color="primary"></ion-icon>  
+              </div>
               <br>
               <h5 style="padding-left:9%;">Great price</h5>
             </ion-item>

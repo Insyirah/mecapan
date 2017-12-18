@@ -18,12 +18,20 @@
         <button ion-button round color="warning" class="pull-right" *ngIf="statusId==2" (click)="cancelBooking()">Cancel Appointment</button>
         </div>
     </ion-item>
-    <form [formGroup]="userReason">
-    <ion-item *ngIf="counter == '1'">
+    <form [formGroup]="userReason" (ngSubmit)=submitCancelBooking(userReason.value)>
+      <div *ngIf="counter == '1'">
+    <ion-item >
         <ion-label floating>Select Reasons:</ion-label>
-              <ion-select formControlName="reasonID" interface="popover">
+              <ion-select [(ngModel)]="re" formControlName="reasonID" interface="popover">
                 <ion-option [value]="reason.MasterDataMaintenanceItemID" *ngFor="let reason of reasons">{{reason.ParameterName}} </ion-option>
-        </ion-select>
+              </ion-select>
     </ion-item>
+    <ion-item *ngIf="re==415">
+        <ion-textarea formControlName="description" placeholder="Enter a description"></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <button text-center ion-button round color="info" type="submit" class="update" full>Cancel Booking</button>
+    </ion-item>
+    </div>
   </form>
 </ion-content>

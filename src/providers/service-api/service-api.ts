@@ -273,7 +273,7 @@ export class ServiceApiProvider {
   }
 
   postCancelBooking(form): Observable<any> {
-    let url = this.host + 'UserBooking/api/PostCancelBooking/' + form.applicationID
+    let url = this.host + 'UserBooking/api/PostCancelBooking'
     console.log(url)
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });

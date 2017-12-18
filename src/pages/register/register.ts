@@ -13,7 +13,7 @@ import { CountryPhoneNumberPage } from '../country-phone-number/country-phone-nu
   templateUrl: 'register.html',
 })
 export class RegisterPage {
-  phones: any;
+  phones: any = '+62';
   phone: { phoneNo: any; phoneCountryCode: any; };
   phoneNumber: any;
   a: any;

@@ -10,7 +10,7 @@
   <br><br><br><br><br><br><br><br>
     <a class="a"><b>Enter Your Phone Number Here</b></a>
     <ion-item (click)="goNumberCountry()">
-     <ion-input></ion-input>
+     <ion-input [(ngModel)]="phones" formControlName="phoneNumber"></ion-input>
     </ion-item>
   <ion-item>
     <ion-input [(ngModel)]="phones" formControlName="phoneNumber" type="text" [class.invalid]="!registerFormphoneNumber.controls.phoneNumber.valid && (registerFormphoneNumber.controls.phoneNumber.dirty || submitAttempt)"></ion-input> 

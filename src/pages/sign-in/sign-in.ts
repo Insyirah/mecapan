@@ -62,6 +62,7 @@ export class SignInPage {
       planCase: "pw"
     })
   }
+
   private presentAlert(text) {
     let alert = this.alertCtrl.create({
       subTitle: text,
@@ -93,7 +94,7 @@ export class SignInPage {
         this.storage.set("user", data)
         this.events.publish('Login')
         this.loading.dismiss()
-        this.navCtrl.push(TabsPage)
+        this.navCtrl.setRoot(TabsPage)
         this.presentToast('Login success');
       } else if (data.status == "error") {
         console.log("error", data)

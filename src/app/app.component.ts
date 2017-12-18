@@ -7,6 +7,7 @@ import { StartPage } from '../pages/start/start';
 import { LocalStorageService } from 'ng2-webstorage';
 import { HomePage } from '../pages/home/home';
 import { Storage } from '@ionic/storage';
+import { FCM } from '@ionic-native/fcm';
 
 @Component({
   templateUrl: 'app.html'

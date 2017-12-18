@@ -58,6 +58,8 @@ export class ReviewPage {
       ratingStarID:57,
       review:this.description
     }
+    console.log("user review",this.userReviewDetail)
+    
     console.log("userReviewDetail",this.userReviewDetail)
     this.serviceApi.postReview(this.userReviewDetail).subscribe(data => {
     console.log("data review",data)

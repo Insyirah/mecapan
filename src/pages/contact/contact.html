@@ -9,9 +9,11 @@
 <ion-content>
   <div padding text-center>
     <!-- <img src="{{pathForImage(lastImage)}}" class="profPic" [hidden]="lastImage === null"> -->
-    <img src="./assets/pic.jpg" class="profPic">
+    <!-- <img src="./assets/pic.jpg" class="profPic"> -->
+    <img src="{{defaultPicture}}" class="beforeFixing"  *ngIf="default" (click)="presentActionSheet()" class="profPic" (error)="updateUrl($event)"><br>  
+    <img src="data:image/jpeg;base64,{{cameraData}}" class="beforeFixing" *ngIf="uploadDone" (click)="presentActionSheet()" class="profPic" (error)="updateUrl($event)"><br> 
     <ion-buttons start>
-      <button ion-button round color="primary" (click)="changeProfilePicture()">
+      <button ion-button round color="primary" (click)="presentActionSheet()">
               <span style="color:white" >Change Profile Picture</span>
             </button>
     </ion-buttons>

@@ -1,3 +1,5 @@
+import { Storage } from '@ionic/storage';
+import { LoginPage } from './../login/login';
 import { SignInPage } from './../sign-in/sign-in';
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Slides, AlertController, LoadingController, Loading, Events } from 'ionic-angular';
@@ -8,6 +10,7 @@ import 'rxjs/Rx';
 import { Observable } from "rxjs/Observable";
 import { LocalStorageService } from 'ng2-webstorage';
 import { Geolocation } from '@ionic-native/geolocation';
+import { StartPage } from '../start/start';
 
 // import { debounceTime } from 'rxjs/operator/debounceTime'; import {
 // distinctUntilChanged } from 'rxjs/operator/distinctUntilChanged'; import {
@@ -239,10 +242,13 @@ export class ListprovidersPage {
 
   ngOnInit(){
     setTimeout(() => {
-         this.navCtrl.popToRoot();
+        //  this.navCtrl.push(LoginPage);
         // might try this instead
-        //this.navCtrl.setRoot(SignInPage);
-    }, 500);
+        // this.navCtrl.setRoot(StartPage);
+        this.event.publish('LogOut')
+        alert("Keluar la oi")
+   
+    }, 2500);
 }
 
 

@@ -35,6 +35,8 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { ResetPasswordPageModule } from '../pages/reset-password/reset-password.module';
 import { ReviewPageModule } from '../pages/review/review.module';
 import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
+import {Camera} from '@ionic-native/camera';
+import { File } from '@ionic-native/file';
 
 
 @NgModule({
@@ -93,7 +95,9 @@ import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
     GooglePlus,
     Facebook,
     ServiceApiProvider,
-    Geolocation
+    Geolocation,
+    Camera,
+    File
   ]
 })
 export class AppModule { }

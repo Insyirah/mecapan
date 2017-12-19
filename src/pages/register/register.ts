@@ -177,13 +177,7 @@ export class RegisterPage {
 
     // console.log(x.email)
   }
-  getPhoneCountryCode(){
-    this.serviceApi.getMasterData(this.form).subscribe(data => {
-    this.countryCode = data
-    console.log("code phone", data)
-    })
-    }
-
+ 
   goPassword(x) {
 
     this.numberPhone = this.navParams.get("phoneNumber")

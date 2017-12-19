@@ -20,12 +20,11 @@
     "@angular/http": "4.4.3",
     "@angular/platform-browser": "4.4.3",
     "@angular/platform-browser-dynamic": "4.4.3",
-    "@ionic-native/camera": "^4.4.2",
     "@ionic-native/core": "4.3.0",
+    "@ionic-native/camera": "^4.4.2",
     "@ionic-native/facebook": "^4.3.2",
-    "@ionic-native/file": "^4.4.2",
-    "@ionic-native/file-transfer": "^4.4.2",
-    "@ionic-native/geolocation": "^4.4.2",
+    "@ionic-native/fcm": "^4.5.2",
+    "@ionic-native/geolocation": "^4.5.2",
     "@ionic-native/google-plus": "^4.3.2",
     "@ionic-native/splash-screen": "4.3.0",
     "@ionic-native/status-bar": "4.3.0",
@@ -40,16 +39,13 @@
     "cordova-plugin-compat": "^1.2.0",
     "cordova-plugin-device": "^1.1.7",
     "cordova-plugin-facebook4": "^1.9.1",
-    "cordova-plugin-file": "^4.3.3",
-    "cordova-plugin-file-transfer": "^1.7.0",
-    "cordova-plugin-filepath": "^1.1.0",
     "cordova-plugin-geolocation": "^2.4.3",
+    "cordova-plugin-ios-camera-permissions": "^1.2.0",
     "cordova-plugin-googleplus": "^5.1.1",
     "cordova-plugin-ionic-webview": "^1.1.16",
-    "cordova-plugin-ios-camera-permissions": "^1.2.0",
     "cordova-plugin-splashscreen": "^4.1.0",
     "cordova-plugin-whitelist": "^1.3.3",
-    "cordova-sqlite-storage": "^2.1.2",
+    "cordova-sqlite-storage": "^2.1.4",
     "intl": "^1.2.5",
     "ion2-calendar": "^2.0.11",
     "ionic-angular": "3.7.1",
@@ -83,12 +79,12 @@
         "APP_NAME": "MECCAPAN"
       },
       "cordova-sqlite-storage": {},
-      "cordova-plugin-geolocation": {},
-      "cordova-plugin-file": {},
+      "cordova-plugin-compat": {},
+      "cordova-plugin-geolocation": {
+        "GEOLOCATION_USAGE_DESCRIPTION": "To locate you"
+      },
       "cordova-plugin-camera": {},
-      "cordova-plugin-ios-camera-permissions": {},
-      "cordova-plugin-filepath": {},
-      "cordova-plugin-file-transfer": {}
+      "cordova-plugin-file": {}
     },
     "platforms": [
       "android"

@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
-import { NavController, App, Nav, Events, LoadingController, Loading, ActionSheetController } from 'ionic-angular';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NavController, App, Nav, Events, LoadingController, Loading, AlertController,  ActionSheetController  } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { ServiceApiProvider } from '../../providers/service-api/service-api';
 import { StartPage } from '../start/start';
@@ -38,11 +38,11 @@ export class ContactPage implements OnInit {
   lastImage: string = null;
   loader: Loading;
 
-  constructor(public loadingCtrl: LoadingController, public navCtrl: NavController, 
-    public events: Events, private appCtrl: App, private facebook: Facebook, 
+  constructor(private alertCtrl: AlertController,public loadingCtrl: LoadingController, 
+    public navCtrl: NavController,public events: Events, 
+    private appCtrl: App, private facebook: Facebook, 
     private googlePlus: GooglePlus, public fb: FormBuilder, private app: App, 
-    private serviceApi: ServiceApiProvider, private storage: Storage,
-     private camera: Camera, private file: File, public actionSheetCtrl: ActionSheetController) {
+    private serviceApi: ServiceApiProvider, private storage: Storage, private camera: Camera,public actionSheetCtrl: ActionSheetController) {
     this.loading = this.loadingCtrl.create({
       content: 'Please wait...'
     });
@@ -125,18 +125,41 @@ export class ContactPage implements OnInit {
   // }
 
   updateUserDetail(form) {
-
     console.log("updateUserDetail", form)
-    if (form.valid == false) {    //check dulu data valid x
-      alert("Please Complete The Profile")
-    } else {
-      this.serviceApi.postUpdateUserProfile(form).subscribe(data => {
-        console.log("postUpdateUserProfile", data)
-      })
+
+    let confirm = this.alertCtrl.create({
+      message: 'Are you sure you want to update your profile?',
+      buttons: [
+      {
+      text: 'No',
+      handler: () => {
+      console.log('Disagree clicked');
+      }
+      },
+      {
+      text: 'Yes',
+      handler: () => {
+        this.serviceApi.postUpdateUserProfile(form).subscribe(data => {
+          console.log("postUpdateUserProfile", data)
+          },
+          err => {
+            console.log(err);
+        })
+      console.log('Agree clicked');
+      }
+      }]
+      });
+      confirm.present();
+    // if (form.valid == false) {    //check dulu data valid x
+    //   alert("Please Complete The Profile")
+    // } else {
+    //   this.serviceApi.postUpdateUserProfile(form).subscribe(data => {
+    //     console.log("postUpdateUserProfile", data)
+    //   })
       this.update = this.profile.value
       console.log("update", this.update)
       this.userId = this.userProfile.detail.userID
-    }
+    // }
   }
 
   logout() {

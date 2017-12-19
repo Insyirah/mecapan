@@ -36,8 +36,7 @@ import { ResetPasswordPageModule } from '../pages/reset-password/reset-password.
 import { ReviewPageModule } from '../pages/review/review.module';
 import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
 import {Camera} from '@ionic-native/camera';
-import { File } from '@ionic-native/file';
-
+import { CountryPhoneNumberPageModule } from '../pages/country-phone-number/country-phone-number.module';
 
 @NgModule({
   declarations: [
@@ -72,6 +71,7 @@ import { File } from '@ionic-native/file';
     ResetPasswordPageModule,
     Ng2Webstorage,
     ReviewPageModule,
+    CountryPhoneNumberPageModule,
     NgIdleKeepaliveModule.forRoot(),
     NguiMapModule.forRoot({ apiUrl: 'https://maps.google.com/maps/api/js?key=AIzaSyBSy0GEQeCrUgJ9LvrYHUBemGUjHE1PhcU' }),
     IonicModule.forRoot(MyApp, {

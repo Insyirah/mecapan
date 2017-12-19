@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController, Loading } from 'ionic-angular';
+import { NavController, LoadingController, Loading, AlertController } from 'ionic-angular';
 import { AboutPage } from '../about/about';
 import { ListprovidersPage } from '../listproviders/listproviders';
 import { ServiceApiProvider } from '../../providers/service-api/service-api';
@@ -15,17 +15,26 @@ export class HomePage {
   hairTreatment: Array<any>;
   faceTreatment: Array<any>;
 
-  constructor(private storage: Storage, public loadingCtrl: LoadingController, private serviceApi: ServiceApiProvider, public navCtrl: NavController) {
+  constructor(private alertCtrl: AlertController,private storage: Storage, public loadingCtrl: LoadingController, private serviceApi: ServiceApiProvider, public navCtrl: NavController) {
     this.loading = this.loadingCtrl.create({
       content: 'Please wait...'
     });
     this.loading.present()
     this.checkData()
+    this.getCheckUserReview()
   }
 
   // ionViewDidLoad() {
 
   // }
+
+  private presentAlert(text) {
+    let alert = this.alertCtrl.create({
+      subTitle: text,
+      buttons: ['OK']
+    });
+    alert.present();
+  }
 
   checkData() {
     this.storage.get("TreatmentMasterData").then(data => {
@@ -42,6 +51,15 @@ export class HomePage {
       } else {
         this.getAllTreatment()
       }
+    })
+  }
+
+  getCheckUserReview(){
+    this.serviceApi.getCheckReview().subscribe(data => {
+    console.log("cekReview",data)
+    if(data.message=="Need review"){
+      this.presentAlert('Go to Complete Page to make review');
+    }
     })
   }
 

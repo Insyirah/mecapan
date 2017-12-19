@@ -27,10 +27,9 @@
         (ngModelChange)="onModelChange($event)"></rating>
       <a class="a"><b>Enter Review</b></a>
       <ion-item>
-        <ion-input placeholder="write your review here"></ion-input>
-        
+        <ion-input [(ngModel)]="description" placeholder="write your review here"></ion-input>
       </ion-item>
-      <button ion-button round style="background-color: #56C8C8;">Submit</button>
+      <button (click)="postUserReview()" ion-button round style="background-color: #56C8C8;">Submit</button>
     </ion-card-content>
   </ion-item>
   

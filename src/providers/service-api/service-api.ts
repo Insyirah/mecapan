@@ -84,12 +84,13 @@ export class ServiceApiProvider {
   //     );
   // }
 
-  getCheckPhoneNumber(phoneNumber): Observable<any> {
-    let url = this.host + 'Login/Register/api/GetCheckPhoneNo/' + phoneNumber;
+  getCheckPhoneNumber(form): Observable<any> {
+    let url = this.host + 'Login/Register/api/GetCheckPhoneNo'
     console.log(url)
-    return this.http.get(url)
-      .map((res: Response) => res.json()
-      );
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this.http.post(url, form, options)
+      .map((res: Response) => res.json());
   }
 
   getCheckEmail(email): Observable<any> {
@@ -135,6 +136,17 @@ export class ServiceApiProvider {
   }
 
   getHairType(form): Observable<any[]> {//contactpage(notDone)
+    let url = this.host + 'Global/api/GetMasterData/' + form.moduleName + '/' + form.masterName;
+    console.log(url)
+    return this.http.get(url)
+      .map((res: Response) => {
+        console.log(res.json())
+        return res.json().masterData
+      }
+      );
+  }
+
+  getCancelReason(form): Observable<any[]> {//contactpage(notDone)
     let url = this.host + 'Global/api/GetMasterData/' + form.moduleName + '/' + form.masterName;
     console.log(url)
     return this.http.get(url)
@@ -260,7 +272,7 @@ export class ServiceApiProvider {
   }
 
   postCancelBooking(form): Observable<any> {
-    let url = this.host + 'UserBooking/api/PostCancelBooking/' + form.applicationID
+    let url = this.host + 'UserBooking/api/PostCancelBooking'
     console.log(url)
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
@@ -315,6 +327,13 @@ export class ServiceApiProvider {
     );
   }
 
+  getCheckReview(): Observable<any> {
+    let url = this.host + 'Dashboard/User/api/GetCheckReview/' + this.userId
+    console.log(url)
+    return this.http.get(url).map((res: Response) => res.json()
+    );
+  }
+
   getForgotPasswordCode(form): Observable<any> {
     let url = this.host + 'Login/Login/api/SendForgotPasswordCode/' + form.sendTo + '/' + form.forgotPasswordByID
     console.log(url)
@@ -331,11 +350,20 @@ export class ServiceApiProvider {
       .map((res: Response) => res.json());
   }
 
-  getMasterData(form): Observable<any> {//countrycode for register
+  getPhoneCountryCode(): Observable<any> {//countrycode for register
     let url = this.host + 'Global/api/GetMasterData/Registration/Phone Country Code' 
     console.log(url)
     return this.http.get(url).map((res: Response) => res.json()
     );
+  }
+
+  postReview(form): Observable<any> {
+    let url = this.host + 'UserApplication/api/PostReview'
+    console.log(url)
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this.http.post(url, form, options)
+      .map((res: Response) => res.json());
   }
 
 

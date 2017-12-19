@@ -43,15 +43,20 @@
           <ion-thumbnail item-left>
             <ion-img src="assets/1.jpg" class="defaultStore"></ion-img>
           </ion-thumbnail>
-          <h2  class="recent">{{status.storeName}}</h2>
+          <h2  class="recent"><b>{{status.storeName}}</b></h2>
           <h3  class="recent" text-wrap>{{status.treatmentDetailName}}</h3>  
           <h3  class="recent">{{status.appointmentDate| date: 'dd/MM/yyyy'}}</h3>
-         
+          <h3  class="recent">{{status.appointmentStartSlot}} - {{status.appointmentEndSlot}}</h3>           
+          
+                   
           <h4 class="recent" style="color: red" *ngIf="status.applicationStatusName=='Canceled'"><b>Appointment cancelled</b></h4>
-          <h4 class="recent" style="color: green" *ngIf="status.applicationStatusName=='Completed Without Review'"><b>Appointment accepted</b></h4>
+          <h4 class="recent" style="color: green" *ngIf="status.applicationStatusName=='Completed Without Review'"><b>Completed Without Review</b></h4>
           <h4 class="recent" style="color: #56C8C8" *ngIf="status.applicationStatusName=='Pending Acceptance'"><b>Appointment Pending </b></h4>
-          <h4 class="recent" style="color: #56C8C8" *ngIf="status.applicationStatusName=='Accept Without Downpayment'"><b>Appointment not done </b></h4>
+          <h4 class="recent" style="color: #56C8C8" *ngIf="status.applicationStatusName=='Accept Without Downpayment'"><b>Accept Without Downpayment </b></h4>
+          <h4 class="recent" style="color: #56C8C8" *ngIf="status.applicationStatusName=='Accept With Downpayment'"><b>Accept With Downpayment </b></h4>          
           <h4 class="recent" style="color: red" *ngIf="status.applicationStatusName=='Rejected'"><b>Appointment  rejected </b></h4>
+          <h4 class="recent" style="color: red" *ngIf="status.applicationStatusName=='Not Coming'"><b>Not Coming</b></h4>
+          
           
         </ion-item>
         <!-- <span *ngIf="bookingRecentStatus==''">No Recent booking</span> -->
@@ -68,13 +73,16 @@
     </ion-slide>
     <ion-slide>
        
-        <ion-item no-padding  *ngFor="let status of bookingCompletedStatus" (click)="makeReview()">
+        <ion-item no-padding  *ngFor="let status of bookingCompletedStatus">
             <ion-thumbnail item-left>
                 <ion-img src="assets/img/11.jpg" class="defaultStore"></ion-img>
             </ion-thumbnail>
-            <h2>{{status.storeName}}</h2>
-            <p>{{status.appointmentDate| date: 'dd/MM/yyyy'}}</p>
+            <h2  class="complete"><b>{{status.storeName}}</b></h2>
+            <h3  class="complete" text-wrap>{{status.treatmentDetailName}}</h3>  
+            <h3  class="complete">{{status.appointmentDate| date: 'dd/MM/yyyy'}}</h3>
+            <h3  class="complete">{{status.appointmentStartSlot}} - {{status.appointmentEndSlot}}</h3>
             <ion-icon item-end style="color:green;"ios="ios-checkmark-circle" md="md-checkmark-circle"></ion-icon>
+            <button  ion-button round *ngIf="status.applicationStatusName=='Completed'" (click)="makeReview(status)">Make Review</button>             
             </ion-item>
 <!-- <span *ngIf="bookingCompletedStatus==''">No complete booking</span>     -->
 <div *ngIf="bookingCompletedStatus==''"  style="padding-top:55px;">
@@ -90,8 +98,10 @@
           <ion-thumbnail item-left>
               <ion-img src="assets/img/11.jpg" class="defaultStore"></ion-img>
           </ion-thumbnail>
-          <h2  class="reject">{{status.storeName}}</h2>
-          <p  class="reject">{{status.appointmentDate| date: 'dd/MM/yyyy'}}</p>
+          <h2  class="reject"><b>{{status.storeName}}</b></h2>
+          <h3  class="reject" text-wrap>{{status.treatmentDetailName}}</h3>  
+          <h3  class="reject">{{status.appointmentDate| date: 'dd/MM/yyyy'}}</h3>
+          <h3  class="reject">{{status.appointmentStartSlot}} - {{status.appointmentEndSlot}}</h3>
           <ion-icon style="color:red;" ios="ios-close-circle" item-end md="md-close-circle"></ion-icon>
           </ion-item>
           <!-- <span *ngIf="bookingRejectStatus==''">No rejected booking</span> -->

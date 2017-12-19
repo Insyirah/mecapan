@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { ServiceApiProvider } from '../../providers/service-api/service-api';
 import { AboutPage } from '../about/about';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @IonicPage()
 @Component({
@@ -9,6 +10,14 @@ import { AboutPage } from '../about/about';
   templateUrl: 'booking-details.html',
 })
 export class BookingDetailsPage {
+  reasonDetail: { applicationID: any; userID: any; reasonID: any; reason: any; };
+ 
+  userId: any;
+  showButtonCancel: boolean = true;
+  userReason: FormGroup;
+  re:any
+  reasons: any[];
+  cancelReason: { moduleName: string; masterName: string; };
   statusId: any;
   treatment: any;
 
@@ -20,12 +29,18 @@ export class BookingDetailsPage {
   checkRate: Array<any> = [];
   halfStarIconName: boolean;
   rate: number;
+  counter:number=0
 
-  constructor(private alertCtrl: AlertController, private serviceApi: ServiceApiProvider, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public fb: FormBuilder,private alertCtrl: AlertController, private serviceApi: ServiceApiProvider, public navCtrl: NavController, public navParams: NavParams) {
+    this.userReason = this.fb.group({
+      reasonID: [""],
+      description:[""]
+    });
   }
 
   ionViewDidLoad() {
     this.getBookingDetails()
+    this.getCancelReason()
   }
 
   presentAlert(text) {
@@ -46,23 +61,47 @@ export class BookingDetailsPage {
     this.statusId = this.bookingDetails.applicationStatusID
   }
 
+  getCancelReason(){
+    this.cancelReason = {
+      moduleName: "UserApplication",
+      masterName: "List Of Cancel Booking Reason"
+    }
+    this.serviceApi.getCancelReason(this.cancelReason).subscribe(data => {
+      this.reasons = data
+      console.log('reason',this.reasons)
+    })
+  }
 
   cancelBooking() {
-    this.applicationId = this.bookingDetails.applicationID
-    console.log("id",this.applicationId)
-    this.form = {
-      applicationID: this.applicationId
+    this.counter +=1
+    console.log(this.counter)
+    if(this.counter==1){
+      this.showButtonCancel = false
     }
-    // this.serviceApi.postCancelBooking(this.form).subscribe(data => {
-    //   console.log(data)
-    //   if (data.status == "success") {
-    //     this.presentAlert('Your appointment has been canceledd');
-    //     this.navCtrl.setRoot(AboutPage)
-    //   } else {
-    //     this.presentAlert('Service Errors');
-    //   }
-    // })
   }
+
+  submitCancelBooking(form){
+    this.applicationId = this.bookingDetails.applicationID
+    this.userId = this.bookingDetails.userID
+    console.log(form)
+    this.reasonDetail = {
+      applicationID:this.applicationId,
+      userID:this.userId,
+      reasonID:form.reasonID,
+      reason:form.description
+    }
+    console.log("d",this.reasonDetail)
+    this.serviceApi.postCancelBooking(this.reasonDetail).subscribe(data => {
+      console.log(data)
+      if (data.status == "success") {
+        this.presentAlert('Your appointment has been canceledd');
+        this.navCtrl.setRoot(AboutPage)
+      } else {
+        this.presentAlert('Service Errors');
+      }
+    })
+  }
+
   onModelChange(a) {
     console.log(a)
     let p = this.checkRate.length
@@ -71,8 +110,6 @@ export class BookingDetailsPage {
      // this.checkRate.pop()
       this.checkRate.push(a)
       console.log(this.checkRate)
-      
-
       this.rate = a - 0.5//display
     } else if (this.checkRate[0] == a) {
       this.rate = a

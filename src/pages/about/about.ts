@@ -152,8 +152,10 @@ export class AboutPage {
     })
   }
 
-  makeReview(){
-    this.navCtrl.push(ReviewPage)
+  makeReview(status){
+    this.navCtrl.push(ReviewPage,{
+      reviewDetail : status
+    })
   }
 
   onSegmentChanged(segmentButton) {

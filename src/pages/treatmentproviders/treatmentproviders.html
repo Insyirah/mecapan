@@ -50,7 +50,7 @@
             <ion-icon name="star-half" ios="ios-star-half" md="md-star-half" class="rate"></ion-icon>
           </button><br>
           <span class="review">{{reviewBil}} Reviews</span>&nbsp;&nbsp;
-          <span class="discount">Discount Available:</span>
+          <span class="discount">Discount: 30%</span>
         </ion-item>
         <ion-row align="center">
           <ion-col>
@@ -62,7 +62,31 @@
           </ion-col>
           <ion-col>
             <ion-item>
-              <ion-icon name="logo-usd" ios="logo-usd" md="logo-usd" class="usd"></ion-icon>
+              <div class="one" *ngIf="dollarCount=='1'">
+                <ion-icon small name="logo-usd" ios="logo-usd" md="logo-usd" class="usd" color="primary"></ion-icon>  
+              </div>
+              <div class="two" *ngIf="dollarCount=='2'">
+                <ion-icon small name="logo-usd" ios="logo-usd" md="logo-usd" class="usd" color="primary"></ion-icon>
+                <ion-icon small name="logo-usd" ios="logo-usd" md="logo-usd" class="usd" color="primary"></ion-icon>              
+              </div>
+              <div class="three" *ngIf="dollarCount=='3'">
+                  <ion-icon small name="logo-usd" ios="logo-usd" md="logo-usd" class="usd" color="primary"></ion-icon>
+                  <ion-icon small name="logo-usd" ios="logo-usd" md="logo-usd" class="usd" color="primary"></ion-icon>  
+                  <ion-icon small name="logo-usd" ios="logo-usd" md="logo-usd" class="usd" color="primary"></ion-icon>              
+              </div>
+              <div class="four" *ngIf="dollarCount=='4'">
+                  <ion-icon small name="logo-usd" ios="logo-usd" md="logo-usd" class="usd" color="primary"></ion-icon>
+                  <ion-icon small name="logo-usd" ios="logo-usd" md="logo-usd" class="usd" color="primary"></ion-icon>
+                  <ion-icon small name="logo-usd" ios="logo-usd" md="logo-usd" class="usd" color="primary"></ion-icon>  
+                  <ion-icon small name="logo-usd" ios="logo-usd" md="logo-usd" class="usd" color="primary"></ion-icon>  
+              </div>
+              <div class="five" *ngIf="dollarCount=='5'">
+                  <ion-icon small name="logo-usd" ios="logo-usd" md="logo-usd" class="usd" color="primary"></ion-icon>
+                  <ion-icon small name="logo-usd" ios="logo-usd" md="logo-usd" class="usd" color="primary"></ion-icon>
+                  <ion-icon small name="logo-usd" ios="logo-usd" md="logo-usd" class="usd" color="primary"></ion-icon>  
+                  <ion-icon small name="logo-usd" ios="logo-usd" md="logo-usd" class="usd" color="primary"></ion-icon>
+                  <ion-icon small name="logo-usd" ios="logo-usd" md="logo-usd" class="usd" color="primary"></ion-icon>  
+              </div>
               <br>
               <h5 style="padding-left:9%;">Great price</h5>
             </ion-item>
@@ -91,9 +115,7 @@
   
       <ion-slide>
         <br>
-        <span style="font-size:90%">Select the treatments</span>
-        <br>
-        <span style="font-size:80%">You can choose multiple treatment</span>
+        <span style="font-size:80%">Please choose your treatment:</span>
         <br>
         <br>
         <hr>
@@ -102,7 +124,7 @@
             <ion-label>
               
             <b> {{treatment.treatmentName}} </b><br>
-            <a><b>Rp&nbsp;{{treatment.price}} k</b></a>
+            <a><b>Rp&nbsp;{{treatment.price}} k</b></a>&nbsp;&nbsp;&nbsp;
             <a class="hours"><b>{{treatment.treatmentDuration}} min</b></a>
             </ion-label>
             <ion-checkbox [(ngModel)]="checkedItems[i]" (ionChange)="choosenTreatment(treatment.treatmentID,checkedItems[i],treatment.agentDiscountID,treatment.agentBranchID)" color="primary"></ion-checkbox>
@@ -117,8 +139,8 @@
         <br>
         <ion-item *ngFor="let review of reviewDetail;let i = index" style="white-space: normal;" text-wrap>
           <ion-label>
-            <b> {{review.fullName}} </b><br>
-            <a><b>Rp&nbsp;{{review.review}} k</b></a>
+            <a><b> {{review.fullName}} </b></a><br>
+            {{review.review}}
           </ion-label>
         </ion-item>
       </ion-slide>

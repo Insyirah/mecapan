@@ -9,14 +9,11 @@
     <form [formGroup]="registerFormphoneNumber" (ngSubmit)="goPhoneNumber(registerFormphoneNumber.value)">
   <br><br><br><br><br><br><br><br>
     <a class="a"><b>Enter Your Phone Number Here</b></a>
-    <ion-item>
-      <ion-label floating>Country Code</ion-label>
-      <ion-select interface="popover" type="number">
-        <ion-option [value]="code.ParameterName" *ngFor="let code of countryCode">{{code.ParameterName}}</ion-option>
-      </ion-select>
+    <ion-item (click)="goNumberCountry()">
+     <ion-input [(ngModel)]="phones" formControlName="phoneNumber"></ion-input>
     </ion-item>
   <ion-item>
-    <ion-input formControlName="phoneNumber" type="text" [class.invalid]="!registerFormphoneNumber.controls.phoneNumber.valid && (registerFormphoneNumber.controls.phoneNumber.dirty || submitAttempt)"></ion-input> 
+    <ion-input [(ngModel)]="phones" formControlName="phoneNumber" type="text" [class.invalid]="!registerFormphoneNumber.controls.phoneNumber.valid && (registerFormphoneNumber.controls.phoneNumber.dirty || submitAttempt)"></ion-input> 
   </ion-item>
   <div *ngIf="registerFormphoneNumber.get('phoneNumber').hasError('required') && registerFormphoneNumber.get('phoneNumber').touched">
       <p class="msg1" style="color:#f53d3d;">Phone Number is required</p>
@@ -31,7 +28,6 @@
   </div>
 
   <div *ngIf="namaPenuh">
-      
       <form [formGroup]="registerFormsfullName" (ngSubmit)="goFullName(registerFormsfullName.value)">
       <br><br><br><br><br><br><br><br>
         <a class="a"><b>Enter Your Full Name</b></a>
